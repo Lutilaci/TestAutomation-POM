@@ -10,6 +10,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import java.time.Duration;
 import static com.codecool.testautomation.utility.LogInLogout.logIn;
 import static com.codecool.testautomation.utility.LogInLogout.logout;
+import static com.codecool.testautomation.utility.Utility.*;
 
 
 public class BrowseIssuesTest {
@@ -37,11 +38,11 @@ public class BrowseIssuesTest {
         driver.get("https://jira-auto.codecool.metastage.net/projects/MTP/issues/MTP-2020?filter=allopenissues");
 //        String openIssues = browsePage.getWebElementText(browsePage.subnavigatorTitle);
 //        Assertions.assertEquals("All issues", browsePage.getWebElementText(browsePage.subnavigatorTitle));
-        browsePage.validateText("All issues", browsePage.getWebElementText(browsePage.subnavigatorTitle));
+        validateText("All issues", getWebElementText(browsePage.subnavigatorTitle));
 //        String header = browsePage.getWebElementText(browsePage.browseIssueHeader);
-        System.out.println(browsePage.getWebElementText(browsePage.browseIssueHeader));
+        System.out.println(getWebElementText(browsePage.browseIssueHeader));
 //        Assertions.assertEquals("Happy Path", browsePage.getWebElementText(browsePage.browseIssueHeader));
-        browsePage.validateText("Happy Path", browsePage.getWebElementText(browsePage.browseIssueHeader));
+        validateText("Happy Path", getWebElementText(browsePage.browseIssueHeader));
     }
 
     @Test
@@ -49,7 +50,7 @@ public class BrowseIssuesTest {
         driver.get("https://jira-auto.codecool.metastage.net/browse/TOUCAN-1");
 //        String issueID = browsePage.getWebElementText(browsePage.issueLink);
 //        Assertions.assertEquals("TOUCAN-1", browsePage.getWebElementText(browsePage.issueLink));
-        browsePage.validateText("TOUCAN-1", browsePage.getWebElementText(browsePage.issueLink));
+        validateText("TOUCAN-1", getWebElementText(browsePage.issueLink));
     }
 
     @Test
@@ -57,7 +58,7 @@ public class BrowseIssuesTest {
         driver.get("https://jira-auto.codecool.metastage.net/browse/TOUCAN-2");
 //        String issueID = browsePage.getWebElementText(browsePage.issueLink);
 //        Assertions.assertEquals("TOUCAN-2", browsePage.getWebElementText(browsePage.issueLink));
-        browsePage.validateText("TOUCAN-2", browsePage.getWebElementText(browsePage.issueLink));
+        validateText("TOUCAN-2", getWebElementText(browsePage.issueLink));
     }
 
     @Test
@@ -65,7 +66,7 @@ public class BrowseIssuesTest {
         driver.get("https://jira-auto.codecool.metastage.net/browse/TOUCAN-3");
 //        String issueID = browsePage.issueLink.getText();
 //        Assertions.assertEquals("TOUCAN-3", browsePage.getWebElementText(browsePage.issueLink));
-        browsePage.validateText("TOUCAN-3", browsePage.getWebElementText(browsePage.issueLink));
+        validateText("TOUCAN-3", getWebElementText(browsePage.issueLink));
     }
 
     @Test
@@ -73,7 +74,7 @@ public class BrowseIssuesTest {
         driver.get("https://jira-auto.codecool.metastage.net/browse/JETI-1");
 //        String issueID = browsePage.getWebElementText(browsePage.issueLink);
 //        Assertions.assertEquals("JETI-1", browsePage.getWebElementText(browsePage.issueLink));
-        browsePage.validateText("JETI-1", browsePage.getWebElementText(browsePage.issueLink));
+        validateText("JETI-1", getWebElementText(browsePage.issueLink));
     }
 
     @Test
@@ -81,7 +82,7 @@ public class BrowseIssuesTest {
         driver.get("https://jira-auto.codecool.metastage.net/browse/JETI-2");
 //        String issueID = browsePage.getWebElementText(browsePage.issueLink);
 //        Assertions.assertEquals("JETI-2", browsePage.getWebElementText(browsePage.issueLink));
-        browsePage.validateText("JETI-2", browsePage.getWebElementText(browsePage.issueLink));
+        validateText("JETI-2", getWebElementText(browsePage.issueLink));
     }
 
     @Test
@@ -89,7 +90,7 @@ public class BrowseIssuesTest {
         driver.get("https://jira-auto.codecool.metastage.net/browse/JETI-3");
 //        String issueID = browsePage.getWebElementText(browsePage.issueLink);
 //        Assertions.assertEquals("JETI-3", browsePage.getWebElementText(browsePage.issueLink));
-        browsePage.validateText("JETI-3", browsePage.getWebElementText(browsePage.issueLink));
+        validateText("JETI-3", getWebElementText(browsePage.issueLink));
     }
 
     @Test
@@ -97,7 +98,7 @@ public class BrowseIssuesTest {
         driver.get("https://jira-auto.codecool.metastage.net/browse/COALA-1");
 //        String issueID = browsePage.getWebElementText(browsePage.issueLink);
 //        Assertions.assertEquals("COALA-1", browsePage.getWebElementText(browsePage.issueLink));
-        browsePage.validateText("COALA-1", browsePage.getWebElementText(browsePage.issueLink));
+        validateText("COALA-1", getWebElementText(browsePage.issueLink));
     }
 
     @Test
@@ -105,7 +106,7 @@ public class BrowseIssuesTest {
         driver.get("https://jira-auto.codecool.metastage.net/browse/COALA-2");
 //        String issueID = browsePage.getWebElementText(browsePage.issueLink);
 //        Assertions.assertEquals("COALA-2", browsePage.getWebElementText(browsePage.issueLink));
-        browsePage.validateText("COALA-2", browsePage.getWebElementText(browsePage.issueLink));
+        validateText("COALA-2", getWebElementText(browsePage.issueLink));
     }
 
     @Test
@@ -113,6 +114,6 @@ public class BrowseIssuesTest {
         driver.get("https://jira-auto.codecool.metastage.net/browse/COALA-3");
 //        String issueID = browsePage.issueLink.getText();
 //        Assertions.assertEquals("COALA-3", browsePage.getWebElementText(browsePage.issueLink));
-        browsePage.validateText("COALA-3", browsePage.getWebElementText(browsePage.issueLink));
+        validateText("COALA-3", getWebElementText(browsePage.issueLink));
     }
 }

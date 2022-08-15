@@ -7,6 +7,7 @@ import org.openqa.selenium.support.FindBy;
 
 
 public class LogInLogout {
+
     public static String keyCode = "22";
     public static String username = "automation";
     public static String password = "CCAutoTest19.";

@@ -28,12 +28,4 @@ public class BrowsePage {
     public BrowsePage(WebDriver driver) {
         PageFactory.initElements(driver, this);
     }
-
-    public String getWebElementText(WebElement element){
-        return element.getText();
-    }
-
-    public void validateText(String actual, String expected){
-        Assertions.assertEquals(actual, expected);
-    }
 }
