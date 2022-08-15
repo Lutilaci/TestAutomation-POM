@@ -25,6 +25,7 @@ public class MainPageTest {
         driver.get("https://www.jetbrains.com/");
 
         mainPage = new MainPage(driver);
+
     }
 
     @AfterEach
@@ -34,6 +35,7 @@ public class MainPageTest {
 
     @Test
     public void search() {
+
         mainPage.searchButton.click();
 
         WebElement searchField = driver.findElement(By.cssSelector("[data-test='search-input']"));
