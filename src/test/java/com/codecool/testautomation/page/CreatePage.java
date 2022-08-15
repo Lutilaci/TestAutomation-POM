@@ -1,10 +1,13 @@
 package com.codecool.testautomation.page;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class CreatePage {
 
@@ -28,7 +31,7 @@ public class CreatePage {
     @FindBy (xpath = "//button[contains(.,'Cancel')]") public WebElement cancelButton;
     @FindBy (xpath = "//a[@id='opsbar-operations_more']") public WebElement moreButton;
     @FindBy (css = ".stsummary > .issue-link") public WebElement subTaskName;
-    @FindBy (xpath = "//span[contains(.,'Actions')]") public WebElement actionButton;
+    @FindBy (xpath = "//*[@id=\"opsbar-operations_more\"]") public WebElement actionButton;
     @FindBy (xpath = "//a[contains(text(),'Delete')]") public WebElement deleteSubTaskButton;
     @FindBy (xpath = "//input[@id='delete-issue-submit']") public WebElement finalSubTaskDeleteButton;
     @FindBy (css = "#issuetype-single-select > .icon") public WebElement issueTypeSelectorButton;
@@ -39,10 +42,22 @@ public class CreatePage {
         PageFactory.initElements(driver, this);
     }
 
-    public void restore(){
+    public void restoreSubTask(WebDriverWait wait){
+        wait.until(ExpectedConditions.elementToBeClickable(
+                actionButton
+        ));
         actionButton.click();
         deleteSubTaskButton.click();
         finalSubTaskDeleteButton.click();
+    }
+
+    public void restoreIssue(WebDriverWait wait){
+        wait.until(ExpectedConditions.elementToBeClickable(
+                actionButton
+        ));
+        actionButton.click();
+        deleteButton.click();
+        finalDeleteButton.click();
     }
 
     public void createSubTask(){
@@ -50,5 +65,36 @@ public class CreatePage {
         createSubClass.click();
         summaryField.sendKeys("Sub-task test");
         createIssueButton.click();
+    }
+
+    public void clearIssueType(WebDriverWait wait){
+        String os = System.getProperty("os.name");
+        wait.until(ExpectedConditions.elementToBeClickable(issueTypeSelector));
+        if (os.equals("Mac OS X")){
+            issueTypeSelector.sendKeys(Keys.COMMAND + "a");
+        }else{
+            issueTypeSelector.sendKeys(Keys.CONTROL + "a");
+        }
+        issueTypeSelector.sendKeys(Keys.DELETE);
+    }
+
+    public void clearProjectField(){
+        String os = System.getProperty("os.name");
+        if (os.equals("Mac OS X")){
+            projectField.sendKeys(Keys.COMMAND + "a");
+        }else{
+            projectField.sendKeys(Keys.CONTROL + "a");
+        }
+        projectField.sendKeys(Keys.DELETE);
+    }
+
+    public void createSpecificIssue(WebDriverWait wait, String projectName, String issueType){
+        mainCreateButton.click();
+        clearProjectField();
+        projectField.sendKeys(projectName);
+        projectField.sendKeys(Keys.RETURN);
+        clearIssueType(wait);
+        issueTypeSelector.sendKeys(issueType);
+        issueTypeSelector.sendKeys(Keys.RETURN);
     }
 }

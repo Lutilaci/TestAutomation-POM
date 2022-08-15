@@ -1,6 +1,7 @@
 package com.codecool.testautomation.utility;
 
 import org.junit.jupiter.api.Assertions;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 public class Utility {
@@ -12,4 +13,6 @@ public class Utility {
     public static void validateText(String actual, String expected){
         Assertions.assertEquals(actual, expected);
     }
+
+    public static void openWebPage(WebDriver driver, String url){ driver.get(url); }
 }

@@ -51,7 +51,7 @@ public class CreatePageTest {
     // I can't create sub-task for COALA
     @Test
     public void createCOALASubTask() {
-        driver.get("https://jira-auto.codecool.metastage.net/browse/COALA-126");
+        openWebPage(driver,"https://jira-auto.codecool.metastage.net/browse/COALA-126");
 //        String header = getWebElementText(createPage.issueHeader);
 //        Assertions.assertEquals("Create sub-task", header);
         validateText("Create sub-task", getWebElementText(createPage.issueHeader));
@@ -65,75 +65,63 @@ public class CreatePageTest {
         validateText("Sub-task test", getWebElementText(createPage.subTaskName));
 
         // Restore
-        driver.get("https://jira-auto.codecool.metastage.net/browse/COALA-126");
-        createPage.restore();
+        openWebPage(driver,"https://jira-auto.codecool.metastage.net/browse/COALA-126");
+        createPage.restoreSubTask(wait);
     }
 
+    // I can't create sub-task for TOUCAN
     @Test
     public void createTOUCANSubTask() {
-        driver.get("https://jira-auto.codecool.metastage.net/browse/TOUCAN-132");
-        String header = createPage.issueHeader.getText();
-        Assertions.assertEquals(header,"Create sub-task");
+        openWebPage(driver,"https://jira-auto.codecool.metastage.net/browse/TOUCAN-132");
+        validateText(getWebElementText(createPage.issueHeader), "Create sub-task");
         createPage.createSubTask();
         createPage.popupMessage.isDisplayed();
-        String result = createPage.popupMessage.getText();
-        Assertions.assertEquals(result, "TOUCAN-121 has been updated.");
-        String subTaskName = createPage.subTaskName.getText();
-        Assertions.assertEquals(subTaskName, "Sub-task test");
+        validateText("TOUCAN-121 has been updated.", getWebElementText(createPage.popupMessage));
+        validateText("Sub-task test", getWebElementText(createPage.subTaskName));
 
         // Restore
-        driver.get("https://jira-auto.codecool.metastage.net/browse/TOUCAN-121");
-        createPage.restore();
+        openWebPage(driver,"https://jira-auto.codecool.metastage.net/browse/TOUCAN-121");
+        createPage.restoreSubTask(wait);
     }
 
     @Test
     public void createJETISubTask(){
-        driver.get("https://jira-auto.codecool.metastage.net/browse/JETI-62");
-        String header = createPage.issueHeader.getText();
-        Assertions.assertEquals(header,"JETI Happy Path");
+        openWebPage(driver,"https://jira-auto.codecool.metastage.net/browse/JETI-62");
+        validateText("JETI Happy Path", getWebElementText(createPage.issueHeader));
         createPage.createSubTask();
         createPage.popupMessage.isDisplayed();
-        String result = createPage.popupMessage.getText();
-        Assertions.assertEquals(result, "JETI-62 has been updated.");
-        String subTaskName = createPage.subTaskName.getText();
-        Assertions.assertEquals(subTaskName, "Sub-task test");
+        validateText("JETI-62 has been updated.", getWebElementText(createPage.popupMessage));
+        validateText("Sub-task test", getWebElementText(createPage.subTaskName));
 
         // Restore
-        driver.get("https://jira-auto.codecool.metastage.net/browse/JETI-62");
-        createPage.restore();
+        openWebPage(driver,"https://jira-auto.codecool.metastage.net/browse/JETI-62");
+        createPage.restoreSubTask(wait);
     }
 
     @Test
     public void createNewIssue() {
-        createPage.mainCreateButton.click();
-        clearProjectField();
-        createPage.projectField.sendKeys("MTP");
-        createPage.projectField.sendKeys(Keys.RETURN);
-        clearIssueType();
-        createPage.issueTypeSelector.sendKeys("Bug");
+        createPage.createSpecificIssue(wait, "MTP", "Bug");
 
-        createPage.issueTypeSelector.sendKeys(Keys.RETURN);
         wait.until(ExpectedConditions.elementToBeClickable(
                 createPage.summaryField)).sendKeys("Happy Path");
         wait.until(ExpectedConditions.elementToBeClickable(
                         createPage.createIssueButton
         )).click();
-        createPage.popupMessage.isDisplayed();
+        wait.until(ExpectedConditions.visibilityOf(createPage.popupMessage));
         wait.until(ExpectedConditions.elementToBeClickable(
                         driver.findElement(By.partialLinkText("Happy Path")))).click();
-        String issueName = createPage.issueHeader.getText();
-        Assertions.assertEquals("Happy Path", issueName);
+
+        validateText("Happy Path", getWebElementText(createPage.issueHeader));
 
         // Restore
-        createPage.restore();
+        createPage.restoreIssue(wait);
     }
 
     @Test
     public void createIssueWithEmptySummary(){
         createPage.mainCreateButton.click();
         createPage.createIssueButton.click();
-        String errorMessage = createPage.createIssueErrorMessage.getText();
-        Assertions.assertEquals(errorMessage, "You must specify a summary of the issue.");
+        validateText("You must specify a summary of the issue.", getWebElementText(createPage.createIssueErrorMessage));
         createPage.cancelButton.click();
         driver.switchTo().alert().accept();
     }
@@ -146,7 +134,7 @@ public class CreatePageTest {
         supposedToBe.add("Task");
         List<String> issueTypes = new ArrayList<>();
         createPage.mainCreateButton.click();
-        clearProjectField();
+        createPage.clearProjectField();
         createPage.projectField.sendKeys("COALA");
         createPage.projectField.sendKeys(Keys.RETURN);
 
@@ -174,7 +162,7 @@ public class CreatePageTest {
         supposedToBe.add("Task");
         List<String> issueTypes = new ArrayList<>();
         createPage.mainCreateButton.click();
-        clearProjectField();
+        createPage.clearProjectField();
         createPage.projectField.sendKeys("JETI");
         createPage.projectField.sendKeys(Keys.RETURN);
 
@@ -204,7 +192,7 @@ public class CreatePageTest {
         List<String> issueTypes = new ArrayList<>();
 
         createPage.mainCreateButton.click();
-        clearProjectField();
+        createPage.clearProjectField();
         createPage.projectField.sendKeys("TOUCAN");
         createPage.projectField.sendKeys(Keys.RETURN);
 
@@ -227,13 +215,8 @@ public class CreatePageTest {
 
     @Test
     public void CancelIssueAfterFill() {
-        createPage.mainCreateButton.click();
-        clearProjectField();
-        createPage.projectField.sendKeys("MTP");
-        createPage.projectField.sendKeys(Keys.RETURN);
+        createPage.createSpecificIssue(wait, "MTP", "Bug");
 
-        clearIssueType();
-        createPage.issueTypeSelector.sendKeys("Bug");
         wait.until(ExpectedConditions.elementToBeClickable(
             createPage.issueTypeSelector)).sendKeys(Keys.RETURN);
         wait.until(ExpectedConditions.elementToBeClickable(
@@ -247,34 +230,6 @@ public class CreatePageTest {
         createPage.searchForIssueField.sendKeys("Issue Cancel Test");
         createPage.searchButton.click();
         wait.until(ExpectedConditions.elementToBeClickable(createPage.resultPageContent));
-        String result = createPage.resultPageContent.getText();
-        Assertions.assertEquals(result, "No issues were found to match your search");
+        validateText("No issues were found to match your search", getWebElementText(createPage.resultPageContent));
     }
-
-//    public void logout(){
-//        browsePage.profileAvatarButton.click();
-//        browsePage.logoutButton.click();
-//    }
-
-    public void clearProjectField(){
-        String os = System.getProperty("os.name");
-        if (os.equals("Mac OS X")){
-            createPage.projectField.sendKeys(Keys.COMMAND + "a");
-        }else{
-            createPage.projectField.sendKeys(Keys.CONTROL + "a");
-        }
-        createPage.projectField.sendKeys(Keys.DELETE);
-    }
-
-    public void clearIssueType(){
-        String os = System.getProperty("os.name");
-        wait.until(ExpectedConditions.elementToBeClickable(createPage.issueTypeSelector));
-        if (os.equals("Mac OS X")){
-            createPage.issueTypeSelector.sendKeys(Keys.COMMAND + "a");
-        }else{
-            createPage.issueTypeSelector.sendKeys(Keys.CONTROL + "a");
-        }
-        createPage.issueTypeSelector.sendKeys(Keys.DELETE);
-    }
-
 }
