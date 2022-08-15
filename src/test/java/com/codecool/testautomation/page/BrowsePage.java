@@ -1,6 +1,7 @@
 package com.codecool.testautomation.page;
 
 
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -24,8 +25,15 @@ public class BrowsePage {
     @FindBy (css = "#summary-val") public WebElement browseIssueHeader;
     @FindBy (css = ".issue-link") public WebElement issueLink;
 
-
     public BrowsePage(WebDriver driver) {
         PageFactory.initElements(driver, this);
+    }
+
+    public String getWebElementText(WebElement element){
+        return element.getText();
+    }
+
+    public void validateText(String actual, String expected){
+        Assertions.assertEquals(actual, expected);
     }
 }
