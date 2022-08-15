@@ -14,15 +14,15 @@ public class LogInLogout {
     public static String username = "automation";
     public static String password = "CCAutoTest19.";
 
-    @FindBy (id = "login-form-username") public static WebElement usernameField;
-    @FindBy (id = "login-form-password") public static WebElement passwordField;
-    @FindBy (id = "login-form-submit") public static WebElement submitButton;
-    @FindBy (css = ".aui-avatar-small img") public static WebElement avatarIcon;
-    @FindBy (css = "#log_out") public static WebElement logoutButton;
+//    @FindBy (id = "login-form-username") public static WebElement usernameField;
+//    @FindBy (id = "login-form-password") public static WebElement passwordField;
+//    @FindBy (id = "login-form-submit") public static WebElement submitButton;
+//    @FindBy (css = ".aui-avatar-small img") public static WebElement avatarIcon;
+//    @FindBy (css = "#log_out") public static WebElement logoutButton;
 
-    public LogInLogout(WebDriver driver) {
-        PageFactory.initElements(driver, this);
-    }
+//    public LogInLogout(WebDriver driver) {
+//        PageFactory.initElements(driver, this);
+//    }
 
     public static void logIn(WebDriver driver){
         driver.findElement(By.id("login-form-username")).sendKeys(username+keyCode);
