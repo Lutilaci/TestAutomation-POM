@@ -10,11 +10,6 @@ import org.openqa.selenium.support.PageFactory;
 
 public class BrowsePage {
 
-    @FindBy (css = "#login-form-username") public WebElement username;
-    @FindBy (css = "#login-form-password") public WebElement password;
-    @FindBy (css = "#login-form-submit") public WebElement loginButton;
-    @FindBy (css = ".aui-avatar-small img") public WebElement profileAvatarButton;
-    @FindBy (css = "#log_out") public WebElement logoutButton;
     @FindBy (css = ".aui-page-header-main") public WebElement mainPageHeader;
     @FindBy (css = ".project-meta-value:nth-child(4)") public WebElement projectMetaValueMTP;
     @FindBy (css = ".project-meta-value:nth-child(4)") public WebElement projectMetaValueCOALA;
@@ -27,13 +22,5 @@ public class BrowsePage {
 
     public BrowsePage(WebDriver driver) {
         PageFactory.initElements(driver, this);
-    }
-
-    public String getWebElementText(WebElement element){
-        return element.getText();
-    }
-
-    public void validateText(String actual, String expected){
-        Assertions.assertEquals(actual, expected);
     }
 }
