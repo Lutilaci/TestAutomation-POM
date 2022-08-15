@@ -17,13 +17,13 @@ public class LogInLogout {
     @FindBy (css = ".aui-avatar-small img") public static WebElement avatarIcon;
     @FindBy (css = "#log_out") public static WebElement logoutButton;
 
-    public static void logIn(WebDriver driver){
+    public static void logIn(){
         usernameField.sendKeys(username+keyCode);
         passwordField.sendKeys(password);
         submitButton.click();
     }
 
-    public static void logout(WebDriver driver){
+    public static void logout(){
         avatarIcon.click();
         logoutButton.click();
     }

@@ -22,12 +22,12 @@ public class BrowseProjectsTest {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
         browsePage = new BrowsePage(driver);
         driver.get("https://jira-auto.codecool.metastage.net/login.jsp");
-        logIn(driver);
+        logIn();
     }
 
     @AfterEach
     public void tearDown() {
-        logout(driver);
+        logout();
         driver.quit();
     }
 
