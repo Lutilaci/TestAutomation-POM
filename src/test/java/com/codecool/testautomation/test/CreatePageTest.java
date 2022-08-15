@@ -51,7 +51,7 @@ public class CreatePageTest {
     // I can't create sub-task for COALA
     @Test
     public void createCOALASubTask() {
-        driver.get("https://jira-auto.codecool.metastage.net/browse/COALA-126");
+        openWebPage(driver,"https://jira-auto.codecool.metastage.net/browse/COALA-126");
 //        String header = getWebElementText(createPage.issueHeader);
 //        Assertions.assertEquals("Create sub-task", header);
         validateText("Create sub-task", getWebElementText(createPage.issueHeader));
@@ -65,41 +65,36 @@ public class CreatePageTest {
         validateText("Sub-task test", getWebElementText(createPage.subTaskName));
 
         // Restore
-        driver.get("https://jira-auto.codecool.metastage.net/browse/COALA-126");
+        openWebPage(driver,"https://jira-auto.codecool.metastage.net/browse/COALA-126");
         createPage.restore();
     }
 
+    // I can't create sub-task for TOUCAN
     @Test
     public void createTOUCANSubTask() {
-        driver.get("https://jira-auto.codecool.metastage.net/browse/TOUCAN-132");
-        String header = createPage.issueHeader.getText();
-        Assertions.assertEquals(header,"Create sub-task");
+        openWebPage(driver,"https://jira-auto.codecool.metastage.net/browse/TOUCAN-132");
+        validateText(getWebElementText(createPage.issueHeader), "Create sub-task");
         createPage.createSubTask();
         createPage.popupMessage.isDisplayed();
-        String result = createPage.popupMessage.getText();
-        Assertions.assertEquals(result, "TOUCAN-121 has been updated.");
-        String subTaskName = createPage.subTaskName.getText();
-        Assertions.assertEquals(subTaskName, "Sub-task test");
+        validateText("TOUCAN-121 has been updated.", getWebElementText(createPage.popupMessage));
+        validateText("Sub-task test", getWebElementText(createPage.subTaskName));
 
         // Restore
-        driver.get("https://jira-auto.codecool.metastage.net/browse/TOUCAN-121");
+        openWebPage(driver,"https://jira-auto.codecool.metastage.net/browse/TOUCAN-121");
         createPage.restore();
     }
 
     @Test
     public void createJETISubTask(){
-        driver.get("https://jira-auto.codecool.metastage.net/browse/JETI-62");
-        String header = createPage.issueHeader.getText();
-        Assertions.assertEquals(header,"JETI Happy Path");
+        openWebPage(driver,"https://jira-auto.codecool.metastage.net/browse/JETI-62");
+        validateText("JETI Happy Path", getWebElementText(createPage.issueHeader));
         createPage.createSubTask();
         createPage.popupMessage.isDisplayed();
-        String result = createPage.popupMessage.getText();
-        Assertions.assertEquals(result, "JETI-62 has been updated.");
-        String subTaskName = createPage.subTaskName.getText();
-        Assertions.assertEquals(subTaskName, "Sub-task test");
+        validateText("JETI-62 has been updated.", getWebElementText(createPage.popupMessage));
+        validateText("Sub-task test", getWebElementText(createPage.subTaskName));
 
         // Restore
-        driver.get("https://jira-auto.codecool.metastage.net/browse/JETI-62");
+        openWebPage(driver,"https://jira-auto.codecool.metastage.net/browse/JETI-62");
         createPage.restore();
     }
 

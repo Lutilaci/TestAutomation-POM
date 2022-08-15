@@ -33,7 +33,7 @@ public class BrowseProjectsTest {
 
     @Test
     public void browseProjects() {
-        driver.get("https://jira-auto.codecool.metastage.net/secure/BrowseProjects.jspa");
+        openWebPage(driver, "https://jira-auto.codecool.metastage.net/secure/BrowseProjects.jspa");
 //        String pageHeader = browsePage.getWebElementText(browsePage.mainPageHeader);
 //        Assertions.assertEquals("Browse projects", browsePage.getWebElementText(browsePage.mainPageHeader));
         validateText("Browse projects", getWebElementText(browsePage.mainPageHeader));
@@ -41,41 +41,31 @@ public class BrowseProjectsTest {
 
     @Test
     public void openExistingProject(){
-        driver.get("https://jira-auto.codecool.metastage.net/projects/MTP/summary");
-//        String projectKey = browsePage.getWebElementText(browsePage.projectMetaValueMTP);
-//        Assertions.assertEquals("MTP", browsePage.getWebElementText(browsePage.projectMetaValueMTP));
+        openWebPage(driver,"https://jira-auto.codecool.metastage.net/projects/MTP/summary");
         validateText("MTP", getWebElementText(browsePage.projectMetaValueMTP));
     }
 
     @Test
     public void openCOALAProject(){
-        driver.get("https://jira-auto.codecool.metastage.net/projects/COALA/summary");
-//        String projectKey = browsePage.getWebElementText(browsePage.projectMetaValueCOALA);
-//        Assertions.assertEquals("COALA", browsePage.getWebElementText(browsePage.projectMetaValueCOALA));
+        openWebPage(driver,"https://jira-auto.codecool.metastage.net/projects/COALA/summary");
         validateText("COALA", getWebElementText(browsePage.projectMetaValueCOALA));
     }
 
     @Test
     public void openJETIProject(){
-        driver.get("https://jira-auto.codecool.metastage.net/projects/JETI/summary");
-//        String projectKey = browsePage.getWebElementText(browsePage.projectMetaValueJETI);
-//        Assertions.assertEquals("JETI", browsePage.getWebElementText(browsePage.projectMetaValueJETI));
+        openWebPage(driver,"https://jira-auto.codecool.metastage.net/projects/JETI/summary");
         validateText("JETI", getWebElementText(browsePage.projectMetaValueJETI));
     }
 
     @Test
     public void openTOUCANProject(){
-        driver.get("https://jira-auto.codecool.metastage.net/projects/TOUCAN/summary");
-//        String projectKey = browsePage.getWebElementText(browsePage.projectMetaValueTOUCAN);
-//        Assertions.assertEquals("TOUCAN", browsePage.getWebElementText(browsePage.projectMetaValueTOUCAN));
+        openWebPage(driver,"https://jira-auto.codecool.metastage.net/projects/TOUCAN/summary");
         validateText("TOUCAN", getWebElementText(browsePage.projectMetaValueTOUCAN));
     }
 
     @Test
     public void openNonExistingProject() {
-        driver.get("https://jira-auto.codecool.metastage.net/projects/SOMETHING/summary");
-//        String errorMessage = browsePage.getWebElementText(browsePage.pageError);
-//        Assertions.assertEquals("You can't view this project", browsePage.getWebElementText(browsePage.pageError));
+        openWebPage(driver,"https://jira-auto.codecool.metastage.net/projects/SOMETHING/summary");
         validateText("You can't view this project", getWebElementText(browsePage.pageError));
     }
 }
