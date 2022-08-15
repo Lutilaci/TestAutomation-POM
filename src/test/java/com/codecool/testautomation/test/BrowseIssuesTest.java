@@ -23,12 +23,12 @@ public class BrowseIssuesTest {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
         browsePage = new BrowsePage(driver);
         driver.get("https://jira-auto.codecool.metastage.net/login.jsp");
-        logIn(driver);
+        logIn();
     }
 
     @AfterEach
     public void tearDown() {
-        logout(driver);
+        logout();
         driver.quit();
     }
 
@@ -49,61 +49,70 @@ public class BrowseIssuesTest {
         driver.get("https://jira-auto.codecool.metastage.net/browse/TOUCAN-1");
 //        String issueID = browsePage.getWebElementText(browsePage.issueLink);
 //        Assertions.assertEquals("TOUCAN-1", browsePage.getWebElementText(browsePage.issueLink));
+        browsePage.validateText("TOUCAN-1", browsePage.getWebElementText(browsePage.issueLink));
     }
 
     @Test
     public void CheckTOUCANIssueWithID2(){
         driver.get("https://jira-auto.codecool.metastage.net/browse/TOUCAN-2");
-        String issueID = browsePage.getWebElementText(browsePage.issueLink);
-        Assertions.assertEquals(issueID, "TOUCAN-2");
+//        String issueID = browsePage.getWebElementText(browsePage.issueLink);
+//        Assertions.assertEquals("TOUCAN-2", browsePage.getWebElementText(browsePage.issueLink));
+        browsePage.validateText("TOUCAN-2", browsePage.getWebElementText(browsePage.issueLink));
     }
 
     @Test
     public void CheckTOUCANIssueWithID3(){
         driver.get("https://jira-auto.codecool.metastage.net/browse/TOUCAN-3");
 //        String issueID = browsePage.issueLink.getText();
-        Assertions.assertEquals(browsePage.getWebElementText(browsePage.issueLink), "TOUCAN-3");
+//        Assertions.assertEquals("TOUCAN-3", browsePage.getWebElementText(browsePage.issueLink));
+        browsePage.validateText("TOUCAN-3", browsePage.getWebElementText(browsePage.issueLink));
     }
 
     @Test
     public void CheckJETIIssueWithID1(){
         driver.get("https://jira-auto.codecool.metastage.net/browse/JETI-1");
-        String issueID = browsePage.getWebElementText(browsePage.issueLink);
-        Assertions.assertEquals(issueID, "JETI-1");
+//        String issueID = browsePage.getWebElementText(browsePage.issueLink);
+//        Assertions.assertEquals("JETI-1", browsePage.getWebElementText(browsePage.issueLink));
+        browsePage.validateText("JETI-1", browsePage.getWebElementText(browsePage.issueLink));
     }
 
     @Test
     public void CheckJETIIssueWithID2(){
         driver.get("https://jira-auto.codecool.metastage.net/browse/JETI-2");
-        String issueID = browsePage.getWebElementText(browsePage.issueLink);
-        Assertions.assertEquals(issueID, "JETI-2");
+//        String issueID = browsePage.getWebElementText(browsePage.issueLink);
+//        Assertions.assertEquals("JETI-2", browsePage.getWebElementText(browsePage.issueLink));
+        browsePage.validateText("JETI-2", browsePage.getWebElementText(browsePage.issueLink));
     }
 
     @Test
     public void CheckJETIIssueWithID3(){
         driver.get("https://jira-auto.codecool.metastage.net/browse/JETI-3");
-        String issueID = browsePage.getWebElementText(browsePage.issueLink);
-        Assertions.assertEquals(issueID, "JETI-3");
+//        String issueID = browsePage.getWebElementText(browsePage.issueLink);
+//        Assertions.assertEquals("JETI-3", browsePage.getWebElementText(browsePage.issueLink));
+        browsePage.validateText("JETI-3", browsePage.getWebElementText(browsePage.issueLink));
     }
 
     @Test
     public void CheckCOALAIssueWithID1(){
         driver.get("https://jira-auto.codecool.metastage.net/browse/COALA-1");
-        String issueID = browsePage.getWebElementText(browsePage.issueLink);
-        Assertions.assertEquals(issueID, "COALA-1");
+//        String issueID = browsePage.getWebElementText(browsePage.issueLink);
+//        Assertions.assertEquals("COALA-1", browsePage.getWebElementText(browsePage.issueLink));
+        browsePage.validateText("COALA-1", browsePage.getWebElementText(browsePage.issueLink));
     }
 
     @Test
     public void CheckCOALAIssueWithID2(){
         driver.get("https://jira-auto.codecool.metastage.net/browse/COALA-2");
-        String issueID = browsePage.getWebElementText(browsePage.issueLink);
-        Assertions.assertEquals(issueID, "COALA-2");
+//        String issueID = browsePage.getWebElementText(browsePage.issueLink);
+//        Assertions.assertEquals("COALA-2", browsePage.getWebElementText(browsePage.issueLink));
+        browsePage.validateText("COALA-2", browsePage.getWebElementText(browsePage.issueLink));
     }
 
     @Test
     public void CheckCOALAIssueWithID3(){
         driver.get("https://jira-auto.codecool.metastage.net/browse/COALA-3");
-        String issueID = browsePage.issueLink.getText();
-        Assertions.assertEquals(issueID, "COALA-3");
+//        String issueID = browsePage.issueLink.getText();
+//        Assertions.assertEquals("COALA-3", browsePage.getWebElementText(browsePage.issueLink));
+        browsePage.validateText("COALA-3", browsePage.getWebElementText(browsePage.issueLink));
     }
 }
