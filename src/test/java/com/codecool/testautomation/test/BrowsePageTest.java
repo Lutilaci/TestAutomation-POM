@@ -9,6 +9,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import java.time.Duration;
 
+import static com.codecool.testautomation.utility.LogIn.logIn;
+
 public class BrowsePageTest {
     private WebDriver driver;
     private BrowsePage browsePage;
