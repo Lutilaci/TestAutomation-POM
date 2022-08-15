@@ -8,8 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import java.time.Duration;
-import static com.codecool.testautomation.utility.LogInLogout.logIn;
-import static com.codecool.testautomation.utility.LogInLogout.logout;
+import static com.codecool.testautomation.utility.LogInLogout.*;
 import static com.codecool.testautomation.utility.Utility.*;
 
 
@@ -24,12 +23,12 @@ public class BrowseIssuesTest {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
         browsePage = new BrowsePage(driver);
         driver.get("https://jira-auto.codecool.metastage.net/login.jsp");
-        logIn();
+        logIn(driver);
     }
 
     @AfterEach
     public void tearDown() {
-        logout();
+        logout(driver);
         driver.quit();
     }
 

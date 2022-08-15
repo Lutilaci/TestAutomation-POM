@@ -31,7 +31,7 @@ public class CreatePage {
     @FindBy (xpath = "//span[contains(.,'Actions')]") public WebElement actionButton;
     @FindBy (xpath = "//a[contains(text(),'Delete')]") public WebElement deleteSubTaskButton;
     @FindBy (xpath = "//input[@id='delete-issue-submit']") public WebElement finalSubTaskDeleteButton;
-    @FindBy (css = "#issuetype-single-select > .icon") public WebElement issueTypeSelectorButon;
+    @FindBy (css = "#issuetype-single-select > .icon") public WebElement issueTypeSelectorButton;
     @FindBy (css = ".no-results > h2") public WebElement resultPageContent;
     @FindBy (xpath = "//ul[@class='aui-last']") public WebElement issueScrollDown;
 

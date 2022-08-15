@@ -7,8 +7,8 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import java.time.Duration;
-import static com.codecool.testautomation.utility.LogInLogout.logIn;
-import static com.codecool.testautomation.utility.LogInLogout.logout;
+import static com.codecool.testautomation.utility.LogInLogout.*;
+import static com.codecool.testautomation.utility.Utility.*;
 
 
 public class BrowseProjectsTest {
@@ -22,12 +22,12 @@ public class BrowseProjectsTest {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
         browsePage = new BrowsePage(driver);
         driver.get("https://jira-auto.codecool.metastage.net/login.jsp");
-        logIn();
+        logIn(driver);
     }
 
     @AfterEach
     public void tearDown() {
-        logout();
+        logout(driver);
         driver.quit();
     }
 
@@ -36,7 +36,7 @@ public class BrowseProjectsTest {
         driver.get("https://jira-auto.codecool.metastage.net/secure/BrowseProjects.jspa");
 //        String pageHeader = browsePage.getWebElementText(browsePage.mainPageHeader);
 //        Assertions.assertEquals("Browse projects", browsePage.getWebElementText(browsePage.mainPageHeader));
-        browsePage.validateText("Browse projects", browsePage.getWebElementText(browsePage.mainPageHeader));
+        validateText("Browse projects", getWebElementText(browsePage.mainPageHeader));
     }
 
     @Test
@@ -44,7 +44,7 @@ public class BrowseProjectsTest {
         driver.get("https://jira-auto.codecool.metastage.net/projects/MTP/summary");
 //        String projectKey = browsePage.getWebElementText(browsePage.projectMetaValueMTP);
 //        Assertions.assertEquals("MTP", browsePage.getWebElementText(browsePage.projectMetaValueMTP));
-        browsePage.validateText("MTP", browsePage.getWebElementText(browsePage.projectMetaValueMTP));
+        validateText("MTP", getWebElementText(browsePage.projectMetaValueMTP));
     }
 
     @Test
@@ -52,7 +52,7 @@ public class BrowseProjectsTest {
         driver.get("https://jira-auto.codecool.metastage.net/projects/COALA/summary");
 //        String projectKey = browsePage.getWebElementText(browsePage.projectMetaValueCOALA);
 //        Assertions.assertEquals("COALA", browsePage.getWebElementText(browsePage.projectMetaValueCOALA));
-        browsePage.validateText("COALA", browsePage.getWebElementText(browsePage.projectMetaValueCOALA));
+        validateText("COALA", getWebElementText(browsePage.projectMetaValueCOALA));
     }
 
     @Test
@@ -60,7 +60,7 @@ public class BrowseProjectsTest {
         driver.get("https://jira-auto.codecool.metastage.net/projects/JETI/summary");
 //        String projectKey = browsePage.getWebElementText(browsePage.projectMetaValueJETI);
 //        Assertions.assertEquals("JETI", browsePage.getWebElementText(browsePage.projectMetaValueJETI));
-        browsePage.validateText("JETI", browsePage.getWebElementText(browsePage.projectMetaValueJETI));
+        validateText("JETI", getWebElementText(browsePage.projectMetaValueJETI));
     }
 
     @Test
@@ -68,7 +68,7 @@ public class BrowseProjectsTest {
         driver.get("https://jira-auto.codecool.metastage.net/projects/TOUCAN/summary");
 //        String projectKey = browsePage.getWebElementText(browsePage.projectMetaValueTOUCAN);
 //        Assertions.assertEquals("TOUCAN", browsePage.getWebElementText(browsePage.projectMetaValueTOUCAN));
-        browsePage.validateText("TOUCAN", browsePage.getWebElementText(browsePage.projectMetaValueTOUCAN));
+        validateText("TOUCAN", getWebElementText(browsePage.projectMetaValueTOUCAN));
     }
 
     @Test
@@ -76,6 +76,6 @@ public class BrowseProjectsTest {
         driver.get("https://jira-auto.codecool.metastage.net/projects/SOMETHING/summary");
 //        String errorMessage = browsePage.getWebElementText(browsePage.pageError);
 //        Assertions.assertEquals("You can't view this project", browsePage.getWebElementText(browsePage.pageError));
-        browsePage.validateText("You can't view this project", browsePage.getWebElementText(browsePage.pageError));
+        validateText("You can't view this project", getWebElementText(browsePage.pageError));
     }
 }

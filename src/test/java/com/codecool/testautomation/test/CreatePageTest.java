@@ -19,7 +19,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static com.codecool.testautomation.utility.LogInLogout.logIn;
+import static com.codecool.testautomation.utility.LogInLogout.*;
+import static com.codecool.testautomation.utility.Utility.*;
+
 
 public class CreatePageTest {
 
@@ -37,12 +39,12 @@ public class CreatePageTest {
         browsePage = new BrowsePage(driver);
         createPage = new CreatePage(driver);
         driver.get("https://jira-auto.codecool.metastage.net/login.jsp");
-        logIn();
+        logIn(driver);
     }
 
     @AfterEach
     public void tearDown() {
-        logout();
+        logout(driver);
         driver.quit();
     }
 
@@ -50,14 +52,17 @@ public class CreatePageTest {
     @Test
     public void createCOALASubTask() {
         driver.get("https://jira-auto.codecool.metastage.net/browse/COALA-126");
-        String header = createPage.issueHeader.getText();
-        Assertions.assertEquals(header,"Create sub-task");
+//        String header = getWebElementText(createPage.issueHeader);
+//        Assertions.assertEquals("Create sub-task", header);
+        validateText("Create sub-task", getWebElementText(createPage.issueHeader));
         createPage.createSubTask();
         createPage.popupMessage.isDisplayed();
-        String result = createPage.popupMessage.getText();
-        Assertions.assertEquals(result, "COALA-126 has been updated.");
-        String subTaskName = createPage.subTaskName.getText();
-        Assertions.assertEquals(subTaskName, "Sub-task test");
+//        String result = createPage.popupMessage.getText();
+//        Assertions.assertEquals("COALA-126 has been updated.", result);
+//        String subTaskName = createPage.subTaskName.getText();
+//        Assertions.assertEquals("Sub-task test", subTaskName);
+        validateText("COALA-126 has been updated.", getWebElementText(createPage.popupMessage));
+        validateText("Sub-task test", getWebElementText(createPage.subTaskName));
 
         // Restore
         driver.get("https://jira-auto.codecool.metastage.net/browse/COALA-126");
@@ -82,7 +87,7 @@ public class CreatePageTest {
     }
 
     @Test
-    public void createJETISubTask() throws InterruptedException {
+    public void createJETISubTask(){
         driver.get("https://jira-auto.codecool.metastage.net/browse/JETI-62");
         String header = createPage.issueHeader.getText();
         Assertions.assertEquals(header,"JETI Happy Path");
@@ -246,10 +251,10 @@ public class CreatePageTest {
         Assertions.assertEquals(result, "No issues were found to match your search");
     }
 
-    public void logout(){
-        browsePage.profileAvatarButton.click();
-        browsePage.logoutButton.click();
-    }
+//    public void logout(){
+//        browsePage.profileAvatarButton.click();
+//        browsePage.logoutButton.click();
+//    }
 
     public void clearProjectField(){
         String os = System.getProperty("os.name");
