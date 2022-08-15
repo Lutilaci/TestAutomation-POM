@@ -1,5 +1,6 @@
-package com.codecool.testautomation.testautomationproject;
+package com.codecool.testautomation.test;
 
+import com.codecool.testautomation.page.MainPage;
 import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
