@@ -8,7 +8,8 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import java.time.Duration;
-import static com.codecool.testautomation.utility.LogInLogout.*;
+
+import static com.codecool.testautomation.utility.LogIn.logIn;
 import static com.codecool.testautomation.utility.Utility.*;
 
 
@@ -28,7 +29,6 @@ public class BrowseIssuesTest {
 
     @AfterEach
     public void tearDown() {
-        logout(driver);
         driver.quit();
     }
 
