@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import java.time.Duration;
-import static com.codecool.testautomation.utility.LogInLogout.*;
+import static com.codecool.testautomation.utility.LogIn.*;
 import static com.codecool.testautomation.utility.Utility.*;
 
 
@@ -42,25 +42,25 @@ public class BrowseProjectsTest {
     @Test
     public void openExistingProject(){
         openWebPage(driver,"https://jira-auto.codecool.metastage.net/projects/MTP/summary");
-        validateText("MTP", getWebElementText(browsePage.projectMetaValueMTP));
+        validateText("MTP", getWebElementText(browsePage.projectMetaValue));
     }
 
     @Test
     public void openCOALAProject(){
         openWebPage(driver,"https://jira-auto.codecool.metastage.net/projects/COALA/summary");
-        validateText("COALA", getWebElementText(browsePage.projectMetaValueCOALA));
+        validateText("COALA", getWebElementText(browsePage.projectMetaValue));
     }
 
     @Test
     public void openJETIProject(){
         openWebPage(driver,"https://jira-auto.codecool.metastage.net/projects/JETI/summary");
-        validateText("JETI", getWebElementText(browsePage.projectMetaValueJETI));
+        validateText("JETI", getWebElementText(browsePage.projectMetaValue));
     }
 
     @Test
     public void openTOUCANProject(){
         openWebPage(driver,"https://jira-auto.codecool.metastage.net/projects/TOUCAN/summary");
-        validateText("TOUCAN", getWebElementText(browsePage.projectMetaValueTOUCAN));
+        validateText("TOUCAN", getWebElementText(browsePage.projectMetaValue));
     }
 
     @Test
