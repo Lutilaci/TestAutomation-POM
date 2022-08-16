@@ -6,11 +6,14 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import static org.assertj.core.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 public class LogInLogout {
 
     public WebDriver driver;
-    public static String keyCode = "24";
+    public static String keyCode = "22";
     public static String username = "automation";
     public static String password = "CCAutoTest19.";
 
@@ -19,12 +22,15 @@ public class LogInLogout {
     @FindBy (id = "login-form-submit") public static WebElement submitButton;
     @FindBy (css = ".aui-avatar-small img") public static WebElement avatarIcon;
     @FindBy (css = "#log_out") public static WebElement logoutButton;
+    @FindBy (xpath = "//li[@id='user-options']/a") public static WebElement loginButton;
+    @FindBy (xpath = "//*[@id=\"up-d-username\"]") public static WebElement usernameInProfile;
 
     public LogInLogout(WebDriver driver) {
         PageFactory.initElements(driver, this);
     }
 
     public static void logIn(WebDriver driver){
+        driver.get("https://jira-auto.codecool.metastage.net/login.jsp");
         driver.findElement(By.id("login-form-username")).sendKeys(username+keyCode);
         driver.findElement(By.id("login-form-password")).sendKeys(password);
         driver.findElement(By.id("login-form-submit")).click();
@@ -33,5 +39,13 @@ public class LogInLogout {
     public static void logout(WebDriver driver){
         driver.findElement(By.cssSelector(".aui-avatar-small img")).click();
         driver.findElement(By.cssSelector("#log_out")).click();
+    }
+
+    public static void ValidateLogOut(WebDriver driver) {
+        driver.get("https://jira-auto.codecool.metastage.net/secure/ViewProfile.jspa");
+
+        assertEquals(true, driver.findElement(By.xpath("//li[@id='user-options']/a")).isDisplayed());
+        assertEquals(true, driver.findElements(By.xpath("//*[@id=\"up-d-username\"]")).isEmpty());
+
     }
 }
