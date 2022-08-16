@@ -36,36 +36,36 @@ public class BrowseProjectsTest {
         openWebPage(driver, "https://jira-auto.codecool.metastage.net/secure/BrowseProjects.jspa");
 //        String pageHeader = browsePage.getWebElementText(browsePage.mainPageHeader);
 //        Assertions.assertEquals("Browse projects", browsePage.getWebElementText(browsePage.mainPageHeader));
-        validateText("Browse projects", getWebElementText(browsePage.mainPageHeader));
+        validateText(getWebElementText(browsePage.mainPageHeader), "Browse projects");
     }
 
     @Test
     public void openExistingProject(){
         openWebPage(driver,"https://jira-auto.codecool.metastage.net/projects/MTP/summary");
-        validateText("MTP", getWebElementText(browsePage.projectMetaValue));
+        validateText(getWebElementText(browsePage.projectMetaValue), "MTP");
     }
 
     @Test
     public void openCOALAProject(){
         openWebPage(driver,"https://jira-auto.codecool.metastage.net/projects/COALA/summary");
-        validateText("COALA", getWebElementText(browsePage.projectMetaValue));
+        validateText(getWebElementText(browsePage.projectMetaValue), "COALA");
     }
 
     @Test
     public void openJETIProject(){
         openWebPage(driver,"https://jira-auto.codecool.metastage.net/projects/JETI/summary");
-        validateText("JETI", getWebElementText(browsePage.projectMetaValue));
+        validateText(getWebElementText(browsePage.projectMetaValue), "JETI");
     }
 
     @Test
     public void openTOUCANProject(){
         openWebPage(driver,"https://jira-auto.codecool.metastage.net/projects/TOUCAN/summary");
-        validateText("TOUCAN", getWebElementText(browsePage.projectMetaValue));
+        validateText(getWebElementText(browsePage.projectMetaValue), "TOUCAN");
     }
 
     @Test
     public void openNonExistingProject() {
         openWebPage(driver,"https://jira-auto.codecool.metastage.net/projects/SOMETHING/summary");
-        validateText("You can't view this project", getWebElementText(browsePage.pageError));
+        validateText(getWebElementText(browsePage.pageError), "You can't view this project");
     }
 }
