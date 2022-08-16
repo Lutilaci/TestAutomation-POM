@@ -2,13 +2,12 @@ package com.codecool.testautomation.test;
 
 import com.codecool.testautomation.page.BrowsePage;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import java.time.Duration;
-import static com.codecool.testautomation.utility.LogInLogout.*;
+import static com.codecool.testautomation.utility.LogIn.*;
 import static com.codecool.testautomation.utility.Utility.*;
 
 
@@ -39,7 +38,6 @@ public class BrowseIssuesTest {
 //        Assertions.assertEquals("All issues", browsePage.getWebElementText(browsePage.subnavigatorTitle));
         validateText("All issues", getWebElementText(browsePage.subnavigatorTitle));
 //        String header = browsePage.getWebElementText(browsePage.browseIssueHeader);
-        System.out.println(getWebElementText(browsePage.browseIssueHeader));
 //        Assertions.assertEquals("Happy Path", browsePage.getWebElementText(browsePage.browseIssueHeader));
         validateText("Happy Path", getWebElementText(browsePage.browseIssueHeader));
     }

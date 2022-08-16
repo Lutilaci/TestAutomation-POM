@@ -16,10 +16,11 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static com.codecool.testautomation.utility.LogInLogout.*;
+import static com.codecool.testautomation.utility.LogIn.*;
 import static com.codecool.testautomation.utility.Utility.*;
 
 
@@ -66,7 +67,7 @@ public class CreatePageTest {
 
         // Restore
         openWebPage(driver,"https://jira-auto.codecool.metastage.net/browse/COALA-126");
-        createPage.restoreSubTask(wait);
+        createPage.restore(wait);
     }
 
     // I can't create sub-task for TOUCAN
@@ -81,32 +82,27 @@ public class CreatePageTest {
 
         // Restore
         openWebPage(driver,"https://jira-auto.codecool.metastage.net/browse/TOUCAN-121");
-        createPage.restoreSubTask(wait);
+        createPage.restore(wait);
     }
 
     @Test
     public void createJETISubTask(){
-        openWebPage(driver,"https://jira-auto.codecool.metastage.net/browse/JETI-62");
+        openWebPage(driver,"https://jira-auto.codecool.metastage.net/browse/JETI-68");
         validateText("JETI Happy Path", getWebElementText(createPage.issueHeader));
         createPage.createSubTask();
         createPage.popupMessage.isDisplayed();
-        validateText("JETI-62 has been updated.", getWebElementText(createPage.popupMessage));
+        validateText("JETI-68 has been updated.", getWebElementText(createPage.popupMessage));
         validateText("Sub-task test", getWebElementText(createPage.subTaskName));
 
         // Restore
-        openWebPage(driver,"https://jira-auto.codecool.metastage.net/browse/JETI-62");
-        createPage.restoreSubTask(wait);
+        openWebPage(driver,"https://jira-auto.codecool.metastage.net/browse/JETI-68");
+        createPage.restore(wait);
     }
 
     @Test
     public void createNewIssue() {
         createPage.createSpecificIssue(wait, "MTP", "Bug");
 
-        wait.until(ExpectedConditions.elementToBeClickable(
-                createPage.summaryField)).sendKeys("Happy Path");
-        wait.until(ExpectedConditions.elementToBeClickable(
-                        createPage.createIssueButton
-        )).click();
         wait.until(ExpectedConditions.visibilityOf(createPage.popupMessage));
         wait.until(ExpectedConditions.elementToBeClickable(
                         driver.findElement(By.partialLinkText("Happy Path")))).click();
@@ -114,13 +110,13 @@ public class CreatePageTest {
         validateText("Happy Path", getWebElementText(createPage.issueHeader));
 
         // Restore
-        createPage.restoreIssue(wait);
+        createPage.restore(wait);
     }
+
 
     @Test
     public void createIssueWithEmptySummary(){
-        createPage.mainCreateButton.click();
-        createPage.createIssueButton.click();
+        createPage.createIssueWithEmptySummary();
         validateText("You must specify a summary of the issue.", getWebElementText(createPage.createIssueErrorMessage));
         createPage.cancelButton.click();
         driver.switchTo().alert().accept();
@@ -128,10 +124,6 @@ public class CreatePageTest {
 
     @Test
     public void CreateIssueInCOALAProjectWithIssueTypes() {
-        List<String> supposedToBe = new ArrayList<>();
-        supposedToBe.add("Bug");
-        supposedToBe.add("Story");
-        supposedToBe.add("Task");
         List<String> issueTypes = new ArrayList<>();
         createPage.mainCreateButton.click();
         createPage.clearProjectField();
@@ -151,15 +143,11 @@ public class CreatePageTest {
 
         createPage.cancelButton.click();
         Collections.sort(issueTypes);
-        Assertions.assertEquals(supposedToBe, issueTypes);
+        Assertions.assertEquals(createPage.supposedToBe, issueTypes);
     }
 
     @Test
     public void CreateIssueInJETIProjectWithIssueTypes() {
-        List<String> supposedToBe = new ArrayList<>();
-        supposedToBe.add("Bug");
-        supposedToBe.add("Story");
-        supposedToBe.add("Task");
         List<String> issueTypes = new ArrayList<>();
         createPage.mainCreateButton.click();
         createPage.clearProjectField();
@@ -179,16 +167,16 @@ public class CreatePageTest {
 
         createPage.cancelButton.click();
         Collections.sort(issueTypes);
-        Assertions.assertEquals(issueTypes, supposedToBe);
+        Assertions.assertEquals(createPage.supposedToBe, issueTypes);
     }
 
     // I don't have permission to create TOUCAN project
     @Test
     public void CreateIssueInTOUCANProjectWithIssueTypes() {
-        List<String> supposedToBe = new ArrayList<>();
-        supposedToBe.add("Bug");
-        supposedToBe.add("Story");
-        supposedToBe.add("Task");
+//        List<String> supposedToBe = new ArrayList<>();
+//        supposedToBe.add("Bug");
+//        supposedToBe.add("Story");
+//        supposedToBe.add("Task");
         List<String> issueTypes = new ArrayList<>();
 
         createPage.mainCreateButton.click();
@@ -210,15 +198,13 @@ public class CreatePageTest {
 
         createPage.cancelButton.click();
         Collections.sort(issueTypes);
-        Assertions.assertEquals(issueTypes,supposedToBe);
+        Assertions.assertEquals(createPage.supposedToBe, issueTypes);
     }
 
     @Test
     public void CancelIssueAfterFill() {
         createPage.createSpecificIssue(wait, "MTP", "Bug");
 
-        wait.until(ExpectedConditions.elementToBeClickable(
-            createPage.issueTypeSelector)).sendKeys(Keys.RETURN);
         wait.until(ExpectedConditions.elementToBeClickable(
             createPage.summaryField)).sendKeys("Issue Cancel Test");
         createPage.cancelButton.click();
