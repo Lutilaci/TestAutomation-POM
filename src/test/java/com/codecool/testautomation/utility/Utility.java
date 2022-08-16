@@ -11,8 +11,8 @@ public class Utility {
         return element.getText();
     }
 
-    public static void validateText(String actual, String expected){
-        Assertions.assertEquals(actual, expected);
+    public static void validateText(String expected, String actual){
+        Assertions.assertEquals(expected, actual);
     }
 
     public static void openWebPage(WebDriver driver, String url){ driver.get(url); }
