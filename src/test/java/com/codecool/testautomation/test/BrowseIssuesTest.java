@@ -34,11 +34,7 @@ public class BrowseIssuesTest {
     @Test
     public void browseIssues(){
         driver.get("https://jira-auto.codecool.metastage.net/projects/MTP/issues/MTP-2020?filter=allopenissues");
-//        String openIssues = browsePage.getWebElementText(browsePage.subnavigatorTitle);
-//        Assertions.assertEquals("All issues", browsePage.getWebElementText(browsePage.subnavigatorTitle));
         validateText("All issues", getWebElementText(browsePage.subnavigatorTitle));
-//        String header = browsePage.getWebElementText(browsePage.browseIssueHeader);
-//        Assertions.assertEquals("Happy Path", browsePage.getWebElementText(browsePage.browseIssueHeader));
         validateText("Happy Path", getWebElementText(browsePage.browseIssueHeader));
     }
 
