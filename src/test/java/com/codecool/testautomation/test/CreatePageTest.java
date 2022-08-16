@@ -16,7 +16,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -87,21 +86,21 @@ public class CreatePageTest {
 
     @Test
     public void createJETISubTask(){
-        openWebPage(driver,"https://jira-auto.codecool.metastage.net/browse/JETI-68");
+        openWebPage(driver,"https://jira-auto.codecool.metastage.net/browse/JETI-61");
         validateText("JETI Happy Path", getWebElementText(createPage.issueHeader));
         createPage.createSubTask();
         createPage.popupMessage.isDisplayed();
-        validateText("JETI-68 has been updated.", getWebElementText(createPage.popupMessage));
+        validateText("JETI-61 has been updated.", getWebElementText(createPage.popupMessage));
         validateText("Sub-task test", getWebElementText(createPage.subTaskName));
 
         // Restore
-        openWebPage(driver,"https://jira-auto.codecool.metastage.net/browse/JETI-68");
+        openWebPage(driver,"https://jira-auto.codecool.metastage.net/browse/JETI-61");
         createPage.restore(wait);
     }
 
     @Test
     public void createNewIssue() {
-        createPage.createSpecificIssue(wait, "MTP", "Bug");
+        createPage.createSpecificIssue(wait, "MTP", "Bug", "Happy Path");
 
         wait.until(ExpectedConditions.visibilityOf(createPage.popupMessage));
         wait.until(ExpectedConditions.elementToBeClickable(
@@ -173,10 +172,6 @@ public class CreatePageTest {
     // I don't have permission to create TOUCAN project
     @Test
     public void CreateIssueInTOUCANProjectWithIssueTypes() {
-//        List<String> supposedToBe = new ArrayList<>();
-//        supposedToBe.add("Bug");
-//        supposedToBe.add("Story");
-//        supposedToBe.add("Task");
         List<String> issueTypes = new ArrayList<>();
 
         createPage.mainCreateButton.click();
@@ -203,15 +198,14 @@ public class CreatePageTest {
 
     @Test
     public void CancelIssueAfterFill() {
-        createPage.createSpecificIssue(wait, "MTP", "Bug");
+        createPage.createSpecificIssue(wait, "MTP", "Bug", "Issue Cancel Test");
 
-        wait.until(ExpectedConditions.elementToBeClickable(
-            createPage.summaryField)).sendKeys("Issue Cancel Test");
         createPage.cancelButton.click();
         wait.until(ExpectedConditions.alertIsPresent());
         driver.switchTo().alert().accept();
         wait.until(ExpectedConditions.elementToBeClickable(
             createPage.issuesButton)).click();
+//        createPage.searchForIssue("Issue Cancel Test");
         createPage.searchForIssuesButton.click();
         createPage.searchForIssueField.sendKeys("Issue Cancel Test");
         createPage.searchButton.click();

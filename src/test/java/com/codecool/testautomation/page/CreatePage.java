@@ -34,7 +34,7 @@ public class CreatePage {
     @FindBy (css = ".no-results > h2") public WebElement resultPageContent;
     @FindBy (xpath = "(//button[@type='button'])[3]") public WebElement searchButton;
     @FindBy (xpath = "//*[@id=\"find_link\"]") public WebElement searchForIssuesButton;
-    @FindBy (xpath = "//*[@id=\"searcher-query\"]") public WebElement searchForIssueField;
+    @FindBy (css = "#searcher-query") public WebElement searchForIssueField;
     @FindBy (css = ".stsummary > .issue-link") public WebElement subTaskName;
     @FindBy (xpath= "//*[@id=\"summary\"]") public WebElement summaryField;
 
@@ -81,7 +81,7 @@ public class CreatePage {
         projectField.sendKeys(Keys.DELETE);
     }
 
-    public void createSpecificIssue(WebDriverWait wait, String projectName, String issueType){
+    public void createSpecificIssue(WebDriverWait wait, String projectName, String issueType, String summary){
         mainCreateButton.click();
         clearProjectField();
         projectField.sendKeys(projectName);
@@ -91,7 +91,7 @@ public class CreatePage {
         wait.until(ExpectedConditions.elementToBeClickable(
                 issueTypeSelector)).sendKeys(Keys.RETURN);
         wait.until(ExpectedConditions.elementToBeClickable(
-                summaryField)).sendKeys("Happy Path");
+                summaryField)).sendKeys(summary);
         wait.until(ExpectedConditions.elementToBeClickable(
                 createIssueButton)).click();
     }
@@ -99,5 +99,11 @@ public class CreatePage {
     public void createIssueWithEmptySummary(){
         mainCreateButton.click();
         createIssueButton.click();
+    }
+
+    public void searchForIssue(String nameOfIssue){
+        searchForIssuesButton.click();
+        searchForIssueField.sendKeys(nameOfIssue);
+        searchButton.click();
     }
 }
