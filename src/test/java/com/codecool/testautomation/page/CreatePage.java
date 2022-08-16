@@ -1,5 +1,6 @@
 package com.codecool.testautomation.page;
 
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -9,10 +10,15 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class CreatePage {
+    WebDriver driver;
+    WebDriverWait wait;
 
     @FindBy (xpath = "//*[@id=\"opsbar-operations_more\"]") public WebElement actionButton;
     @FindBy (xpath = "//button[contains(.,'Cancel')]") public WebElement cancelButton;
@@ -42,16 +48,17 @@ public class CreatePage {
 
     public CreatePage(WebDriver driver) {
         PageFactory.initElements(driver, this);
+        this.driver = driver;
+        wait = new WebDriverWait(driver, Duration.ofSeconds(5));
     }
 
-    public void restore(WebDriverWait wait){
+    public void restore(){
         wait.until(ExpectedConditions.elementToBeClickable(
                 actionButton
         )).click();
         deleteButton.click();
         finalDeleteButton.click();
     }
-
 
     public void createSubTask(){
         moreButton.click();
@@ -102,8 +109,43 @@ public class CreatePage {
     }
 
     public void searchForIssue(String nameOfIssue){
+        wait.until(ExpectedConditions.elementToBeClickable(
+                issuesButton)).click();
         searchForIssuesButton.click();
         searchForIssueField.sendKeys(nameOfIssue);
         searchButton.click();
+    }
+
+    public void validateIssueTypes(){
+        wait.until(ExpectedConditions.elementToBeClickable(
+                issueTypeSelector)).click();
+
+        List<String> issueTypes = new ArrayList<>();
+        issueTypes.add(issueTypeSelector.getAttribute("value"));
+
+        WebElement ul_Element = issueScrollDown;
+        List<WebElement> li_All = ul_Element.findElements(By.tagName("li"));
+
+
+        for (WebElement webElement : li_All) {
+            issueTypes.add(webElement.getText());
+        }
+
+        cancelButton.click();
+        Collections.sort(issueTypes);
+        Assertions.assertEquals(supposedToBe, issueTypes);
+    }
+
+    public void setProjectTo(String project){
+        mainCreateButton.click();
+        clearProjectField();
+        projectField.sendKeys(project);
+        projectField.sendKeys(Keys.RETURN);
+    }
+
+    public void cancelCreation(){
+        cancelButton.click();
+        wait.until(ExpectedConditions.alertIsPresent());
+        driver.switchTo().alert().accept();
     }
 }

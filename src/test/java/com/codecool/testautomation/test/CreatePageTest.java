@@ -1,23 +1,16 @@
 package com.codecool.testautomation.test;
 
-import com.codecool.testautomation.page.BrowsePage;
 import com.codecool.testautomation.page.CreatePage;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 import static com.codecool.testautomation.utility.LogIn.*;
 import static com.codecool.testautomation.utility.Utility.*;
@@ -27,7 +20,6 @@ public class CreatePageTest {
 
     private WebDriver driver;
     private CreatePage createPage;
-    private BrowsePage browsePage;
     private WebDriverWait wait;
 
     @BeforeEach
@@ -36,7 +28,6 @@ public class CreatePageTest {
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
         wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-        browsePage = new BrowsePage(driver);
         createPage = new CreatePage(driver);
         driver.get("https://jira-auto.codecool.metastage.net/login.jsp");
         logIn(driver);
@@ -66,7 +57,7 @@ public class CreatePageTest {
 
         // Restore
         openWebPage(driver,"https://jira-auto.codecool.metastage.net/browse/COALA-126");
-        createPage.restore(wait);
+        createPage.restore();
     }
 
     // I can't create sub-task for TOUCAN
@@ -81,7 +72,7 @@ public class CreatePageTest {
 
         // Restore
         openWebPage(driver,"https://jira-auto.codecool.metastage.net/browse/TOUCAN-121");
-        createPage.restore(wait);
+        createPage.restore();
     }
 
     @Test
@@ -95,7 +86,7 @@ public class CreatePageTest {
 
         // Restore
         openWebPage(driver,"https://jira-auto.codecool.metastage.net/browse/JETI-61");
-        createPage.restore(wait);
+        createPage.restore();
     }
 
     @Test
@@ -109,7 +100,7 @@ public class CreatePageTest {
         validateText("Happy Path", getWebElementText(createPage.issueHeader));
 
         // Restore
-        createPage.restore(wait);
+        createPage.restore();
     }
 
 
@@ -123,91 +114,33 @@ public class CreatePageTest {
 
     @Test
     public void CreateIssueInCOALAProjectWithIssueTypes() {
-        List<String> issueTypes = new ArrayList<>();
-        createPage.mainCreateButton.click();
-        createPage.clearProjectField();
-        createPage.projectField.sendKeys("COALA");
-        createPage.projectField.sendKeys(Keys.RETURN);
-
-        wait.until(ExpectedConditions.elementToBeClickable(
-                        createPage.issueTypeSelector)).click();
-        issueTypes.add(createPage.issueTypeSelector.getAttribute("value"));
-
-        WebElement ul_Element = createPage.issueScrollDown;
-        List<WebElement> li_All = ul_Element.findElements(By.tagName("li"));
-
-        for (WebElement webElement : li_All) {
-            issueTypes.add(webElement.getText());
-        }
-
-        createPage.cancelButton.click();
-        Collections.sort(issueTypes);
-        Assertions.assertEquals(createPage.supposedToBe, issueTypes);
+        createPage.setProjectTo("COALA");
+        createPage.validateIssueTypes();
     }
 
     @Test
     public void CreateIssueInJETIProjectWithIssueTypes() {
-        List<String> issueTypes = new ArrayList<>();
-        createPage.mainCreateButton.click();
-        createPage.clearProjectField();
-        createPage.projectField.sendKeys("JETI");
-        createPage.projectField.sendKeys(Keys.RETURN);
-
-        wait.until(ExpectedConditions.elementToBeClickable(
-                        createPage.issueTypeSelector)).click();
-        issueTypes.add(createPage.issueTypeSelector.getAttribute("value"));
-
-        WebElement ul_Element = createPage.issueScrollDown;
-        List<WebElement> li_All = ul_Element.findElements(By.tagName("li"));
-
-        for (WebElement webElement : li_All) {
-            issueTypes.add(webElement.getText());
-        }
-
-        createPage.cancelButton.click();
-        Collections.sort(issueTypes);
-        Assertions.assertEquals(createPage.supposedToBe, issueTypes);
+        createPage.setProjectTo("JETI");
+        createPage.validateIssueTypes();
     }
 
     // I don't have permission to create TOUCAN project
     @Test
     public void CreateIssueInTOUCANProjectWithIssueTypes() {
-        List<String> issueTypes = new ArrayList<>();
-
-        createPage.mainCreateButton.click();
-        createPage.clearProjectField();
-        createPage.projectField.sendKeys("TOUCAN");
-        createPage.projectField.sendKeys(Keys.RETURN);
-
-        wait.until(ExpectedConditions.elementToBeClickable(
-                createPage.issueTypeSelector)).click();
-
-        issueTypes.add(createPage.issueTypeSelector.getAttribute("value"));
-
-        WebElement ul_Element = createPage.issueScrollDown;
-        List<WebElement> issueTyps = ul_Element.findElements(By.tagName("li"));
-
-        for (WebElement webElement : issueTyps) {
-            issueTypes.add(webElement.getText());
-        }
-
-        createPage.cancelButton.click();
-        Collections.sort(issueTypes);
-        Assertions.assertEquals(createPage.supposedToBe, issueTypes);
+        createPage.setProjectTo("TOUCAN");
+        createPage.validateIssueTypes();
     }
 
     @Test
     public void CancelIssueAfterFill() {
         createPage.createSpecificIssue(wait, "MTP", "Bug", "Issue Cancel Test");
-
-        createPage.cancelButton.click();
-        wait.until(ExpectedConditions.alertIsPresent());
-        driver.switchTo().alert().accept();
+        createPage.cancelCreation();
         wait.until(ExpectedConditions.elementToBeClickable(
             createPage.issuesButton)).click();
 //        createPage.searchForIssue("Issue Cancel Test");
         createPage.searchForIssuesButton.click();
-        createPage.searchForIssueField.sendKeys("Issue Cancel Test");
+        wait.until(ExpectedConditions.visibilityOf(createPage.searchForIssueField)).sendKeys("Issue Cancel Test");
+//        createPage.searchForIssueField.sendKeys("Issue Cancel Test");
         createPage.searchButton.click();
         wait.until(ExpectedConditions.elementToBeClickable(createPage.resultPageContent));
         validateText("No issues were found to match your search", getWebElementText(createPage.resultPageContent));
