@@ -1,65 +1,50 @@
 package com.codecool.testautomation.test;
 
 import com.codecool.testautomation.page.EditIssuePage;
-import com.codecool.testautomation.page.LoginPage;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.time.Duration;
+import com.codecool.testautomation.utility.Driver;
+import org.junit.jupiter.api.*;
 
 import static com.codecool.testautomation.utility.LogIn.logIn;
 
-public class EditIssueTest {
-    private WebDriver driver;
-    private EditIssuePage ei;
-    private LoginPage lp;
-    private WebDriverWait wait;
+
+public class EditIssueTest extends Driver {
+    private EditIssuePage editIssuePage;
+
 
     @BeforeEach
     public void setUp(){
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
-        driver.get("https://jira-auto.codecool.metastage.net/browse/MTP-2096");
-        ei = new EditIssuePage(driver);
-        lp = new LoginPage(driver);
-        wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-        logIn(driver);
+        getUrl("/browse/MTP-2096");
+        editIssuePage = new EditIssuePage(getDriver(), getWait());
+        logIn(getDriver());
     }
 
     @AfterEach
     public void tearDown(){
-        driver.close();
-        driver.quit();
+        editIssuePage.restoreChanges();
+        quitDriver();
     }
-
     @Test
     public void editExistingIssue(){
-        ei.clickEditIssue();
-        ei.renameSummary();
-        ei.updateIssue();
-        ei.validateSummaryChanges();
-        ei.rollBackSummaryChange();
+        editIssuePage.clickEditIssue();
+        editIssuePage.renameSummary("Happy Path Edit");
+        editIssuePage.updateIssue();
+        Assertions.assertEquals("Happy Path Edit", editIssuePage.getSummary());
     }
 
     @Test
     public void editIssueCancel(){
-        ei.clickEditIssue();
-        ei.renameSummary();
-        ei.cancelUpdate();
-        ei.validateCancel();
-        ei.rollBackSummaryChange();
+        editIssuePage.clickEditIssue();
+        editIssuePage.renameSummary("Happy Path Edit");
+        editIssuePage.cancelUpdate();
+        Assertions.assertEquals("Happy Path", editIssuePage.getSummary());
     }
 
     @Test
     public void addField(){
-        ei.clickEditIssue();
-        ei.addDescription();
-        ei.updateIssue();
-        ei.validateNewDescriptionText();
-        ei.rollBackDescriptionChange();
+        editIssuePage.clickEditIssue();
+        editIssuePage.addDescription("new description");
+        editIssuePage.updateIssue();
+        Assertions.assertEquals("new description",editIssuePage.getDescription());
+
     }
 }

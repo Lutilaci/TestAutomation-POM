@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static com.codecool.testautomation.utility.LogInLogout.*;
+import static com.codecool.testautomation.utility.LogIn.logIn;
 import static com.codecool.testautomation.utility.Utility.*;
 
 
@@ -44,7 +44,6 @@ public class CreatePageTest {
 
     @AfterEach
     public void tearDown() {
-        logout(driver);
         driver.quit();
     }
 

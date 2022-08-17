@@ -31,10 +31,7 @@ public class LogOutTest {
     @Test
     public void successfullLogOut()
     {
-        LogInLogout.logIn(driver);
-        LogInLogout.logout(driver);
 
-        LogInLogout.ValidateLogOut(driver);
 
     }
 

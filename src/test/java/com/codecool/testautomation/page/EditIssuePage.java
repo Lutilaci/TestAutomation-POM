@@ -1,6 +1,5 @@
 package com.codecool.testautomation.page;
 
-import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -8,7 +7,6 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.time.Duration;
 
 public class EditIssuePage {
     WebDriver driver;
@@ -50,10 +48,10 @@ public class EditIssuePage {
     @FindBy(xpath = "//*[@id=\"aui-flag-container\"]/div/div")
     public WebElement updateSuccessMessage;
 
-    public EditIssuePage(WebDriver driver) {
+    public EditIssuePage(WebDriver driver, WebDriverWait wait) {
         PageFactory.initElements(driver, this);
         this.driver = driver;
-        wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        this.wait = wait;
     }
 
     public void clickEditIssue(){
@@ -61,14 +59,16 @@ public class EditIssuePage {
                 editButton)).click();
     }
 
-    public void renameSummary(){
+    public void renameSummary(String summaryName){
         wait.until(ExpectedConditions.elementToBeClickable(
                 summaryField)).clear();
-        summaryField.sendKeys("Happy Path Edit");
+        summaryField.sendKeys(summaryName);
     }
 
     public void updateIssue(){
        updateButton.click();
+        wait.until(ExpectedConditions.elementToBeClickable(
+                updateSuccessMessage));
     }
 
     public void cancelUpdate(){
@@ -76,45 +76,32 @@ public class EditIssuePage {
         driver.switchTo().alert().accept();
     }
 
-    public void validateSummaryChanges(){
-        wait.until(ExpectedConditions.elementToBeClickable(
-                updateSuccessMessage));
-        Assertions.assertEquals("MTP-2096 has been updated.",updateSuccessMessage.getText());
-        Assertions.assertEquals("Happy Path Edit",summaryValue.getText());
+    public String getSummary(){
+        return summaryValue.getText();
+
     }
 
-    public void validateCancel(){
-        Assertions.assertEquals("Happy Path",summaryValue.getText());
+    public String getDescription(){
+        return descriptionValue.getText();
     }
 
-    public void validateNewDescriptionText(){
-        wait.until(ExpectedConditions.elementToBeClickable(
-                updateSuccessMessage));
-        Assertions.assertEquals("MTP-2096 has been updated.",updateSuccessMessage.getText());
-        Assertions.assertEquals("new description",descriptionValue.getText());
-    }
-
-    public void rollBackSummaryChange(){
+    public void restoreChanges(){
         editButton.click();
         wait.until(ExpectedConditions.elementToBeClickable(
                 summaryField)).clear();
         summaryField.sendKeys("Happy Path");
+        wait.until(ExpectedConditions.elementToBeClickable(
+                switchTextMode)).click();
+        descriptionField.clear();
         summaryField.submit();
     }
 
-    public void rollBackDescriptionChange(){
-        editButton.click();
-        wait.until(ExpectedConditions.elementToBeClickable(
-                switchTextMode)).click();
-        descriptionField.clear();
-        updateButton.click();
-    }
 
-    public void addDescription(){
+    public void addDescription(String description){
         wait.until(ExpectedConditions.elementToBeClickable(
                 switchTextMode)).click();
         descriptionField.clear();
         wait.until(ExpectedConditions.elementToBeClickable(
-                descriptionField)).sendKeys("new description");
+                descriptionField)).sendKeys(description);
     }
 }
