@@ -1,6 +1,6 @@
 package com.codecool.testautomation.page;
 
-import org.junit.jupiter.api.Assertions;
+import com.codecool.testautomation.utility.Config;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -10,14 +10,10 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-
-import static com.codecool.testautomation.utility.Utility.getWebElementText;
-import static com.codecool.testautomation.utility.Utility.validateText;
 
 public class CreatePage {
     WebDriver driver;
@@ -42,36 +38,35 @@ public class CreatePage {
     @FindBy (xpath = "(//button[@type='button'])[3]") public WebElement searchButton;
     @FindBy (xpath = "/html//li[@id='issues_new_search_link']") public WebElement searchForIssuesButton;
     @FindBy (xpath = "//*[@id=\"searcher-query\"]") public WebElement searchForIssueField;
-    @FindBy (css = ".stsummary > .issue-link") public WebElement subTaskName;
+    @FindBy (xpath = "//*[@id=\"issuerow12961\"]/td[2]/a") public WebElement subTaskName;
     @FindBy (xpath= "//*[@id=\"summary\"]") public WebElement summaryField;
+    @FindBy (xpath = "//*[@id=\"actions_12961\"]")
 
     public List<String> issueTypesSupposedToBe = Arrays.asList("Bug", "Story", "Task");
 
-    public CreatePage(WebDriver driver) {
-        PageFactory.initElements(driver, this);
-        this.driver = driver;
-        wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+    public CreatePage() {
+        PageFactory.initElements(Config.driver, this);
+        this.driver = Config.driver;
+        this.wait = Config.wait;
     }
 
     public void restoreIssue(){
-        wait.until(ExpectedConditions.elementToBeClickable(
-                actionButton
-        )).click();
+        waitForElementToClick(actionButton);
         deleteButton.click();
-        finalDeleteButton.click();
+        waitForElementToClick(finalDeleteButton);;
     }
 
     public void restoreSubTask(){
-        wait.until(ExpectedConditions.elementToBeClickable(subTaskName)).click();
-        wait.until(ExpectedConditions.elementToBeClickable(actionButton)).click();
-        wait.until(ExpectedConditions.elementToBeClickable(deleteButton)).click();
+        waitForElementToClick(subTaskName);
+        waitForElementToClick(actionButton);
+        waitForElementToClick(deleteButton);
         finalDeleteButton.click();
     }
 
     public void createSubTask(){
         moreButton.click();
         createSubClass.click();
-        summaryField.sendKeys("Sub-task test");
+        waitForElementToSendText(summaryField, "Sub-task test");
         createIssueButton.click();
     }
 
@@ -79,9 +74,9 @@ public class CreatePage {
         String os = System.getProperty("os.name");
         wait.until(ExpectedConditions.elementToBeClickable(issueTypeSelector));
         if (os.equals("Mac OS X")){
-            issueTypeSelector.sendKeys(Keys.COMMAND + "a");
+            waitForElementToSendText(issueTypeSelector, Keys.COMMAND + "a");
         }else{
-            issueTypeSelector.sendKeys(Keys.CONTROL + "a");
+            waitForElementToSendText(issueTypeSelector, Keys.CONTROL + "a");
         }
         issueTypeSelector.sendKeys(Keys.DELETE);
     }
@@ -89,9 +84,9 @@ public class CreatePage {
     public void clearProjectField(){
         String os = System.getProperty("os.name");
         if (os.equals("Mac OS X")){
-            projectField.sendKeys(Keys.COMMAND + "a");
+            waitForElementToSendText(projectField, Keys.COMMAND + "a");
         }else{
-            projectField.sendKeys(Keys.CONTROL + "a");
+            waitForElementToSendText(projectField, Keys.CONTROL + "a");
         }
         projectField.sendKeys(Keys.DELETE);
     }
@@ -104,23 +99,20 @@ public class CreatePage {
         issueTypeSelector.sendKeys(issueType);
         wait.until(ExpectedConditions.elementToBeClickable(
                 issueTypeSelector)).sendKeys(Keys.RETURN);
-        wait.until(ExpectedConditions.elementToBeClickable(
-                summaryField)).sendKeys(summary);
-        wait.until(ExpectedConditions.elementToBeClickable(
-                createIssueButton)).click();
-        wait.until(ExpectedConditions.visibilityOf(popupMessage));
-        wait.until(ExpectedConditions.elementToBeClickable(
-                driver.findElement(By.partialLinkText("Happy Test")))).click();
+        waitForElementToSendText(summaryField, summary);
+        waitForElementToClick(createIssueButton);
+        waitForWebElementToBePresent(popupMessage);
+        waitForElementToClick(driver.findElement(By.partialLinkText("Happy Test")));
     }
 
     public void createIssueWithEmptySummary(){
-        mainCreateButton.click();
-        createIssueButton.click();
+        clickCreateButton();
+        waitForElementToClick(createIssueButton);
+        waitForWebElementToBePresent(createIssueErrorMessage);
     }
 
-    public void validateIssueTypes(){
-        wait.until(ExpectedConditions.elementToBeClickable(
-                issueTypeSelector)).click();
+    public List<String> getIssueTypes(){
+        waitForElementToClick(issueTypeSelector);
 
         List<String> issueTypes = new ArrayList<>();
         issueTypes.add(issueTypeSelector.getAttribute("value"));
@@ -135,7 +127,7 @@ public class CreatePage {
 
         cancelButton.click();
         Collections.sort(issueTypes);
-        Assertions.assertEquals(issueTypesSupposedToBe, issueTypes);
+        return issueTypes;
     }
 
     public void setProjectTo(String project){
@@ -163,35 +155,29 @@ public class CreatePage {
         issueTypeSelector.sendKeys(issueType);
         wait.until(ExpectedConditions.elementToBeClickable(
                 issueTypeSelector)).sendKeys(Keys.RETURN);
-        wait.until(ExpectedConditions.elementToBeClickable(
-                summaryField)).sendKeys(summary);
+        waitForElementToSendText(summaryField, summary);
     }
 
     public void validateIssueDoesntExist(){
-        wait.until(ExpectedConditions.elementToBeClickable(
-                issuesButton)).click();
-        searchForIssuesButton.click();
-        searchForIssueField.sendKeys("Issue Cancel Test");
+        waitForElementToClick(issuesButton);
+        waitForElementToClick(searchForIssuesButton);
+        waitForElementToSendText(searchForIssueField, "Issue Cancel Test");
         searchButton.click();
-        wait.until(ExpectedConditions.elementToBeClickable(resultPageContent));
-        validateText("No issues were found to match your search", getWebElementText(resultPageContent));
+        waitForWebElementToBePresent(resultPageContent);
+
     }
 
-    public void validateJETISubTaskCreation(){
-        popupMessage.isDisplayed();
-        validateText("JETI-103 has been updated.", getWebElementText(popupMessage));
-        validateText("Sub-task test", getWebElementText(subTaskName));
+    public void waitForWebElementToBePresent(WebElement webElement){
+        wait.until(ExpectedConditions.visibilityOf(webElement));
     }
 
-    public void validateTOUCANSubTaskCreation(){
-        popupMessage.isDisplayed();
-        validateText("TOUCAN-121 has been updated.", getWebElementText(popupMessage));
-        validateText("Sub-task test", getWebElementText(subTaskName));
-    }
+    public void waitForElementToSendText(WebElement webElement, String text){
+        wait.until(ExpectedConditions.visibilityOf(webElement)).sendKeys(text);
 
-    public void validateCOALASubTaskCreation(){
-        popupMessage.isDisplayed();
-        validateText("COALA-126 has been updated.", getWebElementText(popupMessage));
-        validateText("Sub-task test", getWebElementText(subTaskName));
+    }
+    public void waitForElementToClick(WebElement webElement){
+        wait.until(ExpectedConditions.elementToBeClickable(
+                webElement
+        )).click();
     }
 }
