@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="74cd8763-fdac-446f-9e56-caa002c539c0" name="Changes" comment="make config file for driver and wait (static final)">
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/codecool/testautomation/page/CreatePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/codecool/testautomation/page/CreatePage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/codecool/testautomation/test/CreatePageTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/codecool/testautomation/test/CreatePageTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/codecool/testautomation/test/PermissionsWithGlassTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/codecool/testautomation/test/PermissionsWithGlassTest.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "node.js.selected.package.tslint": "(autodetect)"
+  }
+}]]></component>
+  <component name="RunManager" selected="JUnit.CreatePageTest">
+    <configuration name="CreatePageTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="TestAutomationProject" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.codecool.testautomation.test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.codecool.testautomation.test" />
+      <option name="MAIN_CLASS_NAME" value="com.codecool.testautomation.test.CreatePageTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CreatePageTest.CancelIssueAfterFill" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="TestAutomationProject" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.codecool.testautomation.test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.codecool.testautomation.test" />
+      <option name="MAIN_CLASS_NAME" value="com.codecool.testautomation.test.CreatePageTest" />
+      <option name="METHOD_NAME" value="CancelIssueAfterFill" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CreatePageTest.CreateIssueInCOALAProjectWithIssueTypes" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="TestAutomationProject" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.codecool.testautomation.test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.codecool.testautomation.test" />
+      <option name="MAIN_CLASS_NAME" value="com.codecool.testautomation.test.CreatePageTest" />
+      <option name="METHOD_NAME" value="CreateIssueInCOALAProjectWithIssueTypes" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CreatePageTest.CreateIssueInJETIProjectWithIssueTypes" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="TestAutomationProject" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.codecool.testautomation.test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.codecool.testautomation.test" />
+      <option name="MAIN_CLASS_NAME" value="com.codecool.testautomation.test.CreatePageTest" />
+      <option name="METHOD_NAME" value="CreateIssueInJETIProjectWithIssueTypes" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CreatePageTest.createIssueWithEmptySummary" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="TestAutomationProject" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.codecool.testautomation.test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.codecool.testautomation.test" />
+      <option name="MAIN_CLASS_NAME" value="com.codecool.testautomation.test.CreatePageTest" />
+      <option name="METHOD_NAME" value="createIssueWithEmptySummary" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.CreatePageTest" />
+        <item itemvalue="JUnit.CreatePageTest.CancelIssueAfterFill" />
+        <item itemvalue="JUnit.CreatePageTest.CreateIssueInJETIProjectWithIssueTypes" />
+        <item itemvalue="JUnit.CreatePageTest.CreateIssueInCOALAProjectWithIssueTypes" />
+        <item itemvalue="JUnit.CreatePageTest.createIssueWithEmptySummary" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="TaskManager">
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="config" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
