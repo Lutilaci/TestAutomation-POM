@@ -7,8 +7,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class BrowsePage {
-    static DriverSingleton driverSingleton = DriverSingleton.getInstance();
-    private static final WebDriver driver = DriverSingleton.getDriver();
+    private WebDriver driver;
 
     @FindBy (xpath = "//*[@id=\"summary-val\"]") public WebElement browseIssueHeader;
     @FindBy (xpath = "//*[@id=\"key-val\"]") public WebElement issueLink;
@@ -17,7 +16,8 @@ public class BrowsePage {
     @FindBy (css = ".project-meta-value:nth-child(4)") public WebElement projectMetaValue;
     @FindBy (xpath = "/html//span[@id='issues-subnavigation-title']") public WebElement subnavigatorTitle;
 
-    public BrowsePage() {
+    public BrowsePage(WebDriver driver) {
+        this.driver = driver;
         PageFactory.initElements(driver, this);
     }
 }

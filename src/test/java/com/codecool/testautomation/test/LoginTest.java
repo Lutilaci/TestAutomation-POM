@@ -1,17 +1,19 @@
 package com.codecool.testautomation.test;
 
 import com.codecool.testautomation.page.LoginPage;
-import com.codecool.testautomation.utility.Driver;
+import com.codecool.testautomation.utility.DriverSingleton;
 import com.opencsv.CSVReader;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-
 import java.io.FileReader;
 import java.io.IOException;
 
+import static com.codecool.testautomation.utility.Utility.*;
+
+
 public class LoginTest {
+    static DriverSingleton driverSingleton = DriverSingleton.getInstance();
     LoginPage lp;
     String CSV_PATH= "src/test/java/com/codecool/testautomation/data/loginsData.csv";
     private CSVReader csvReader;
@@ -19,15 +21,13 @@ public class LoginTest {
 
     @BeforeEach
     public void setUp() {
-        lp = new LoginPage();
-        Driver.getInstance().getDriver().get("https://jira-auto.codecool.metastage.net/login.jsp");
-
+        lp = new LoginPage(DriverSingleton.getDriver());
+        beforeEachSetup();
     }
 
     @AfterEach
     public void tearDown(){
-        Driver.getInstance().getDriver().close();
-//        driver.quit();
+        close();
     }
 
     @Test

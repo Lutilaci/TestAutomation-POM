@@ -1,35 +1,26 @@
 package com.codecool.testautomation.test;
 
 import com.codecool.testautomation.page.EditIssuePage;
-import com.codecool.testautomation.utility.Driver;
+import com.codecool.testautomation.utility.DriverSingleton;
 import org.junit.jupiter.api.*;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-import static com.codecool.testautomation.utility.LogIn.logIn;
 import static com.codecool.testautomation.utility.Utility.*;
 
 
-
 public class EditIssueTest{
-
+    static DriverSingleton driverSingleton = DriverSingleton.getInstance();
     private EditIssuePage editIssuePage;
-
 
     @BeforeEach
     public void setUp(){
         openUrl("/browse/MTP-2096");
-        editIssuePage = new EditIssuePage();
-        logIn();
+        editIssuePage = new EditIssuePage(DriverSingleton.getDriver());
+        beforeEachSetup();
     }
 
     @AfterEach
     public void tearDown(){
         editIssuePage.restoreChanges();
-    }
-
-    @AfterAll
-    public void quit(){
         close();
     }
     @Test

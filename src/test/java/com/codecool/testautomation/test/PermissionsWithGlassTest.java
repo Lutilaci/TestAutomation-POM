@@ -1,6 +1,7 @@
 package com.codecool.testautomation.test;
 
 import com.codecool.testautomation.page.PermissionsPage;
+import com.codecool.testautomation.utility.DriverSingleton;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -9,31 +10,24 @@ import org.junit.jupiter.api.TestInstance;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.codecool.testautomation.utility.LogIn.logIn;
 import static com.codecool.testautomation.utility.Utility.*;
 
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class PermissionsWithGlassTest {
-
-//    WebDriver driver;
+    static DriverSingleton driverSingleton = DriverSingleton.getInstance();
     PermissionsPage pPage;
 
     @BeforeAll
     public void setUp()
     {
         beforeEachSetup();
-//        driver = new ChromeDriver();
-//        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(6));
-//        driver.manage().window().maximize();
-        pPage = new PermissionsPage();
-        logIn();
+        pPage = new PermissionsPage(DriverSingleton.getDriver());
     }
 
     @AfterAll
     public void quitDriver() {
-        driver.close();
-//        driver.quit();
+        close();
     }
 
     @Test

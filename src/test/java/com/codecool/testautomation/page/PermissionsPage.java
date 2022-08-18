@@ -15,8 +15,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class PermissionsPage {
-    static DriverSingleton driverSingleton = DriverSingleton.getInstance();
-    private static final WebDriver driver = DriverSingleton.getDriver();
+    private WebDriver driver;
     private final WebDriverWait wait;
 
     @FindBy(id = "project-issuetypes-container") public static WebElement issueTypesContainer;
@@ -26,7 +25,8 @@ public class PermissionsPage {
     @FindBy(xpath = "//a[contains(text(),'View by Permissions')]") public static WebElement ViewByButton;
 
 
-    public PermissionsPage() {
+    public PermissionsPage(WebDriver driver) {
+        this.driver = driver;
         this.wait = DriverSingleton.getWait();
         PageFactory.initElements(driver, this);
     }

@@ -1,38 +1,37 @@
 package com.codecool.testautomation.test;
 
+import com.codecool.testautomation.page.LoginPage;
+import com.codecool.testautomation.utility.DriverSingleton;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 
-import java.time.Duration;
+import static com.codecool.testautomation.utility.Utility.*;
+import static com.codecool.testautomation.utility.LogIn.*;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class LogOutTest {
-    WebDriver driver;
+    static DriverSingleton driverSingleton = DriverSingleton.getInstance();
+    LoginPage loginPage;
 
     @BeforeAll
-    public void setUp()
-    {
-        driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(6));
+    public void setUp(){
+        loginPage = new LoginPage(DriverSingleton.getDriver());
+        beforeEachSetup();
     }
 
     @AfterAll
     public void quitDriver() {
-        driver.close();
-//        driver.quit();
-
+        close();
     }
+
     @Test
-    public void successfullLogOut()
-    {
-
-
+    public void successfullLogOut() {
+        loginPage.logIn();
+        logout();
+        loginPage.validateLogin();
     }
 
 }

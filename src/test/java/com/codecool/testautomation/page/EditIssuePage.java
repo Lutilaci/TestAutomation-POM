@@ -10,8 +10,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 
 public class EditIssuePage {
-    static DriverSingleton driverSingleton = DriverSingleton.getInstance();
-    private static final WebDriver driver = DriverSingleton.getDriver();
+    private WebDriver driver;
     private final WebDriverWait wait;
 
     @FindBy(id = "edit-issue")
@@ -50,8 +49,9 @@ public class EditIssuePage {
     @FindBy(xpath = "//*[@id=\"aui-flag-container\"]/div/div")
     public WebElement updateSuccessMessage;
 
-    public EditIssuePage() {
+    public EditIssuePage(WebDriver driver) {
         this.wait = DriverSingleton.getWait();
+        this.driver = driver;
         PageFactory.initElements(driver, this);
     }
 
