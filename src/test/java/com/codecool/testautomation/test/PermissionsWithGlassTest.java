@@ -1,6 +1,7 @@
 package com.codecool.testautomation.test;
 
 import com.codecool.testautomation.page.PermissionsPage;
+import com.codecool.testautomation.utility.LogIn;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -11,6 +12,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import java.time.Duration;
 import java.util.Arrays;
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -26,7 +29,7 @@ public class PermissionsWithGlassTest {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(6));
         driver.manage().window().maximize();
         pPage = new PermissionsPage(driver);
-        LogInLogout.logIn(driver);
+        LogIn.logIn(driver);
     }
 
     @AfterAll
@@ -39,7 +42,7 @@ public class PermissionsWithGlassTest {
     public void aviableRequiredIssuesInPPProject() {
         pPage.OpenPPProjectSettings();
 
-        pPage.validateSettingIssues(Arrays.asList("Bug","Epic","Story","Sub-task","Task"));
+        assertTrue(pPage.validateSettingIssues(Arrays.asList("Bug","Epic","Story","Sub-task","Task")));
     }
 
     @Test
@@ -47,8 +50,9 @@ public class PermissionsWithGlassTest {
         pPage.OpenPPProjectSettings();
         List<String> issuesInSetting = pPage.GetAllIssueTypesFromSettings();
         pPage.OpenPPProjectGlassPage();
+        assertTrue(pPage.validateDropDown(issuesInSetting));
+        assertTrue(pPage.validateIcons(issuesInSetting));
 
-        pPage.validateGlassIssues(issuesInSetting);
     }
 
     @Test
@@ -56,9 +60,9 @@ public class PermissionsWithGlassTest {
         pPage.OpenPPProjectGlassPage();
 
         pPage.goToPermissionsMatrix();
-        pPage.validatePermissionsMatrix();
+        assertTrue(pPage.validatePermissionsMatrix());
 
         pPage.goToViewBy();
-        pPage.validateViewBy();
+        assertTrue(pPage.validateViewBy());
     }
 }

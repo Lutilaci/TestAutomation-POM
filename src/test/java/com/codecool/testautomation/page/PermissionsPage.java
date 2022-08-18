@@ -3,8 +3,8 @@ package com.codecool.testautomation.page;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -13,22 +13,18 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 public class PermissionsPage {
     WebDriver driver;
-    @FindBy(xpath = "//*[@id=\"project-issuetypes-container\"]") public static List<WebElement> issueTypesContainer;
-    @FindBy(xpath = "*[@id=\"glass-workflow-nav\"]/a/div") public static WebElement issueTypesDropDownButton;
-    @FindBy(xpath = "//*[@id=\"dropdown-issuetypes\"]") public static WebElement issueTypesDropDownContainer;
-    @FindBy(xpath = "//*[@id=\"glass-permissions-nav\"]") public static WebElement PermissionsMatrixButton;
+    @FindBy(id = "project-issuetypes-container") public static WebElement issueTypesContainer;
+    @FindBy(id = "glass-workflow-nav") public static WebElement issueTypesDropDownButton;
+    @FindBy(id = "dropdown-issuetypes") public static WebElement issueTypesDropDownContainer;
+    @FindBy(id = "glass-permissions-nav") public static WebElement PermissionsMatrixButton;
     @FindBy(xpath = "//a[contains(text(),'View by Permissions')]") public static WebElement ViewByButton;
-
-    //@FindAll(xpath = "//td//p[@class = \"title\"]") public static List<WebElement>WebElement p;
-
 
 
     public PermissionsPage(WebDriver driver) {
         this.driver = driver;
+        PageFactory.initElements(driver, this);
     }
 
     public  void  OpenPPProjectSettings()
@@ -43,39 +39,49 @@ public class PermissionsPage {
 
     public List<String> GetAllIssueTypesFromSettings()
     {
-        return new ArrayList<String>(Arrays.asList(driver.findElement(By.xpath("//*[@id=\"project-issuetypes-container\"]")).getText().split("\n")));
+        return new ArrayList<String>(Arrays.asList(issueTypesContainer.getText().split("\n")));
     }
 
-    public void validateSettingIssues(List<String> requiredTypes) {
+    public boolean validateSettingIssues(List<String> requiredTypes) {
 
-        assertTrue(GetAllIssueTypesFromSettings().containsAll(requiredTypes));
+        return(GetAllIssueTypesFromSettings().containsAll(requiredTypes));
     }
 
-    public void validateGlassIssues(List<String> issuesInSetting) {
-        driver.findElement(By.xpath("//li[@id='glass-workflow-nav']/a/div")).click();
+    public boolean validateDropDown(List<String> issuesInSetting) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(6));
-        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//*[@id=\"dropdown-issuetypes\"]"))));
+        wait.until(ExpectedConditions.visibilityOf(issueTypesDropDownButton));
+        issueTypesDropDownButton.click();
+        wait.until(ExpectedConditions.visibilityOf(issueTypesDropDownContainer));
+        //Validate DropDown
         for(String s : issuesInSetting)
         {
-            //Validate DropDown
             String dropDownPath = "//a[contains(.,' " + s + "')]";
-            assertTrue(driver.findElement(By.xpath(dropDownPath)).isDisplayed());
-            //ValidateIcons
-            String spanPath = "//span[contains(@title, \"" + s + "\")]";
-            assertTrue(driver.findElement(By.xpath(spanPath)).isDisplayed());
+            if(!driver.findElement(By.xpath(dropDownPath)).isDisplayed())
+                return false;
         }
+        return true;
+    }
+
+    public boolean validateIcons(List<String> issuesInSetting) {
+        //ValidateIcons
+        for(String s : issuesInSetting) {
+            String spanPath = "//span[contains(@title, '" + s + "')]";
+            if(!driver.findElement(By.xpath(spanPath)).isDisplayed())
+                return false;
+        }
+        return true;
     }
 
 
     public int findTrInPermissionMatrix(String trName) {
-        List<WebElement> matrix = driver.findElements(By.xpath("//td//p[@class = \"title\"]"));
+        List<WebElement> matrix = driver.findElements(By.xpath("//td//p[@class = 'title']"));
         int result = 0;
         for (WebElement e : matrix) {
             result++;
             if (e.getText().contains(trName))
                 return result;
         }
-        assertTrue(false);
+//TODO: try/catch
         return 0;
     }
 
@@ -89,7 +95,7 @@ public class PermissionsPage {
             if (e.getText().contains(thName))
                 return result;
         }
-        assertTrue(false);
+//TODO: try/catch
         return 0;
     }
 
@@ -104,7 +110,7 @@ public class PermissionsPage {
                     return result;
             }
         }
-        assertTrue(false);
+//TODO: try/catch
         return 0;
     }
 
@@ -120,29 +126,33 @@ public class PermissionsPage {
                 }
             }
         }
-        assertTrue(false);
+//TODO: try/catch
         return 0;
     }
 
     public void goToPermissionsMatrix() {
-        driver.findElement(By.xpath("//*[@id=\"glass-permissions-nav\"]")).click();
+        PermissionsMatrixButton.click();
     }
 
-    public void validatePermissionsMatrix() {
+    public boolean validatePermissionsMatrix() {
         int tr = findTrInPermissionMatrix("Browse Projects");
         int th = findThInPermissionMatrix("Any logged in user");
         String selectedInMatrix = "//div[@id='glass-permissions-matrix-panel']/div/table/tbody/tr[" + tr + "]/td[" + th + "]/div";
-        assertFalse(driver.findElements(By.xpath(selectedInMatrix)).isEmpty());
+        if(!driver.findElements(By.xpath(selectedInMatrix)).isEmpty())
+            return true;
+        return false;
     }
 
     public void goToViewBy() {
-        driver.findElement(By.xpath("//a[contains(text(),'View by Permissions')]")).click();
+        ViewByButton.click();
     }
 
-    public void validateViewBy() {
+    public boolean validateViewBy() {
         int tr = findTrInViewByPermissions("Browse Projects");
         int th = findThInViewByPermissions("Granted to");
         String selectedInMatrix = "//*[@id=\"glass-permissions-permissionview-panel\"]/div/table/tbody/tr[" + tr + "]/td[" + th + "]";
-        assertTrue(driver.findElement(By.xpath(selectedInMatrix)).getText().contains("Application Access: Any logged in user"));
+        if(driver.findElement(By.xpath(selectedInMatrix)).getText().contains("Application Access: Any logged in user"))
+            return true;
+        return false;
     }
 }
