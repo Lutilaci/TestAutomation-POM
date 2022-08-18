@@ -5,6 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -52,10 +53,30 @@ public class CreatePage {
         this.wait = Config.wait;
     }
 
-    public void restoreIssue(){
-        waitForElementToClick(actionButton);
-        clickButton(deleteButton);
-        waitForElementToClick(finalDeleteButton);;
+    public void fillInSearchField(String issueName) {
+        wait.until(ExpectedConditions.elementToBeClickable(searchForIssueField));
+
+        searchForIssueField.sendKeys(issueName);
+        searchForIssueField.sendKeys(Keys.ENTER);
+    }
+
+    public void navigateToSearchForIssues() {
+        issuesButton.click();
+        wait.until(ExpectedConditions.visibilityOf(searchForIssuesButton));
+        searchForIssuesButton.click();
+    }
+
+    public void restoreIssue(String projectName, String issueName) {
+        navigateToSearchForIssues();
+        fillInSearchField(issueName);
+        wait.until(ExpectedConditions.textToBe(By.id("project-name-val"), projectName));
+        clickButton(moreButton);
+        Actions action = new Actions(driver);
+        action.moveToElement(deleteButton);
+        action.perform();
+        wait.until(ExpectedConditions.visibilityOf(deleteButton));
+        deleteButton.click();
+        waitForElementToClick(finalDeleteButton);
     }
 
     public void restoreSubTask(){
@@ -163,18 +184,4 @@ public class CreatePage {
         clickButton(searchButton);
         waitForWebElementToBePresent(resultPageContent);
     }
-
-//    public void waitForWebElementToBePresent(WebElement webElement){
-//        wait.until(ExpectedConditions.visibilityOf(webElement));
-//    }
-//
-//    public void waitForElementToSendText(WebElement webElement, String text){
-//        wait.until(ExpectedConditions.elementToBeClickable(webElement)).sendKeys(text);
-//
-//    }
-//    public void waitForElementToClick(WebElement webElement){
-//        wait.until(ExpectedConditions.elementToBeClickable(
-//                webElement
-//        )).click();
-//    }
 }

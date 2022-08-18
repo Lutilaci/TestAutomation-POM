@@ -4,6 +4,7 @@ import com.codecool.testautomation.page.EditIssuePage;
 import com.codecool.testautomation.utility.Driver;
 import org.junit.jupiter.api.*;
 
+import static com.codecool.testautomation.utility.Config.driver;
 import static com.codecool.testautomation.utility.LogIn.logIn;
 
 
@@ -21,7 +22,11 @@ public class EditIssueTest extends Driver {
     @AfterEach
     public void tearDown(){
         editIssuePage.restoreChanges();
-        quitDriver();
+    }
+
+    @AfterAll
+    public void quit(){
+        driver.close();
     }
     @Test
     public void editExistingIssue(){

@@ -19,12 +19,12 @@ public class CreatePageTest {
 
     @AfterAll
     public void tearDown() {
-        driver.quit();
+        driver.close();
     }
 
 //     I can't create sub-task for COALA
     @Test
-    public void createCOALASubTask() {
+    public void createCOALASubTask(){
         openUrl("browse/COALA-130");
         Assertions.assertEquals("Create sub-task", createPage.issueHeader.getText());
         createPage.createSubTask();
@@ -39,7 +39,7 @@ public class CreatePageTest {
 
 //     I can't create sub-task for TOUCAN
     @Test
-    public void createTOUCANSubTask() {
+    public void createTOUCANSubTask(){
         openUrl("browse/TOUCAN-132");
         Assertions.assertEquals("Create sub-task", createPage.issueHeader.getText());
         createPage.createSubTask();
@@ -70,10 +70,10 @@ public class CreatePageTest {
     public void createNewIssue() {
         openUrl("secure/Dashboard.jspa");
         clickButton(createPage.mainCreateButton);
-        createPage.createSpecificIssue(wait, "MTP", "Bug", "Happy Test");
+        createPage.createSpecificIssue(wait, "Main Testing Project", "Bug", "Happy Test");
 
         // Restore
-        createPage.restoreIssue();
+        createPage.restoreIssue("Main Testing Project", "Happy Test");
     }
 
     @Test

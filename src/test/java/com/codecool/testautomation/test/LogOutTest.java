@@ -25,7 +25,7 @@ public class LogOutTest {
     @AfterAll
     public void quitDriver() {
         driver.close();
-        driver.quit();
+//        driver.quit();
 
     }
     @Test

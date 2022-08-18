@@ -20,7 +20,7 @@ public class BrowseIssuesTest {
     @AfterAll
     public void tearDown() {
 //        logout(driver);
-        driver.quit();
+        driver.close();
     }
 
     @Test
