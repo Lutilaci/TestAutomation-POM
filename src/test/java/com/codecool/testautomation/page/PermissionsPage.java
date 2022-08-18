@@ -1,6 +1,6 @@
 package com.codecool.testautomation.page;
 
-import com.codecool.testautomation.utility.Driver;
+import com.codecool.testautomation.utility.DriverSingleton;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -15,8 +15,9 @@ import java.util.Arrays;
 import java.util.List;
 
 public class PermissionsPage {
-    WebDriver driver;
-    WebDriverWait wait;
+    static DriverSingleton driverSingleton = DriverSingleton.getInstance();
+    private static final WebDriver driver = DriverSingleton.getDriver();
+    private final WebDriverWait wait;
 
     @FindBy(id = "project-issuetypes-container") public static WebElement issueTypesContainer;
     @FindBy(id = "glass-workflow-nav") public static WebElement issueTypesDropDownButton;
@@ -26,8 +27,7 @@ public class PermissionsPage {
 
 
     public PermissionsPage() {
-        this.driver = Driver.getInstance().getDriver();
-//        this.wait = Driver.getInstance().getWait();
+        this.wait = DriverSingleton.getWait();
         PageFactory.initElements(driver, this);
     }
 
@@ -52,7 +52,6 @@ public class PermissionsPage {
     }
 
     public boolean validateDropDown(List<String> issuesInSetting) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(6));
         wait.until(ExpectedConditions.visibilityOf(issueTypesDropDownButton));
         issueTypesDropDownButton.click();
         wait.until(ExpectedConditions.visibilityOf(issueTypesDropDownContainer));

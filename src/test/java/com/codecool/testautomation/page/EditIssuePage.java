@@ -1,6 +1,6 @@
 package com.codecool.testautomation.page;
 
-import com.codecool.testautomation.utility.Driver;
+import com.codecool.testautomation.utility.DriverSingleton;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -10,8 +10,9 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 
 public class EditIssuePage {
-    WebDriver driver;
-    WebDriverWait wait;
+    static DriverSingleton driverSingleton = DriverSingleton.getInstance();
+    private static final WebDriver driver = DriverSingleton.getDriver();
+    private final WebDriverWait wait;
 
     @FindBy(id = "edit-issue")
     public WebElement editButton;
@@ -50,8 +51,7 @@ public class EditIssuePage {
     public WebElement updateSuccessMessage;
 
     public EditIssuePage() {
-        this.driver = Driver.getInstance().getDriver();
-//        this.wait = Driver.getInstance().getWait();
+        this.wait = DriverSingleton.getWait();
         PageFactory.initElements(driver, this);
     }
 
@@ -67,7 +67,7 @@ public class EditIssuePage {
     }
 
     public void updateIssue(){
-       updateButton.click();
+        updateButton.click();
         wait.until(ExpectedConditions.elementToBeClickable(
                 updateSuccessMessage));
     }

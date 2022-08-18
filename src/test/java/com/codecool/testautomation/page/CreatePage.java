@@ -20,7 +20,6 @@ import static com.codecool.testautomation.utility.Utility.*;
 
 public class CreatePage {
     static DriverSingleton driverSingleton = DriverSingleton.getInstance();
-
     private static final WebDriver driver = DriverSingleton.getDriver();
     private final WebDriverWait wait;
 
@@ -50,9 +49,8 @@ public class CreatePage {
     @FindBy(xpath = "//*[@id='actions_12961']") public List<String> issueTypesSupposedToBe = Arrays.asList("Bug", "Story", "Task");
 
     public CreatePage() {
-//        this.driver = DriverSingleton.getDriver();
         this.wait = DriverSingleton.getWait();
-        PageFactory.initElements(this.driver, this);
+        PageFactory.initElements(driver, this);
     }
 
     public void searchForIssue(String issueName) {
@@ -60,6 +58,8 @@ public class CreatePage {
 
         searchForIssueField.sendKeys(issueName);
         searchForIssueField.sendKeys(Keys.ENTER);
+
+        clickButton(searchButton);
     }
 
     public void navigateToSearchForIssues() {
@@ -174,7 +174,6 @@ public class CreatePage {
         navigateToSearchForIssues();
         searchForIssue("Issue Cancel Test");
 
-        clickButton(searchButton);
         waitForWebElementToBePresent(resultPageContent);
     }
 

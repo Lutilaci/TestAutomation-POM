@@ -4,6 +4,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
+import static com.codecool.testautomation.utility.LogIn.*;
+
 
 public class Utility {
     static WebDriver driver = DriverSingleton.getDriver();
@@ -31,20 +33,13 @@ public class Utility {
         return webElement.getText();
     }
 
-//    public static WebDriver getDriver(){
-//        return Driver.getInstance().getDriver();
-//    }
-//
-//    public static WebDriverWait getWait(){
-//        return Driver.getInstance().getWait();
-//    }
-
     public static void openUrl(String url){
         driver.get(baseUrl + url);
     }
 
     public static void beforeEachSetup() {
         driver.manage().window().maximize();
+        logIn();
     }
 
     public static void close(){
