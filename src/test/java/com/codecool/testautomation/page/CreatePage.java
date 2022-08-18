@@ -164,17 +164,17 @@ public class CreatePage {
         waitForWebElementToBePresent(resultPageContent);
     }
 
-    public void waitForWebElementToBePresent(WebElement webElement){
-        wait.until(ExpectedConditions.visibilityOf(webElement));
-    }
-
-    public void waitForElementToSendText(WebElement webElement, String text){
-        wait.until(ExpectedConditions.elementToBeClickable(webElement)).sendKeys(text);
-
-    }
-    public void waitForElementToClick(WebElement webElement){
-        wait.until(ExpectedConditions.elementToBeClickable(
-                webElement
-        )).click();
-    }
+//    public void waitForWebElementToBePresent(WebElement webElement){
+//        wait.until(ExpectedConditions.visibilityOf(webElement));
+//    }
+//
+//    public void waitForElementToSendText(WebElement webElement, String text){
+//        wait.until(ExpectedConditions.elementToBeClickable(webElement)).sendKeys(text);
+//
+//    }
+//    public void waitForElementToClick(WebElement webElement){
+//        wait.until(ExpectedConditions.elementToBeClickable(
+//                webElement
+//        )).click();
+//    }
 }

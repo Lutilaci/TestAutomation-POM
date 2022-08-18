@@ -28,7 +28,7 @@ public class CreatePageTest {
         openUrl("browse/COALA-130");
         Assertions.assertEquals("Create sub-task", createPage.issueHeader.getText());
         createPage.createSubTask();
-        createPage.waitForWebElementToBePresent(createPage.popupMessage);
+        waitForWebElementToBePresent(createPage.popupMessage);
         Assertions.assertEquals("COALA-130 has been updated.", createPage.popupMessage.getText());
         Assertions.assertEquals("Sub-task test", createPage.subTaskName.getText());
 
@@ -43,7 +43,7 @@ public class CreatePageTest {
         openUrl("browse/TOUCAN-132");
         Assertions.assertEquals("Create sub-task", createPage.issueHeader.getText());
         createPage.createSubTask();
-        createPage.waitForWebElementToBePresent(createPage.popupMessage);
+        waitForWebElementToBePresent(createPage.popupMessage);
         Assertions.assertEquals("TOUCAN-121 has been updated.", createPage.popupMessage.getText());
         Assertions.assertEquals("Sub-task test", createPage.subTaskName.getText());
 
@@ -57,7 +57,7 @@ public class CreatePageTest {
         openUrl("browse/JETI-103");
         Assertions.assertEquals("Create sub-task", createPage.issueHeader.getText());
         createPage.createSubTask();
-        createPage.waitForWebElementToBePresent(createPage.popupMessage);
+        waitForWebElementToBePresent(createPage.popupMessage);
         Assertions.assertEquals("JETI-103 has been updated.", createPage.popupMessage.getText());
         Assertions.assertEquals("Sub-task test", createPage.subTaskName.getText());
 
