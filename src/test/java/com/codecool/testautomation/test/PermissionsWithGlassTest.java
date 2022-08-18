@@ -50,7 +50,9 @@ public class PermissionsWithGlassTest {
         List<String> issuesInSetting = pPage.GetAllIssueTypesFromSettings();
         pPage.OpenPPProjectGlassPage();
 
-        pPage.validateGlassIssues(issuesInSetting);
+
+        pPage.validateDropDown(issuesInSetting);
+        pPage.validateIcons(issuesInSetting);
     }
 
     @Test
