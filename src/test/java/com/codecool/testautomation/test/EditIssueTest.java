@@ -8,7 +8,7 @@ import static com.codecool.testautomation.utility.Utility.*;
 
 
 public class EditIssueTest{
-    static DriverSingleton driverSingleton = DriverSingleton.getInstance();
+//    static DriverSingleton driverSingleton = DriverSingleton.getInstance();
     private EditIssuePage editIssuePage;
 
     @BeforeEach

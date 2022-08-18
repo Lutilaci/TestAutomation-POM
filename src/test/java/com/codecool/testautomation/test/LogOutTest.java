@@ -13,7 +13,7 @@ import static com.codecool.testautomation.utility.LogIn.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class LogOutTest {
-    static DriverSingleton driverSingleton = DriverSingleton.getInstance();
+//    static DriverSingleton driverSingleton = DriverSingleton.getInstance();
     LoginPage loginPage;
 
     @BeforeAll

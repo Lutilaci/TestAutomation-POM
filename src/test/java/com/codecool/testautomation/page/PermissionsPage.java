@@ -15,6 +15,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public class PermissionsPage {
+    DriverSingleton driverSingleton = DriverSingleton.getInstance();
+
     private WebDriver driver;
     private final WebDriverWait wait;
 

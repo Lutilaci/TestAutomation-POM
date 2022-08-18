@@ -6,11 +6,9 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import static com.codecool.testautomation.utility.LogIn.*;
 
-
 public class Utility {
 
     static WebDriver driver = DriverSingleton.getDriver();
-
     public static final String baseUrl = "https://jira-auto.codecool.metastage.net/";
 
     public static void clickButton(WebElement webElement){webElement.click();
@@ -45,6 +43,7 @@ public class Utility {
 
     public static void close(){
         DriverSingleton.getDriver().close();
+        DriverSingleton.setDriverSingleton(null);
     }
 
     public static void quit(){ DriverSingleton.getDriver().quit(); }

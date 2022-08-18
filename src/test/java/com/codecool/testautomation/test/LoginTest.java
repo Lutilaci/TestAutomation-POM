@@ -13,7 +13,7 @@ import static com.codecool.testautomation.utility.Utility.*;
 
 
 public class LoginTest {
-    static DriverSingleton driverSingleton = DriverSingleton.getInstance();
+//    static DriverSingleton driverSingleton = DriverSingleton.getInstance();
     LoginPage lp;
     String CSV_PATH= "src/test/java/com/codecool/testautomation/data/loginsData.csv";
     private CSVReader csvReader;

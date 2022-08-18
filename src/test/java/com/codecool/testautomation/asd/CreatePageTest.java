@@ -14,15 +14,14 @@ public class CreatePageTest {
 
     @BeforeAll
     public void setUp() {
-        DriverSingleton driverSingleton = DriverSingleton.getInstance();
-        createPage = new CreatePage(DriverSingleton.getDriver());
+//        DriverSingleton driverSingleton = DriverSingleton.getInstance();
+        createPage = new CreatePage();
         beforeEachSetup();
     }
 
     @AfterAll
     public void tearDown() {
         close();
-//        quit();
     }
 
      // I can't create sub-task for COALA

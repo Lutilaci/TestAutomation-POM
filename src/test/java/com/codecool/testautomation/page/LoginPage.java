@@ -13,6 +13,8 @@ import static com.codecool.testautomation.utility.Utility.*;
 
 
 public class LoginPage {
+    DriverSingleton driverSingleton = DriverSingleton.getInstance();
+
     private WebDriver driver;
     private final WebDriverWait wait;
 

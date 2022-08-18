@@ -10,6 +10,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 
 public class EditIssuePage {
+    DriverSingleton driverSingleton = DriverSingleton.getInstance();
+
     private WebDriver driver;
     private final WebDriverWait wait;
 

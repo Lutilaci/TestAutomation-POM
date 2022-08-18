@@ -13,14 +13,14 @@ public class BrowseIssuesTest {
 
     @BeforeAll
     public void setUp() {
-        DriverSingleton driverSingleton = DriverSingleton.getInstance();
-        browsePage = new BrowsePage(DriverSingleton.getDriver());
+//        DriverSingleton driverSingleton = DriverSingleton.getInstance();
+
+        browsePage = new BrowsePage();
         beforeEachSetup();
     }
 
     @AfterAll
     public void tearDown() {
-//        logout(driver);
         close();
     }
 

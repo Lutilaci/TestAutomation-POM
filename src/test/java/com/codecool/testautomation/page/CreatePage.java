@@ -19,7 +19,9 @@ import java.util.List;
 import static com.codecool.testautomation.utility.Utility.*;
 
 public class CreatePage {
-    private WebDriver driver;
+    static DriverSingleton driverSingleton = DriverSingleton.getInstance();
+
+    private WebDriver driver = DriverSingleton.getDriver();
     private final WebDriverWait wait;
 
     @FindBy(xpath = "//*[@id='opsbar-operations_more']") public WebElement actionButton;
@@ -47,9 +49,8 @@ public class CreatePage {
     @FindBy(xpath = "//*[@id='summary']") public WebElement summaryField;
     @FindBy(xpath = "//*[@id='actions_12961']") public List<String> issueTypesSupposedToBe = Arrays.asList("Bug", "Story", "Task");
 
-    public CreatePage(WebDriver driver) {
+    public CreatePage() {
         this.wait = DriverSingleton.getWait();
-        this.driver = driver;
         PageFactory.initElements(driver, this);
     }
 

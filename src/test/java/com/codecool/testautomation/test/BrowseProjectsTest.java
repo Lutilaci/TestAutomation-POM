@@ -9,12 +9,12 @@ import static com.codecool.testautomation.utility.Utility.*;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class BrowseProjectsTest {
 
-    static DriverSingleton driverSingleton = DriverSingleton.getInstance();
+//    static DriverSingleton driverSingleton = DriverSingleton.getInstance();
     private BrowsePage browsePage;
 
     @BeforeAll
     public void setUp() {
-        browsePage = new BrowsePage(DriverSingleton.getDriver());
+        browsePage = new BrowsePage();
         beforeEachSetup();
     }
 
@@ -22,6 +22,7 @@ public class BrowseProjectsTest {
     public void tearDown() {
 //        logout(driver);
         close();
+
     }
 
     @Test

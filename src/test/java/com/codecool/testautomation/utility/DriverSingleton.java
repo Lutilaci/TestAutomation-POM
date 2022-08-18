@@ -28,6 +28,12 @@ public class DriverSingleton {
     public static WebDriverWait getWait(){
         return wait;
     }
+
+    public static void setDriverSingleton(DriverSingleton driverSingleton) {
+        DriverSingleton.driverSingleton = driverSingleton;
+    }
+
 }
+
 
 
