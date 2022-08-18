@@ -3,20 +3,24 @@ package com.codecool.testautomation.test;
 import com.codecool.testautomation.page.EditIssuePage;
 import com.codecool.testautomation.utility.Driver;
 import org.junit.jupiter.api.*;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
-import static com.codecool.testautomation.utility.Config.driver;
 import static com.codecool.testautomation.utility.LogIn.logIn;
+import static com.codecool.testautomation.utility.Utility.*;
 
 
-public class EditIssueTest extends Driver {
+
+public class EditIssueTest{
+
     private EditIssuePage editIssuePage;
 
 
     @BeforeEach
     public void setUp(){
-        getUrl("/browse/MTP-2096");
-        editIssuePage = new EditIssuePage(getDriver(), getWait());
-        logIn(getDriver());
+        openUrl("/browse/MTP-2096");
+        editIssuePage = new EditIssuePage();
+        logIn();
     }
 
     @AfterEach
@@ -26,7 +30,7 @@ public class EditIssueTest extends Driver {
 
     @AfterAll
     public void quit(){
-        driver.close();
+        close();
     }
     @Test
     public void editExistingIssue(){

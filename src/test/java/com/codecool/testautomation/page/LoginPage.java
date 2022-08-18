@@ -1,13 +1,17 @@
 package com.codecool.testautomation.page;
 
+import com.codecool.testautomation.utility.Driver;
 import com.codecool.testautomation.utility.LogIn;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class LoginPage {
+    WebDriver driver;
+    WebDriverWait wait;
 
     @FindBy(id = "login-form-username")
     public WebElement usernameField;
@@ -30,7 +34,9 @@ public class LoginPage {
     @FindBy(css = "p:nth-child(1)")
     public WebElement logInErrorMessage;
 
-    public LoginPage(WebDriver driver) {
+    public LoginPage() {
+        this.driver = Driver.getInstance().getDriver();
+//        this.wait = Driver.getInstance().getWait();
         PageFactory.initElements(driver, this);
     }
 

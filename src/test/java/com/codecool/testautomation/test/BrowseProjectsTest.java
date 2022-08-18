@@ -1,11 +1,12 @@
 package com.codecool.testautomation.test;
 
 import com.codecool.testautomation.page.BrowsePage;
+import com.codecool.testautomation.utility.Driver;
 import org.junit.jupiter.api.*;
+
 
 import static com.codecool.testautomation.utility.LogIn.*;
 import static com.codecool.testautomation.utility.Utility.*;
-import static com.codecool.testautomation.utility.Config.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class BrowseProjectsTest {
@@ -13,49 +14,50 @@ public class BrowseProjectsTest {
 
     @BeforeAll
     public void setUp() {
+        browsePage = new BrowsePage();
         beforeEachSetup();
-        logIn(driver);
+        logIn();
     }
 
     @AfterAll
     public void tearDown() {
-//        logout(driver);
-        driver.close();
+        logout();
+        close();
     }
 
     @Test
     public void browseProjects() {
         openUrl("secure/BrowseProjects.jspa");
-        Assertions.assertEquals("Browse projects", browsePage.mainPageHeader.getText());
+        Assertions.assertEquals("Browse projects", getWebElementText(browsePage.mainPageHeader));
     }
 
     @Test
     public void openExistingProject(){
         openUrl("projects/MTP/summary");
-        Assertions.assertEquals("MTP", browsePage.projectMetaValue.getText());
+        Assertions.assertEquals("MTP", getWebElementText(browsePage.projectMetaValue));
     }
 
     @Test
     public void openCOALAProject(){
         openUrl("projects/COALA/summary");
-        Assertions.assertEquals("COALA", browsePage.projectMetaValue.getText());
+        Assertions.assertEquals("COALA", getWebElementText(browsePage.projectMetaValue));
     }
 
     @Test
     public void openJETIProject(){
         openUrl("projects/JETI/summary");
-        Assertions.assertEquals("JETI", browsePage.projectMetaValue.getText());
+        Assertions.assertEquals("JETI", getWebElementText(browsePage.projectMetaValue));
     }
 
     @Test
     public void openTOUCANProject(){
         openUrl("projects/TOUCAN/summary");
-        Assertions.assertEquals("TOUCAN", browsePage.projectMetaValue.getText());
+        Assertions.assertEquals("TOUCAN", getWebElementText(browsePage.projectMetaValue));
     }
 
     @Test
     public void openNonExistingProject() {
         openUrl("projects/SOMETHING/summary");
-        Assertions.assertEquals("You can't view this project", browsePage.pageError.getText());
+        Assertions.assertEquals("You can't view this project", getWebElementText(browsePage.pageError));
     }
 }

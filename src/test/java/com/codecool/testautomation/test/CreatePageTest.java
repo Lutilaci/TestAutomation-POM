@@ -4,33 +4,34 @@ import com.codecool.testautomation.page.CreatePage;
 import org.junit.jupiter.api.*;
 
 import static com.codecool.testautomation.utility.LogIn.*;
-import static com.codecool.testautomation.utility.Config.*;
 import static com.codecool.testautomation.utility.Utility.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class CreatePageTest {
-    private CreatePage createPage = new CreatePage();
+    CreatePage createPage;
 
     @BeforeAll
     public void setUp() {
+        createPage = new CreatePage();
         beforeEachSetup();
-        logIn(driver);
+        logIn();
     }
 
     @AfterAll
     public void tearDown() {
-        driver.close();
+//        logout(driver);
+        close();
     }
 
 //     I can't create sub-task for COALA
     @Test
     public void createCOALASubTask(){
         openUrl("browse/COALA-130");
-        Assertions.assertEquals("Create sub-task", createPage.issueHeader.getText());
+        Assertions.assertEquals("Create sub-task", getWebElementText(createPage.issueHeader));
         createPage.createSubTask();
         waitForWebElementToBePresent(createPage.popupMessage);
-        Assertions.assertEquals("COALA-130 has been updated.", createPage.popupMessage.getText());
-        Assertions.assertEquals("Sub-task test", createPage.subTaskName.getText());
+        Assertions.assertEquals("COALA-130 has been updated.", getWebElementText(createPage.popupMessage));
+        Assertions.assertEquals("Sub-task test", getWebElementText(createPage.subTaskName));
 
         // Restore
         openUrl("browse/COALA-130");
@@ -41,11 +42,11 @@ public class CreatePageTest {
     @Test
     public void createTOUCANSubTask(){
         openUrl("browse/TOUCAN-132");
-        Assertions.assertEquals("Create sub-task", createPage.issueHeader.getText());
+        Assertions.assertEquals("Create sub-task", getWebElementText(createPage.issueHeader));
         createPage.createSubTask();
         waitForWebElementToBePresent(createPage.popupMessage);
-        Assertions.assertEquals("TOUCAN-121 has been updated.", createPage.popupMessage.getText());
-        Assertions.assertEquals("Sub-task test", createPage.subTaskName.getText());
+        Assertions.assertEquals("TOUCAN-121 has been updated.", getWebElementText(createPage.popupMessage));
+        Assertions.assertEquals("Sub-task test", getWebElementText(createPage.subTaskName));
 
         // Restore
         openUrl("browse/TOUCAN-121");
@@ -55,11 +56,11 @@ public class CreatePageTest {
     @Test
     public void createJETISubTask(){
         openUrl("browse/JETI-103");
-        Assertions.assertEquals("Create sub-task", createPage.issueHeader.getText());
+        Assertions.assertEquals("Create sub-task", getWebElementText(createPage.issueHeader));
         createPage.createSubTask();
         waitForWebElementToBePresent(createPage.popupMessage);
-        Assertions.assertEquals("JETI-103 has been updated.", createPage.popupMessage.getText());
-        Assertions.assertEquals("Sub-task test", createPage.subTaskName.getText());
+        Assertions.assertEquals("JETI-103 has been updated.", getWebElementText(createPage.popupMessage));
+        Assertions.assertEquals("Sub-task test", getWebElementText(createPage.subTaskName));
 
         // Restore
         openUrl("browse/JETI-103");
@@ -70,7 +71,12 @@ public class CreatePageTest {
     public void createNewIssue() {
         openUrl("secure/Dashboard.jspa");
         clickButton(createPage.mainCreateButton);
-        createPage.createSpecificIssue(wait, "Main Testing Project", "Bug", "Happy Test");
+        createPage.createSpecificIssue("Main Testing Project", "Bug", "Happy Test");
+
+        //lehet validálni a confirmation popup segítségével is
+
+        Assertions.assertEquals(getWebElementText(createPage.projectName), "Main Testing Project");
+        Assertions.assertEquals(getWebElementText(createPage.issueHeader), "Happy Test");
 
         // Restore
         createPage.restoreIssue("Main Testing Project", "Happy Test");
@@ -81,7 +87,7 @@ public class CreatePageTest {
         openUrl("secure/Dashboard.jspa");
         createPage.createIssueWithEmptySummary();
 
-        Assertions.assertEquals("You must specify a summary of the issue.", createPage.createIssueErrorMessage.getText());
+        Assertions.assertEquals("You must specify a summary of the issue.", getWebElementText(createPage.createIssueErrorMessage));
         createPage.cancelCreation();
     }
 
@@ -114,10 +120,10 @@ public class CreatePageTest {
     public void CancelIssueAfterFill() {
         openUrl("secure/Dashboard.jspa");
         clickButton(createPage.mainCreateButton);
-        createPage.fillOutCreation(wait, "MTP", "Bug", "Issue Cancel Test");
+        createPage.fillOutCreation("Main Testing Project", "Bug", "Issue Cancel Test");
         createPage.cancelCreation();
         createPage.validateIssueDoesntExist();
 
-        Assertions.assertEquals("No issues were found to match your search", createPage.resultPageContent.getText());
+        Assertions.assertEquals("No issues were found to match your search", getWebElementText(createPage.resultPageContent));
     }
 }

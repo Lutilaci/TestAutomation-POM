@@ -1,6 +1,6 @@
 package com.codecool.testautomation.page;
 
-import com.codecool.testautomation.utility.Config;
+import com.codecool.testautomation.utility.Driver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -19,41 +19,42 @@ import java.util.List;
 import static com.codecool.testautomation.utility.Utility.*;
 
 public class CreatePage {
+
     WebDriver driver;
     WebDriverWait wait;
 
-    @FindBy (xpath = "//*[@id=\"opsbar-operations_more\"]") public WebElement actionButton;
-    @FindBy (xpath = "//button[text()='Cancel']") public WebElement cancelButton;
-    @FindBy (xpath = "//div[@id='qf-field-summary']//div[@role='alert']") public WebElement createIssueErrorMessage;
-    @FindBy (xpath = "//*[@id=\"create-issue-submit\"]") public WebElement createIssueButton;
-    @FindBy (xpath = "//aui-item-link[@id='create-subtask']/a/span") public WebElement createSubClass;
-    @FindBy (xpath = "//*[@id=\"delete-issue\"]/a") public WebElement deleteButton;
-    @FindBy (xpath = "//*[@id=\"delete-issue-submit\"]") public WebElement finalDeleteButton;
-    @FindBy (xpath="//*[@id=\"summary-val\"]") public WebElement issueHeader;
-    @FindBy (xpath = "//*[@id=\"find_link\"]") public WebElement issuesButton;
-    @FindBy (xpath = "//ul[@class='aui-last']") public WebElement issueScrollDown;
-    @FindBy (id ="issuetype-field") public WebElement issueTypeSelector;
-    @FindBy (xpath = "//*[@id=\"create_link\"]") public WebElement mainCreateButton;
-    @FindBy (xpath = "//a[@id='opsbar-operations_more']") public WebElement moreButton;
-    @FindBy (xpath = "//*[@id=\"aui-flag-container\"]/div/div") public WebElement popupMessage;
-    @FindBy (xpath = "//input[@id='project-field']") public WebElement projectField;
-    @FindBy (css = ".no-results > h2") public WebElement resultPageContent;
-    @FindBy (xpath = "(//button[@type='button'])[3]") public WebElement searchButton;
-    @FindBy (xpath = "/html//li[@id='issues_new_search_link']") public WebElement searchForIssuesButton;
-    @FindBy (xpath = "//*[@id=\"searcher-query\"]") public WebElement searchForIssueField;
-    @FindBy (xpath = "//*[@id=\"issuerow12961\"]/td[2]/a") public WebElement subTaskName;
-    @FindBy (xpath= "//*[@id=\"summary\"]") public WebElement summaryField;
-    @FindBy (xpath = "//*[@id=\"actions_12961\"]")
-
-    public List<String> issueTypesSupposedToBe = Arrays.asList("Bug", "Story", "Task");
+    @FindBy(xpath = "//*[@id='opsbar-operations_more']") public WebElement actionButton;
+    @FindBy(xpath = "//button[text()='Cancel']") public WebElement cancelButton;
+    @FindBy(id = "aui-flag-container") public WebElement conformationContainer;
+    @FindBy(xpath = "//div[@id='qf-field-summary']//div[@role='alert']") public WebElement createIssueErrorMessage;
+    @FindBy(xpath = "//*[@id='create-issue-submit']") public WebElement createIssueButton;
+    @FindBy(xpath = "//aui-item-link[@id='create-subtask']/a/span") public WebElement createSubClass;
+    @FindBy(xpath = "//*[@id='delete-issue']/a") public WebElement deleteButton;
+    @FindBy(xpath = "//*[@id='delete-issue-submit']") public WebElement finalDeleteButton;
+    @FindBy(xpath = "//*[@id='summary-val']") public WebElement issueHeader;
+    @FindBy(xpath = "//*[@id='find_link']") public WebElement issuesButton;
+    @FindBy(xpath = "//ul[@class='aui-last']") public WebElement issueScrollDown;
+    @FindBy(id = "issuetype-field") public WebElement issueTypeSelector;
+    @FindBy(xpath = "//*[@id='create_link']") public WebElement mainCreateButton;
+    @FindBy(xpath = "//a[@id='opsbar-operations_more']") public WebElement moreButton;
+    @FindBy(xpath = "//*[@id='aui-flag-container']/div/div") public WebElement popupMessage;
+    @FindBy(xpath = "//input[@id='project-field']") public WebElement projectField;
+    @FindBy (xpath = "//*[@id='project-name-val']") public WebElement projectName;
+    @FindBy(css = ".no-results > h2") public WebElement resultPageContent;
+    @FindBy(xpath = "(//button[@type='button'])[3]") public WebElement searchButton;
+    @FindBy(xpath = "/html//li[@id='issues_new_search_link']") public WebElement searchForIssuesButton;
+    @FindBy(xpath = "//*[@id='searcher-query']") public WebElement searchForIssueField;
+    @FindBy(xpath = "//*[@id='issuerow12961']/td[2]/a") public WebElement subTaskName;
+    @FindBy(xpath = "//*[@id='summary']") public WebElement summaryField;
+    @FindBy(xpath = "//*[@id='actions_12961']") public List<String> issueTypesSupposedToBe = Arrays.asList("Bug", "Story", "Task");
 
     public CreatePage() {
-        PageFactory.initElements(Config.driver, this);
-        this.driver = Config.driver;
-        this.wait = Config.wait;
+        this.driver = Driver.getInstance().getDriver();
+                //        this.wait = Driver.getInstance().getWait();
+        PageFactory.initElements(driver, this);
     }
 
-    public void fillInSearchField(String issueName) {
+    public void searchForIssue(String issueName) {
         wait.until(ExpectedConditions.elementToBeClickable(searchForIssueField));
 
         searchForIssueField.sendKeys(issueName);
@@ -61,14 +62,14 @@ public class CreatePage {
     }
 
     public void navigateToSearchForIssues() {
-        issuesButton.click();
+        waitForElementToClick(issuesButton);
         wait.until(ExpectedConditions.visibilityOf(searchForIssuesButton));
         searchForIssuesButton.click();
     }
 
     public void restoreIssue(String projectName, String issueName) {
         navigateToSearchForIssues();
-        fillInSearchField(issueName);
+        searchForIssue(issueName);
         wait.until(ExpectedConditions.textToBe(By.id("project-name-val"), projectName));
         clickButton(moreButton);
         Actions action = new Actions(driver);
@@ -79,62 +80,64 @@ public class CreatePage {
         waitForElementToClick(finalDeleteButton);
     }
 
-    public void restoreSubTask(){
+    public void restoreSubTask() {
         waitForElementToClick(subTaskName);
         waitForElementToClick(actionButton);
         waitForElementToClick(deleteButton);
         clickButton(finalDeleteButton);
     }
 
-    public void createSubTask(){
+    public void createSubTask() {
         clickButton(moreButton);
         clickButton(createSubClass);
         waitForElementToSendText(summaryField, "Sub-task test");
         clickButton(createIssueButton);
     }
 
-    public void clearIssueType(WebDriverWait wait){
+    public void clearIssueType(WebDriverWait wait) {
         String os = System.getProperty("os.name");
         wait.until(ExpectedConditions.elementToBeClickable(issueTypeSelector));
-        if (os.equals("Mac OS X")){
+        if (os.equals("Mac OS X")) {
             waitForElementToSendText(issueTypeSelector, Keys.COMMAND + "a");
-        }else{
+        } else {
             waitForElementToSendText(issueTypeSelector, Keys.CONTROL + "a");
         }
         issueTypeSelector.sendKeys(Keys.DELETE);
     }
 
-    public void clearProjectField(){
+    public void clearProjectField() {
         String os = System.getProperty("os.name");
-        if (os.equals("Mac OS X")){
+        if (os.equals("Mac OS X")) {
             waitForElementToSendText(projectField, Keys.COMMAND + "a");
-        }else{
+        } else {
             waitForElementToSendText(projectField, Keys.CONTROL + "a");
         }
         projectField.sendKeys(Keys.DELETE);
     }
 
-    public void createSpecificIssue(WebDriverWait wait, String projectName, String issueType, String summary){
-        clearProjectField();
-        projectField.sendKeys(projectName);
-        projectField.sendKeys(Keys.RETURN);
-        clearIssueType(wait);
-        issueTypeSelector.sendKeys(issueType);
-        wait.until(ExpectedConditions.elementToBeClickable(
-                issueTypeSelector)).sendKeys(Keys.RETURN);
-        waitForElementToSendText(summaryField, summary);
+    public void createSpecificIssue(String projectName, String issueType, String summary) {
+        fillOutCreation(projectName, issueType, summary);
         waitForElementToClick(createIssueButton);
         waitForWebElementToBePresent(popupMessage);
         waitForElementToClick(driver.findElement(By.partialLinkText("Happy Test")));
     }
 
-    public void createIssueWithEmptySummary(){
+    public void fillOutCreation(String projectName, String issueType, String summary) {
+        clearProjectField();
+        selectFromDropdown(projectField, projectName);
+        clearIssueType(wait);
+        selectFromDropdown(issueTypeSelector, issueType);
+
+        waitForElementToSendText(summaryField, summary);
+    }
+
+    public void createIssueWithEmptySummary() {
         clickButton(mainCreateButton);
         waitForElementToClick(createIssueButton);
         waitForWebElementToBePresent(createIssueErrorMessage);
     }
 
-    public List<String> getIssueTypes(){
+    public List<String> getIssueTypes() {
         waitForElementToClick(issueTypeSelector);
 
         List<String> issueTypes = new ArrayList<>();
@@ -153,35 +156,39 @@ public class CreatePage {
         return issueTypes;
     }
 
-    public void setProjectTo(String project){
+    public void setProjectTo(String project) {
         clickButton(mainCreateButton);
         clearProjectField();
         projectField.sendKeys(project);
         projectField.sendKeys(Keys.RETURN);
     }
 
-    public void cancelCreation(){
+    public void cancelCreation() {
         clickButton(cancelButton);
         wait.until(ExpectedConditions.alertIsPresent());
         driver.switchTo().alert().accept();
     }
 
-    public void fillOutCreation(WebDriverWait wait, String projectName, String issueType, String summary){
-        clearProjectField();
-        projectField.sendKeys(projectName);
-        projectField.sendKeys(Keys.RETURN);
-        clearIssueType(wait);
-        issueTypeSelector.sendKeys(issueType);
-        wait.until(ExpectedConditions.elementToBeClickable(
-                issueTypeSelector)).sendKeys(Keys.RETURN);
-        waitForElementToSendText(summaryField, summary);
-    }
+    public void validateIssueDoesntExist() {
+        navigateToSearchForIssues();
+        searchForIssue("Issue Cancel Test");
 
-    public void validateIssueDoesntExist(){
-        waitForElementToClick(issuesButton);
-        waitForElementToClick(searchForIssuesButton);
-        waitForElementToSendText(searchForIssueField, "Issue Cancel Test");
         clickButton(searchButton);
         waitForWebElementToBePresent(resultPageContent);
     }
+
+    public void selectFromDropdown(WebElement element, String select) {
+        wait.until(ExpectedConditions.elementToBeClickable(element));
+        element.sendKeys(select);
+        element.sendKeys(Keys.ENTER);
+    }
+//
+//    public boolean validateCreationConfirmation(){
+//        wait.until(ExpectedConditions.visibilityOf(conformationContainer));
+//        if (conformationContainer.isDisplayed()){
+//            return true;
+//        } else {
+//            return false;
+//        }
+//    }
 }

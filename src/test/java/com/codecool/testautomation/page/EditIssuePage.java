@@ -1,5 +1,6 @@
 package com.codecool.testautomation.page;
 
+import com.codecool.testautomation.utility.Driver;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -48,10 +49,10 @@ public class EditIssuePage {
     @FindBy(xpath = "//*[@id=\"aui-flag-container\"]/div/div")
     public WebElement updateSuccessMessage;
 
-    public EditIssuePage(WebDriver driver, WebDriverWait wait) {
+    public EditIssuePage() {
+        this.driver = Driver.getInstance().getDriver();
+//        this.wait = Driver.getInstance().getWait();
         PageFactory.initElements(driver, this);
-        this.driver = driver;
-        this.wait = wait;
     }
 
     public void clickEditIssue(){

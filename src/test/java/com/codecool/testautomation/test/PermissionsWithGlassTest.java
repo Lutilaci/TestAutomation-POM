@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static com.codecool.testautomation.utility.LogIn.logIn;
-import static com.codecool.testautomation.utility.Config.*;
+import static com.codecool.testautomation.utility.Utility.*;
 
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -26,8 +26,8 @@ public class PermissionsWithGlassTest {
 //        driver = new ChromeDriver();
 //        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(6));
 //        driver.manage().window().maximize();
-        pPage = new PermissionsPage(driver);
-        logIn(driver);
+        pPage = new PermissionsPage();
+        logIn();
     }
 
     @AfterAll

@@ -1,5 +1,6 @@
 package com.codecool.testautomation.page;
 
+import com.codecool.testautomation.utility.Driver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -15,6 +16,8 @@ import java.util.List;
 
 public class PermissionsPage {
     WebDriver driver;
+    WebDriverWait wait;
+
     @FindBy(id = "project-issuetypes-container") public static WebElement issueTypesContainer;
     @FindBy(id = "glass-workflow-nav") public static WebElement issueTypesDropDownButton;
     @FindBy(id = "dropdown-issuetypes") public static WebElement issueTypesDropDownContainer;
@@ -22,8 +25,9 @@ public class PermissionsPage {
     @FindBy(xpath = "//a[contains(text(),'View by Permissions')]") public static WebElement ViewByButton;
 
 
-    public PermissionsPage(WebDriver driver) {
-        this.driver = driver;
+    public PermissionsPage() {
+        this.driver = Driver.getInstance().getDriver();
+//        this.wait = Driver.getInstance().getWait();
         PageFactory.initElements(driver, this);
     }
 
