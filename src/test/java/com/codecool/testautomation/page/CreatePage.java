@@ -52,7 +52,7 @@ public class CreatePage {
 
     public void restoreIssue(){
         waitForElementToClick(actionButton);
-        deleteButton.click();
+        clickButton(deleteButton);
         waitForElementToClick(finalDeleteButton);;
     }
 
@@ -60,14 +60,14 @@ public class CreatePage {
         waitForElementToClick(subTaskName);
         waitForElementToClick(actionButton);
         waitForElementToClick(deleteButton);
-        finalDeleteButton.click();
+        clickButton(finalDeleteButton);
     }
 
     public void createSubTask(){
-        moreButton.click();
-        createSubClass.click();
+        clickButton(moreButton);
+        clickButton(createSubClass);
         waitForElementToSendText(summaryField, "Sub-task test");
-        createIssueButton.click();
+        clickButton(createIssueButton);
     }
 
     public void clearIssueType(WebDriverWait wait){
@@ -106,7 +106,7 @@ public class CreatePage {
     }
 
     public void createIssueWithEmptySummary(){
-        clickCreateButton();
+        clickButton(mainCreateButton);
         waitForElementToClick(createIssueButton);
         waitForWebElementToBePresent(createIssueErrorMessage);
     }
@@ -125,26 +125,25 @@ public class CreatePage {
             issueTypes.add(webElement.getText());
         }
 
-        cancelButton.click();
+        clickButton(cancelButton);
         Collections.sort(issueTypes);
         return issueTypes;
     }
 
     public void setProjectTo(String project){
-        mainCreateButton.click();
+        clickButton(mainCreateButton);
         clearProjectField();
         projectField.sendKeys(project);
         projectField.sendKeys(Keys.RETURN);
     }
 
     public void cancelCreation(){
-        cancelButton.click();
+        clickButton(cancelButton);
         wait.until(ExpectedConditions.alertIsPresent());
         driver.switchTo().alert().accept();
     }
 
-    public void clickCreateButton(){
-        mainCreateButton.click();
+    public void clickButton(WebElement webElement){webElement.click();
     }
 
     public void fillOutCreation(WebDriverWait wait, String projectName, String issueType, String summary){
@@ -162,9 +161,8 @@ public class CreatePage {
         waitForElementToClick(issuesButton);
         waitForElementToClick(searchForIssuesButton);
         waitForElementToSendText(searchForIssueField, "Issue Cancel Test");
-        searchButton.click();
+        clickButton(searchButton);
         waitForWebElementToBePresent(resultPageContent);
-
     }
 
     public void waitForWebElementToBePresent(WebElement webElement){

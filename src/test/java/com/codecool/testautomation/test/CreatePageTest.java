@@ -68,7 +68,7 @@ public class CreatePageTest {
     @Test
     public void createNewIssue() {
         openUrl("secure/Dashboard.jspa");
-        createPage.clickCreateButton();
+        createPage.clickButton(createPage.mainCreateButton);
         createPage.createSpecificIssue(wait, "MTP", "Bug", "Happy Test");
 
         // Restore
@@ -103,6 +103,7 @@ public class CreatePageTest {
     // I don't have permission to create TOUCAN project
     @Test
     public void CreateIssueInTOUCANProjectWithIssueTypes() {
+        openUrl("secure/Dashboard.jspa");
         createPage.setProjectTo("TOUCAN");
 
         Assertions.assertEquals(createPage.issueTypesSupposedToBe, createPage.getIssueTypes());
@@ -111,7 +112,7 @@ public class CreatePageTest {
     @Test
     public void CancelIssueAfterFill() {
         openUrl("secure/Dashboard.jspa");
-        createPage.clickCreateButton();
+        createPage.clickButton(createPage.mainCreateButton);
         createPage.fillOutCreation(wait, "MTP", "Bug", "Issue Cancel Test");
         createPage.cancelCreation();
         createPage.validateIssueDoesntExist();
