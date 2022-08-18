@@ -11,4 +11,7 @@ public class Utility {
         driver.findElement(By.cssSelector(".aui-avatar-small img")).click();
         driver.findElement(By.cssSelector("#log_out")).click();
     }
+
+    public static void clickButton(WebElement webElement){webElement.click();
+    }
 }

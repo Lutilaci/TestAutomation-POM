@@ -15,6 +15,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import static com.codecool.testautomation.utility.Utility.*;
+
 public class CreatePage {
     WebDriver driver;
     WebDriverWait wait;
@@ -143,9 +145,6 @@ public class CreatePage {
         driver.switchTo().alert().accept();
     }
 
-    public void clickButton(WebElement webElement){webElement.click();
-    }
-
     public void fillOutCreation(WebDriverWait wait, String projectName, String issueType, String summary){
         clearProjectField();
         projectField.sendKeys(projectName);
@@ -170,7 +169,7 @@ public class CreatePage {
     }
 
     public void waitForElementToSendText(WebElement webElement, String text){
-        wait.until(ExpectedConditions.visibilityOf(webElement)).sendKeys(text);
+        wait.until(ExpectedConditions.elementToBeClickable(webElement)).sendKeys(text);
 
     }
     public void waitForElementToClick(WebElement webElement){

@@ -5,6 +5,7 @@ import org.junit.jupiter.api.*;
 
 import static com.codecool.testautomation.utility.LogIn.*;
 import static com.codecool.testautomation.utility.Config.*;
+import static com.codecool.testautomation.utility.Utility.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class CreatePageTest {
@@ -12,7 +13,7 @@ public class CreatePageTest {
 
     @BeforeAll
     public void setUp() {
-        driver.manage().window().maximize();
+        beforeEachSetup();
         logIn(driver);
     }
 
@@ -68,7 +69,7 @@ public class CreatePageTest {
     @Test
     public void createNewIssue() {
         openUrl("secure/Dashboard.jspa");
-        createPage.clickButton(createPage.mainCreateButton);
+        clickButton(createPage.mainCreateButton);
         createPage.createSpecificIssue(wait, "MTP", "Bug", "Happy Test");
 
         // Restore
@@ -112,7 +113,7 @@ public class CreatePageTest {
     @Test
     public void CancelIssueAfterFill() {
         openUrl("secure/Dashboard.jspa");
-        createPage.clickButton(createPage.mainCreateButton);
+        clickButton(createPage.mainCreateButton);
         createPage.fillOutCreation(wait, "MTP", "Bug", "Issue Cancel Test");
         createPage.cancelCreation();
         createPage.validateIssueDoesntExist();
