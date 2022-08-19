@@ -1,8 +1,10 @@
 package com.codecool.testautomation.page;
 
+import com.codecool.testautomation.utility.LogIn;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -22,9 +24,10 @@ public class PermissionsPage {
     @FindBy(xpath = "//a[contains(text(),'View by Permissions')]") public static WebElement ViewByButton;
 
 
-    public PermissionsPage(WebDriver driver) {
-        this.driver = driver;
+    public PermissionsPage() {
+        driver = new ChromeDriver();
         PageFactory.initElements(driver, this);
+        driver.manage().window().maximize();
     }
 
     public  void  OpenPPProjectSettings()
@@ -35,6 +38,16 @@ public class PermissionsPage {
     public  void  OpenPPProjectGlassPage()
     {
         driver.get("https://jira-auto.codecool.metastage.net/projects/PP?selectedItem=com.codecanvas.glass:glass");
+    }
+
+    public void login()
+    {
+        LogIn.logIn(driver);
+    }
+
+    public void CloseDriver()
+    {
+        driver.quit();
     }
 
     public List<String> GetAllIssueTypesFromSettings()
@@ -81,7 +94,6 @@ public class PermissionsPage {
             if (e.getText().contains(trName))
                 return result;
         }
-//TODO: try/catch
         return 0;
     }
 
@@ -95,7 +107,6 @@ public class PermissionsPage {
             if (e.getText().contains(thName))
                 return result;
         }
-//TODO: try/catch
         return 0;
     }
 
@@ -110,7 +121,6 @@ public class PermissionsPage {
                     return result;
             }
         }
-//TODO: try/catch
         return 0;
     }
 
@@ -126,7 +136,6 @@ public class PermissionsPage {
                 }
             }
         }
-//TODO: try/catch
         return 0;
     }
 
@@ -134,9 +143,9 @@ public class PermissionsPage {
         PermissionsMatrixButton.click();
     }
 
-    public boolean validatePermissionsMatrix() {
-        int tr = findTrInPermissionMatrix("Browse Projects");
-        int th = findThInPermissionMatrix("Any logged in user");
+    public boolean validatePermissionsMatrix(String targetTr, String targetTh) {
+        int tr = findTrInPermissionMatrix(targetTr);
+        int th = findThInPermissionMatrix(targetTh);
         String selectedInMatrix = "//div[@id='glass-permissions-matrix-panel']/div/table/tbody/tr[" + tr + "]/td[" + th + "]/div";
         if(!driver.findElements(By.xpath(selectedInMatrix)).isEmpty())
             return true;
@@ -147,9 +156,9 @@ public class PermissionsPage {
         ViewByButton.click();
     }
 
-    public boolean validateViewBy() {
-        int tr = findTrInViewByPermissions("Browse Projects");
-        int th = findThInViewByPermissions("Granted to");
+    public boolean validateViewBy(String targetTr, String targetTh) {
+        int tr = findTrInViewByPermissions(targetTr);
+        int th = findThInViewByPermissions(targetTh);
         String selectedInMatrix = "//*[@id=\"glass-permissions-permissionview-panel\"]/div/table/tbody/tr[" + tr + "]/td[" + th + "]";
         if(driver.findElement(By.xpath(selectedInMatrix)).getText().contains("Application Access: Any logged in user"))
             return true;

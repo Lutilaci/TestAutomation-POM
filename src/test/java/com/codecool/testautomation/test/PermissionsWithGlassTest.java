@@ -9,38 +9,33 @@ import org.junit.jupiter.api.TestInstance;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.codecool.testautomation.utility.LogIn.logIn;
-import static com.codecool.testautomation.utility.Config.*;
-
+import static org.junit.Assert.assertTrue;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class PermissionsWithGlassTest {
 
-//    WebDriver driver;
     PermissionsPage pPage;
 
     @BeforeAll
     public void setUp()
     {
-        beforeEachSetup();
 //        driver = new ChromeDriver();
 //        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(6));
 //        driver.manage().window().maximize();
-        pPage = new PermissionsPage(driver);
-        logIn(driver);
+        pPage = new PermissionsPage();
+        pPage.login();
     }
 
     @AfterAll
     public void quitDriver() {
-        driver.close();
-        driver.quit();
+        pPage.CloseDriver();
     }
 
     @Test
-    public void aviableRequiredIssuesInPPProject() {
+    public void availableRequiredIssuesInPPProject() {
         pPage.OpenPPProjectSettings();
 
-        pPage.validateSettingIssues(Arrays.asList("Bug","Epic","Story","Sub-task","Task"));
+        assertTrue(pPage.validateSettingIssues(Arrays.asList("Bug","Epic","Story","Sub-task","Task")));
     }
 
     @Test
@@ -50,8 +45,8 @@ public class PermissionsWithGlassTest {
         pPage.OpenPPProjectGlassPage();
 
 
-        pPage.validateDropDown(issuesInSetting);
-        pPage.validateIcons(issuesInSetting);
+        assertTrue(pPage.validateDropDown(issuesInSetting));
+        assertTrue(pPage.validateIcons(issuesInSetting));
     }
 
     @Test
@@ -59,9 +54,9 @@ public class PermissionsWithGlassTest {
         pPage.OpenPPProjectGlassPage();
 
         pPage.goToPermissionsMatrix();
-        pPage.validatePermissionsMatrix();
+        assertTrue(pPage.validatePermissionsMatrix("Browse Projects", "Any logged in user"));
 
         pPage.goToViewBy();
-        pPage.validateViewBy();
+        assertTrue(pPage.validateViewBy("Browse Projects", "Granted to"));
     }
 }

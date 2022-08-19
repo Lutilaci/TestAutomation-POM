@@ -2,6 +2,7 @@ package com.codecool.testautomation.page;
 
 import com.codecool.testautomation.utility.LogIn;
 import org.junit.jupiter.api.Assertions;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -29,6 +30,8 @@ public class LoginPage {
 
     @FindBy(css = "p:nth-child(1)")
     public WebElement logInErrorMessage;
+
+    static By captcha = By.xpath("//div[@id='captcha']/div/img");
 
     public LoginPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
