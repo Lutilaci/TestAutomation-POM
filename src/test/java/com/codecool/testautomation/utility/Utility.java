@@ -1,21 +1,21 @@
 package com.codecool.testautomation.utility;
 
+import com.codecool.testautomation.page.BasePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import static com.codecool.testautomation.utility.LogIn.*;
 
-public class Utility {
+public class Utility extends BasePage {
 
-    static WebDriver driver = DriverSingleton.getDriver();
     public static final String baseUrl = "https://jira-auto.codecool.metastage.net/";
 
     public static void clickButton(WebElement webElement){webElement.click();
     }
 
     public static void waitForWebElementToBePresent(WebElement webElement){
-        DriverSingleton.getWait().until(ExpectedConditions.visibilityOf(webElement));
+        driver.until(ExpectedConditions.visibilityOf(webElement));
     }
 
     public static void waitForElementToSendText(WebElement webElement, String text){
@@ -42,7 +42,7 @@ public class Utility {
     }
 
     public static void close(){
-        DriverSingleton.getDriver().close();
+        DriverSingleton.getDriver().quit();
         DriverSingleton.setDriverSingleton(null);
     }
 

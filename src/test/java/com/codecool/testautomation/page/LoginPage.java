@@ -2,7 +2,6 @@ package com.codecool.testautomation.page;
 
 import com.codecool.testautomation.utility.DriverSingleton;
 import com.codecool.testautomation.utility.LogIn;
-import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -12,11 +11,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import static com.codecool.testautomation.utility.Utility.*;
 
 
-public class LoginPage {
-    DriverSingleton driverSingleton = DriverSingleton.getInstance();
-
-    private WebDriver driver;
-    private final WebDriverWait wait;
+public class LoginPage extends BasePage{
 
     @FindBy(id = "login-form-username")
     public WebElement usernameField;
@@ -39,15 +34,12 @@ public class LoginPage {
     @FindBy(css = "p:nth-child(1)")
     public WebElement logInErrorMessage;
 
-    public LoginPage(WebDriver driver) {
-        this.driver = driver;
-        this.wait = DriverSingleton.getWait();
-        PageFactory.initElements(driver, this);
+    public LoginPage() {
     }
 
-    public void fillUsernameAndPassword(){
-        usernameField.sendKeys("automation"+ LogIn.keyCode);
-        passwordField.sendKeys("CCAutoTest19.");
+    public void fillUsernameAndPassword(String username, String password){
+        usernameField.sendKeys(username);
+        passwordField.sendKeys(password);
     }
 
     public void logIn(){
@@ -57,7 +49,6 @@ public class LoginPage {
     public void validateLogin(){
         profilePicture.click();
         profileButton.click();
-        Assertions.assertEquals("Auto Tester "+LogIn.keyCode, profileName.getText());
     }
 
     public void fillWrongUsernameAndPassword(){

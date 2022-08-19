@@ -14,11 +14,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class PermissionsPage {
-    DriverSingleton driverSingleton = DriverSingleton.getInstance();
-
-    private WebDriver driver;
-    private final WebDriverWait wait;
+public class PermissionsPage extends BasePage{
 
     @FindBy(id = "project-issuetypes-container") public static WebElement issueTypesContainer;
     @FindBy(id = "glass-workflow-nav") public static WebElement issueTypesDropDownButton;
@@ -27,10 +23,7 @@ public class PermissionsPage {
     @FindBy(xpath = "//a[contains(text(),'View by Permissions')]") public static WebElement ViewByButton;
 
 
-    public PermissionsPage(WebDriver driver) {
-        this.driver = driver;
-        this.wait = DriverSingleton.getWait();
-        PageFactory.initElements(driver, this);
+    public PermissionsPage() {
     }
 
     public  void  OpenPPProjectSettings()

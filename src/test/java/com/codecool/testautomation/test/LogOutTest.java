@@ -18,7 +18,7 @@ public class LogOutTest {
 
     @BeforeAll
     public void setUp(){
-        loginPage = new LoginPage(DriverSingleton.getDriver());
+        loginPage = new LoginPage();
         beforeEachSetup();
     }
 

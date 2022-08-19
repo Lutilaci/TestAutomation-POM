@@ -8,13 +8,12 @@ import static com.codecool.testautomation.utility.Utility.*;
 
 
 public class EditIssueTest{
-//    static DriverSingleton driverSingleton = DriverSingleton.getInstance();
     private EditIssuePage editIssuePage;
 
     @BeforeEach
     public void setUp(){
         openUrl("/browse/MTP-2096");
-        editIssuePage = new EditIssuePage(DriverSingleton.getDriver());
+        editIssuePage = new EditIssuePage();
         beforeEachSetup();
     }
 

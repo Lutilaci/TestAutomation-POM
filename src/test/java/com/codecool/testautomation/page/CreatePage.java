@@ -7,7 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
+
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -18,11 +18,7 @@ import java.util.List;
 
 import static com.codecool.testautomation.utility.Utility.*;
 
-public class CreatePage {
-    static DriverSingleton driverSingleton = DriverSingleton.getInstance();
-
-    private WebDriver driver = DriverSingleton.getDriver();
-    private final WebDriverWait wait;
+public class CreatePage extends BasePage{
 
     @FindBy(xpath = "//*[@id='opsbar-operations_more']") public WebElement actionButton;
     @FindBy(xpath = "//button[text()='Cancel']") public WebElement cancelButton;
@@ -50,8 +46,6 @@ public class CreatePage {
     @FindBy(xpath = "//*[@id='actions_12961']") public List<String> issueTypesSupposedToBe = Arrays.asList("Bug", "Story", "Task");
 
     public CreatePage() {
-        this.wait = DriverSingleton.getWait();
-        PageFactory.initElements(driver, this);
     }
 
     public void searchForIssue(String issueName) {

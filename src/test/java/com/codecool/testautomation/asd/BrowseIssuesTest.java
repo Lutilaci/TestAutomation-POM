@@ -21,7 +21,7 @@ public class BrowseIssuesTest {
 
     @AfterAll
     public void tearDown() {
-        close();
+        DriverSingleton.quit();
     }
 
     @Test

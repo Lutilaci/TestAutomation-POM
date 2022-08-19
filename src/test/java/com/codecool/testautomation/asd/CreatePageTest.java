@@ -9,19 +9,17 @@ import static com.codecool.testautomation.utility.Utility.*;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class CreatePageTest {
 
-//    static DriverSingleton driverSingleton = DriverSingleton.getInstance();
     CreatePage createPage;
 
     @BeforeAll
     public void setUp() {
-//        DriverSingleton driverSingleton = DriverSingleton.getInstance();
         createPage = new CreatePage();
         beforeEachSetup();
     }
 
     @AfterAll
     public void tearDown() {
-        close();
+        DriverSingleton.quit();
     }
 
      // I can't create sub-task for COALA

@@ -2,8 +2,10 @@ package com.codecool.testautomation.test;
 
 import com.codecool.testautomation.page.LoginPage;
 import com.codecool.testautomation.utility.DriverSingleton;
+import com.codecool.testautomation.utility.LogIn;
 import com.opencsv.CSVReader;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.io.FileReader;
@@ -13,7 +15,7 @@ import static com.codecool.testautomation.utility.Utility.*;
 
 
 public class LoginTest {
-//    static DriverSingleton driverSingleton = DriverSingleton.getInstance();
+
     LoginPage lp;
     String CSV_PATH= "src/test/java/com/codecool/testautomation/data/loginsData.csv";
     private CSVReader csvReader;
@@ -21,7 +23,7 @@ public class LoginTest {
 
     @BeforeEach
     public void setUp() {
-        lp = new LoginPage(DriverSingleton.getDriver());
+        lp = new LoginPage();
         beforeEachSetup();
     }
 
@@ -32,9 +34,10 @@ public class LoginTest {
 
     @Test
     public void logInSuccessful(){
-        lp.fillUsernameAndPassword();
+        lp.fillUsernameAndPassword("automation", "CCAutoTest19.");
         lp.logIn();
         lp.validateLogin();
+        Assertions.assertEquals("Auto Tester "+ LogIn.keyCode, profileName.getText());
     }
 
     @Test

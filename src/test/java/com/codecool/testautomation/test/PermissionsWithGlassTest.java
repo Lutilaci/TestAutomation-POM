@@ -15,14 +15,13 @@ import static com.codecool.testautomation.utility.Utility.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class PermissionsWithGlassTest {
-//    static DriverSingleton driverSingleton = DriverSingleton.getInstance();
     PermissionsPage pPage;
 
     @BeforeAll
     public void setUp()
     {
         beforeEachSetup();
-        pPage = new PermissionsPage(DriverSingleton.getDriver());
+        pPage = new PermissionsPage();
     }
 
     @AfterAll
