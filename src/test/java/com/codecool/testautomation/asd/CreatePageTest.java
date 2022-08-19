@@ -14,7 +14,7 @@ public class CreatePageTest {
     @BeforeAll
     public void setUp() {
         createPage = new CreatePage();
-        beforeEachSetup();
+//        beforeEachSetup();
     }
 
     @AfterAll

@@ -1,6 +1,7 @@
 package com.codecool.testautomation.page;
 
 import com.codecool.testautomation.utility.DriverSingleton;
+import com.codecool.testautomation.utility.Utility;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -19,6 +20,7 @@ import java.util.List;
 import static com.codecool.testautomation.utility.Utility.*;
 
 public class CreatePage extends BasePage{
+    Utility utility;
 
     @FindBy(xpath = "//*[@id='opsbar-operations_more']") public WebElement actionButton;
     @FindBy(xpath = "//button[text()='Cancel']") public WebElement cancelButton;
@@ -46,6 +48,7 @@ public class CreatePage extends BasePage{
     @FindBy(xpath = "//*[@id='actions_12961']") public List<String> issueTypesSupposedToBe = Arrays.asList("Bug", "Story", "Task");
 
     public CreatePage() {
+        utility = new Utility();
     }
 
     public void searchForIssue(String issueName) {
@@ -54,11 +57,11 @@ public class CreatePage extends BasePage{
         searchForIssueField.sendKeys(issueName);
         searchForIssueField.sendKeys(Keys.ENTER);
 
-        clickButton(searchButton);
+        searchButton.click();
     }
 
     public void navigateToSearchForIssues() {
-        waitForElementToClick(issuesButton);
+        utility.waitForElementToClick(issuesButton);
         wait.until(ExpectedConditions.visibilityOf(searchForIssuesButton));
         searchForIssuesButton.click();
     }
@@ -67,36 +70,36 @@ public class CreatePage extends BasePage{
         navigateToSearchForIssues();
         searchForIssue(issueName);
         wait.until(ExpectedConditions.textToBe(By.id("project-name-val"), projectName));
-        clickButton(moreButton);
+        moreButton.click();
         Actions action = new Actions(driver);
         action.moveToElement(deleteButton);
         action.perform();
         wait.until(ExpectedConditions.visibilityOf(deleteButton));
         deleteButton.click();
-        waitForElementToClick(finalDeleteButton);
+        utility.waitForElementToClick(finalDeleteButton);
     }
 
     public void restoreSubTask() {
-        waitForElementToClick(subTaskName);
-        waitForElementToClick(actionButton);
-        waitForElementToClick(deleteButton);
-        clickButton(finalDeleteButton);
+        utility.waitForElementToClick(subTaskName);
+        utility.waitForElementToClick(actionButton);
+        utility.waitForElementToClick(deleteButton);
+        finalDeleteButton.click();
     }
 
     public void createSubTask() {
-        clickButton(moreButton);
-        clickButton(createSubClass);
-        waitForElementToSendText(summaryField, "Sub-task test");
-        clickButton(createIssueButton);
+        moreButton.click();
+        createSubClass.click();
+        utility.waitForElementToSendText(summaryField, "Sub-task test");
+        createIssueButton.click();
     }
 
     public void clearIssueType(WebDriverWait wait) {
         String os = System.getProperty("os.name");
         wait.until(ExpectedConditions.elementToBeClickable(issueTypeSelector));
         if (os.equals("Mac OS X")) {
-            waitForElementToSendText(issueTypeSelector, Keys.COMMAND + "a");
+            utility.waitForElementToSendText(issueTypeSelector, Keys.COMMAND + "a");
         } else {
-            waitForElementToSendText(issueTypeSelector, Keys.CONTROL + "a");
+            utility.waitForElementToSendText(issueTypeSelector, Keys.CONTROL + "a");
         }
         issueTypeSelector.sendKeys(Keys.DELETE);
     }
@@ -104,18 +107,18 @@ public class CreatePage extends BasePage{
     public void clearProjectField() {
         String os = System.getProperty("os.name");
         if (os.equals("Mac OS X")) {
-            waitForElementToSendText(projectField, Keys.COMMAND + "a");
+            utility.waitForElementToSendText(projectField, Keys.COMMAND + "a");
         } else {
-            waitForElementToSendText(projectField, Keys.CONTROL + "a");
+            utility.waitForElementToSendText(projectField, Keys.CONTROL + "a");
         }
         projectField.sendKeys(Keys.DELETE);
     }
 
     public void createSpecificIssue(String projectName, String issueType, String summary) {
         fillOutCreation(projectName, issueType, summary);
-        waitForElementToClick(createIssueButton);
-        waitForWebElementToBePresent(popupMessage);
-        waitForElementToClick(driver.findElement(By.partialLinkText("Happy Test")));
+        utility.waitForElementToClick(createIssueButton);
+        utility.waitForWebElementToBePresent(popupMessage);
+        utility.waitForElementToClick(driver.findElement(By.partialLinkText("Happy Test")));
     }
 
     public void fillOutCreation(String projectName, String issueType, String summary) {
@@ -124,17 +127,17 @@ public class CreatePage extends BasePage{
         clearIssueType(wait);
         selectFromDropdown(issueTypeSelector, issueType);
 
-        waitForElementToSendText(summaryField, summary);
+        utility.waitForElementToSendText(summaryField, summary);
     }
 
     public void createIssueWithEmptySummary() {
-        clickButton(mainCreateButton);
-        waitForElementToClick(createIssueButton);
-        waitForWebElementToBePresent(createIssueErrorMessage);
+        mainCreateButton.click();
+        utility.waitForElementToClick(createIssueButton);
+        utility.waitForWebElementToBePresent(createIssueErrorMessage);
     }
 
     public List<String> getIssueTypes() {
-        waitForElementToClick(issueTypeSelector);
+        utility.waitForElementToClick(issueTypeSelector);
 
         List<String> issueTypes = new ArrayList<>();
         issueTypes.add(issueTypeSelector.getAttribute("value"));
@@ -147,20 +150,20 @@ public class CreatePage extends BasePage{
             issueTypes.add(webElement.getText());
         }
 
-        clickButton(cancelButton);
+        cancelButton.click();
         Collections.sort(issueTypes);
         return issueTypes;
     }
 
     public void setProjectTo(String project) {
-        clickButton(mainCreateButton);
+        mainCreateButton.click();
         clearProjectField();
         projectField.sendKeys(project);
         projectField.sendKeys(Keys.RETURN);
     }
 
     public void cancelCreation() {
-        clickButton(cancelButton);
+        cancelButton.click();
         wait.until(ExpectedConditions.alertIsPresent());
         driver.switchTo().alert().accept();
     }
@@ -169,7 +172,7 @@ public class CreatePage extends BasePage{
         navigateToSearchForIssues();
         searchForIssue("Issue Cancel Test");
 
-        waitForWebElementToBePresent(resultPageContent);
+        utility.waitForWebElementToBePresent(resultPageContent);
     }
 
     public void selectFromDropdown(WebElement element, String select) {

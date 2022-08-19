@@ -24,12 +24,11 @@ public class LoginTest {
     @BeforeEach
     public void setUp() {
         lp = new LoginPage();
-        beforeEachSetup();
     }
 
     @AfterEach
     public void tearDown(){
-        close();
+
     }
 
     @Test
@@ -37,7 +36,7 @@ public class LoginTest {
         lp.fillUsernameAndPassword("automation", "CCAutoTest19.");
         lp.logIn();
         lp.validateLogin();
-        Assertions.assertEquals("Auto Tester "+ LogIn.keyCode, profileName.getText());
+        Assertions.assertEquals("Auto Tester "+ LogIn.keyCode, lp.profileName.getText());
     }
 
     @Test

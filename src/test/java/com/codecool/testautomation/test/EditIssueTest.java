@@ -12,15 +12,13 @@ public class EditIssueTest{
 
     @BeforeEach
     public void setUp(){
-        openUrl("/browse/MTP-2096");
+//        openUrl("/browse/MTP-2096");
         editIssuePage = new EditIssuePage();
-        beforeEachSetup();
     }
 
     @AfterEach
     public void tearDown(){
         editIssuePage.restoreChanges();
-        close();
     }
     @Test
     public void editExistingIssue(){

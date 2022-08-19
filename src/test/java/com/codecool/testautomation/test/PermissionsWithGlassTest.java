@@ -20,13 +20,12 @@ public class PermissionsWithGlassTest {
     @BeforeAll
     public void setUp()
     {
-        beforeEachSetup();
         pPage = new PermissionsPage();
     }
 
     @AfterAll
     public void quitDriver() {
-        close();
+
     }
 
     @Test

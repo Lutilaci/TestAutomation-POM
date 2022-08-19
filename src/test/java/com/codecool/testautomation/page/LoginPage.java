@@ -2,6 +2,8 @@ package com.codecool.testautomation.page;
 
 import com.codecool.testautomation.utility.DriverSingleton;
 import com.codecool.testautomation.utility.LogIn;
+import com.codecool.testautomation.utility.Utility;
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -33,6 +35,9 @@ public class LoginPage extends BasePage{
 
     @FindBy(css = "p:nth-child(1)")
     public WebElement logInErrorMessage;
+
+    final String USER_NAME = Utility.getEnvironmentVar("USER_NAME");
+    final String PASSWORD = Utility.getEnvironmentVar("PASSWORD");
 
     public LoginPage() {
     }
@@ -67,7 +72,7 @@ public class LoginPage extends BasePage{
     }
 
     public static void ValidateLogOut(WebDriver driver) {
-        openUrl("secure/ViewProfile.jspa%22");
+//        openUrl("secure/ViewProfile.jspa%22");
 
         Assertions.assertEquals(true, driver.findElement(By.xpath("//li[@id='user-options']/a")).isDisplayed());
         Assertions.assertEquals(true, driver.findElements(By.xpath("//*[@id='up-d-username']")).isEmpty());

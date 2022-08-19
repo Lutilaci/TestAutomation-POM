@@ -19,18 +19,18 @@ public class LogOutTest {
     @BeforeAll
     public void setUp(){
         loginPage = new LoginPage();
-        beforeEachSetup();
+
     }
 
     @AfterAll
     public void quitDriver() {
-        close();
+
     }
 
     @Test
     public void successfullLogOut() {
         loginPage.logIn();
-        logout();
+//        logout();
         loginPage.validateLogin();
     }
 

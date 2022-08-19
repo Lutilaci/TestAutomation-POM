@@ -15,49 +15,49 @@ public class BrowseProjectsTest {
     @BeforeAll
     public void setUp() {
         browsePage = new BrowsePage();
-        beforeEachSetup();
+
     }
 
     @AfterAll
     public void tearDown() {
 //        logout(driver);
-        close();
+
 
     }
 
     @Test
     public void browseProjects() {
-        openUrl("secure/BrowseProjects.jspa");
+//        openUrl("secure/BrowseProjects.jspa");
         Assertions.assertEquals("Browse projects", browsePage.mainPageHeader.getText());
     }
 
     @Test
     public void openExistingProject(){
-        openUrl("projects/MTP/summary");
+//        openUrl("projects/MTP/summary");
         Assertions.assertEquals("MTP", browsePage.projectMetaValue.getText());
     }
 
     @Test
     public void openCOALAProject(){
-        openUrl("projects/COALA/summary");
+//        openUrl("projects/COALA/summary");
         Assertions.assertEquals("COALA", browsePage.projectMetaValue.getText());
     }
 
     @Test
     public void openJETIProject(){
-        openUrl("projects/JETI/summary");
+//        openUrl("projects/JETI/summary");
         Assertions.assertEquals("JETI", browsePage.projectMetaValue.getText());
     }
 
     @Test
     public void openTOUCANProject(){
-        openUrl("projects/TOUCAN/summary");
+//        openUrl("projects/TOUCAN/summary");
         Assertions.assertEquals("TOUCAN", browsePage.projectMetaValue.getText());
     }
 
     @Test
     public void openNonExistingProject() {
-        openUrl("projects/SOMETHING/summary");
+//        openUrl("projects/SOMETHING/summary");
         Assertions.assertEquals("You can't view this project", browsePage.pageError.getText());
     }
 }
