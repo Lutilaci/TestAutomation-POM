@@ -5,33 +5,31 @@ import com.codecool.testautomation.page.LoginPage;
 import org.junit.jupiter.api.*;
 
 import static com.codecool.testautomation.utility.DriverSingleton.quit;
-import static com.codecool.testautomation.utility.LogIn.*;
-import static com.codecool.testautomation.utility.Config.*;
 import static com.codecool.testautomation.utility.Utility.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class CreatePageTest {
-    private CreatePage createPage;
-    LoginPage loginPage;
+    private static CreatePage createPage;
+    public static LoginPage loginPage;
 
     @BeforeAll
-    public void setUp() {
+    public static void setUp() {
         createPage = new CreatePage();
         loginPage = new LoginPage();
-
+        loginPage.getUrl("https://jira-auto.codecool.metastage.net/login.jsp");
         loginPage.fillUsernameAndPassword();
         loginPage.logIn();
     }
 
     @AfterAll
-    public void tearDown() {
+    public static void tearDown() {
         quit();
     }
 
 //     I can't create sub-task for COALA
     @Test
     public void createCOALASubTask() {
-        openUrl("browse/COALA-130");
+        loginPage.getUrl("https://jira-auto.codecool.metastage.net/browse/COALA-130");
         Assertions.assertEquals("Create sub-task", createPage.issueHeader.getText());
         createPage.createSubTask();
         waitForWebElementToBePresent(createPage.popupMessage);
@@ -39,14 +37,14 @@ public class CreatePageTest {
         Assertions.assertEquals("Sub-task test", createPage.subTaskName.getText());
 
         // Restore
-        openUrl("browse/COALA-130");
+        loginPage.getUrl("https://jira-auto.codecool.metastage.net/browse/COALA-130");
         createPage.restoreSubTask();
     }
 
 //     I can't create sub-task for TOUCAN
     @Test
     public void createTOUCANSubTask() {
-        openUrl("browse/TOUCAN-132");
+        loginPage.getUrl("https://jira-auto.codecool.metastage.net/browse/TOUCAN-132");
         Assertions.assertEquals("Create sub-task", createPage.issueHeader.getText());
         createPage.createSubTask();
         waitForWebElementToBePresent(createPage.popupMessage);
@@ -54,13 +52,13 @@ public class CreatePageTest {
         Assertions.assertEquals("Sub-task test", createPage.subTaskName.getText());
 
         // Restore
-        openUrl("browse/TOUCAN-121");
+        loginPage.getUrl("https://jira-auto.codecool.metastage.net/browse/TOUCAN-121");
         createPage.restoreSubTask();
     }
 
     @Test
     public void createJETISubTask(){
-        openUrl("browse/JETI-103");
+        loginPage.getUrl("https://jira-auto.codecool.metastage.net/browse/JETI-103");
         Assertions.assertEquals("Create sub-task", createPage.issueHeader.getText());
         createPage.createSubTask();
         waitForWebElementToBePresent(createPage.popupMessage);
@@ -68,15 +66,15 @@ public class CreatePageTest {
         Assertions.assertEquals("Sub-task test", createPage.subTaskName.getText());
 
         // Restore
-        openUrl("browse/JETI-103");
+        loginPage.getUrl("https://jira-auto.codecool.metastage.net/browse/JETI-103");
         createPage.restoreSubTask();
     }
 
     @Test
     public void createNewIssue() {
-        openUrl("secure/Dashboard.jspa");
+        loginPage.getUrl("https://jira-auto.codecool.metastage.net/secure/Dashboard.jspa");
         clickButton(createPage.mainCreateButton);
-        createPage.createSpecificIssue(wait, "MTP", "Bug", "Happy Test");
+        createPage.createSpecificIssue("MTP", "Bug", "Happy Test");
 
         // Restore
         createPage.restoreIssue();
@@ -84,7 +82,7 @@ public class CreatePageTest {
 
     @Test
     public void createIssueWithEmptySummary(){
-        openUrl("secure/Dashboard.jspa");
+        loginPage.getUrl("https://jira-auto.codecool.metastage.net/secure/Dashboard.jspa");
         createPage.createIssueWithEmptySummary();
 
         Assertions.assertEquals("You must specify a summary of the issue.", createPage.createIssueErrorMessage.getText());
@@ -93,7 +91,7 @@ public class CreatePageTest {
 
     @Test
     public void CreateIssueInCOALAProjectWithIssueTypes() {
-        openUrl("secure/Dashboard.jspa");
+        loginPage.getUrl("https://jira-auto.codecool.metastage.net/secure/Dashboard.jspa");
         createPage.setProjectTo("COALA");
 
         Assertions.assertEquals(createPage.issueTypesSupposedToBe, createPage.getIssueTypes());
@@ -101,7 +99,7 @@ public class CreatePageTest {
 
     @Test
     public void CreateIssueInJETIProjectWithIssueTypes() {
-        openUrl("secure/Dashboard.jspa");
+        loginPage.getUrl("https://jira-auto.codecool.metastage.net/secure/Dashboard.jspa");
         createPage.setProjectTo("JETI");
 
         Assertions.assertEquals(createPage.issueTypesSupposedToBe, createPage.getIssueTypes());
@@ -110,7 +108,7 @@ public class CreatePageTest {
     // I don't have permission to create TOUCAN project
     @Test
     public void CreateIssueInTOUCANProjectWithIssueTypes() {
-        openUrl("secure/Dashboard.jspa");
+        loginPage.getUrl("https://jira-auto.codecool.metastage.net/secure/Dashboard.jspa");
         createPage.setProjectTo("TOUCAN");
 
         Assertions.assertEquals(createPage.issueTypesSupposedToBe, createPage.getIssueTypes());
@@ -118,9 +116,9 @@ public class CreatePageTest {
 
     @Test
     public void CancelIssueAfterFill() {
-        openUrl("secure/Dashboard.jspa");
+        loginPage.getUrl("https://jira-auto.codecool.metastage.net/secure/Dashboard.jspa");
         clickButton(createPage.mainCreateButton);
-        createPage.fillOutCreation(wait, "MTP", "Bug", "Issue Cancel Test");
+        createPage.fillOutCreation("MTP", "Bug", "Issue Cancel Test");
         createPage.cancelCreation();
         createPage.validateIssueDoesntExist();
 

@@ -1,12 +1,9 @@
 package com.codecool.testautomation.page;
 
-import com.codecool.testautomation.utility.Config;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -50,7 +47,7 @@ public class CreatePage extends BasePage{
     public void restoreIssue(){
         waitForElementToClick(actionButton);
         clickButton(deleteButton);
-        waitForElementToClick(finalDeleteButton);;
+        waitForElementToClick(finalDeleteButton);
     }
 
     public void restoreSubTask(){
@@ -88,7 +85,7 @@ public class CreatePage extends BasePage{
         projectField.sendKeys(Keys.DELETE);
     }
 
-    public void createSpecificIssue(WebDriverWait wait, String projectName, String issueType, String summary){
+    public void createSpecificIssue(String projectName, String issueType, String summary){
         clearProjectField();
         projectField.sendKeys(projectName);
         projectField.sendKeys(Keys.RETURN);
@@ -140,7 +137,7 @@ public class CreatePage extends BasePage{
         driver.switchTo().alert().accept();
     }
 
-    public void fillOutCreation(WebDriverWait wait, String projectName, String issueType, String summary){
+    public void fillOutCreation(String projectName, String issueType, String summary){
         clearProjectField();
         projectField.sendKeys(projectName);
         projectField.sendKeys(Keys.RETURN);

@@ -2,7 +2,6 @@ package com.codecool.testautomation.captcha;
 
 import org.junit.jupiter.api.*;
 
-import static com.codecool.testautomation.utility.LogIn.*;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -34,7 +33,7 @@ public class CaptchaTest {
     public void CaptchaLoginWrongCaptcha() {
         captchaPage.TryLoginThreeTimesWithWrongPassword("CCAaa.");
 
-        captchaPage.fillUsernameAndPassword(password);
+        captchaPage.fillUsernameAndPassword("CCAutoTest19.");
         assertFalse(captchaPage.ValidateCaptcha());
     }
 

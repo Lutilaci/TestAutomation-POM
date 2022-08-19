@@ -1,11 +1,11 @@
 package com.codecool.testautomation.captcha;
 
 import com.codecool.testautomation.page.BasePage;
-import com.codecool.testautomation.utility.LogIn;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import static com.codecool.testautomation.test.CreatePageTest.loginPage;
 import static com.codecool.testautomation.utility.Utility.waitForWebElementToBePresent;
 
 public class CaptchaPage extends BasePage {
@@ -30,9 +30,8 @@ public class CaptchaPage extends BasePage {
     public void TryLoginThreeTimesWithWrongPassword(String password) {
         for (int i = 0; i<3; i++)
         {
-            usernameField.sendKeys(LogIn.username+LogIn.keyCode);
-            passwordField.sendKeys(password);
-            logIn();
+            loginPage.fillUsernameAndPassword();
+            loginPage.logIn();
         }
     }
 
@@ -42,7 +41,7 @@ public class CaptchaPage extends BasePage {
     }
 
     public void fillUsernameAndPassword(String password){
-        usernameField.sendKeys("automation"+ LogIn.keyCode);
+        usernameField.sendKeys("automation"+ 22);
         passwordField.sendKeys(password);
     }
 

@@ -11,12 +11,13 @@ import static com.codecool.testautomation.utility.DriverSingleton.quit;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class LogOutTest {
 
-    LoginPage loginPage;
+    static LoginPage loginPage;
 
     @BeforeAll
-    public void setUp()
+    public static void setUp()
     {
         loginPage = new LoginPage();
+        loginPage.getUrl("https://jira-auto.codecool.metastage.net/login.jsp");
         loginPage.fillUsernameAndPassword();
         loginPage.logIn();
     }

@@ -2,25 +2,23 @@ package com.codecool.testautomation.test;
 
 import com.codecool.testautomation.page.EditIssuePage;
 import com.codecool.testautomation.page.LoginPage;
-import com.codecool.testautomation.utility.Driver;
 import org.junit.jupiter.api.*;
 
 import static com.codecool.testautomation.utility.DriverSingleton.quit;
-import static com.codecool.testautomation.utility.LogIn.logIn;
 
 
 public class EditIssueTest {
     private EditIssuePage editIssuePage;
-    private LoginPage loginPage;
 
 
     @BeforeEach
     public void setUp(){
         editIssuePage = new EditIssuePage();
-        loginPage = new LoginPage();
-        loginPage.getUrl("/browse/MTP-2096");
+        LoginPage loginPage = new LoginPage();
+        loginPage.getUrl("https://jira-auto.codecool.metastage.net/login.jsp");
         loginPage.fillUsernameAndPassword();
         loginPage.logIn();
+        loginPage.getUrl("https://jira-auto.codecool.metastage.net/browse/MTP-2096");
     }
 
     @AfterEach

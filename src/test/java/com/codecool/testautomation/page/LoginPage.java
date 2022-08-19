@@ -1,6 +1,5 @@
 package com.codecool.testautomation.page;
 
-import com.codecool.testautomation.utility.LogIn;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -42,7 +41,7 @@ public void getUrl(String url)
 
 
     public void fillUsernameAndPassword(){
-        usernameField.sendKeys("automation"+ LogIn.keyCode);
+        usernameField.sendKeys("automation22");
         passwordField.sendKeys("CCAutoTest19.");
     }
 
@@ -53,7 +52,7 @@ public void getUrl(String url)
     public void validateLogin(){
         profilePicture.click();
         profileButton.click();
-        Assertions.assertEquals("Auto Tester "+LogIn.keyCode, profileName.getText());
+        Assertions.assertEquals("Auto Tester "+22, profileName.getText());
     }
 
     public void fillWrongUsernameAndPassword(){

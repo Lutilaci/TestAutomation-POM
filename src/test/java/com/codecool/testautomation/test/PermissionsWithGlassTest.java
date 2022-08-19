@@ -1,6 +1,5 @@
 package com.codecool.testautomation.test;
 
-import com.codecool.testautomation.page.LoginPage;
 import com.codecool.testautomation.page.PermissionsPage;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -16,10 +15,10 @@ import static org.junit.Assert.assertTrue;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class PermissionsWithGlassTest {
 
-    PermissionsPage pPage;
+    static PermissionsPage pPage;
 
     @BeforeAll
-    public void setUp()
+    public static void setUp()
     {
 //        driver = new ChromeDriver();
 //        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(6));
