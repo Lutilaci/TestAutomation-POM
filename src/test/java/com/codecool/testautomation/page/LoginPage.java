@@ -40,9 +40,9 @@ public void getUrl(String url)
 
 
 
-    public void fillUsernameAndPassword(){
-        usernameField.sendKeys("automation22");
-        passwordField.sendKeys("CCAutoTest19.");
+    public void fillUsernameAndPassword(String user, String password){
+        usernameField.sendKeys(user);
+        passwordField.sendKeys(password);
     }
 
     public void logIn(){
@@ -52,7 +52,7 @@ public void getUrl(String url)
     public void validateLogin(){
         profilePicture.click();
         profileButton.click();
-        Assertions.assertEquals("Auto Tester "+22, profileName.getText());
+        Assertions.assertEquals("Auto Tester "+System.getenv("USER_KEY"), profileName.getText());
     }
 
     public void fillWrongUsernameAndPassword(){

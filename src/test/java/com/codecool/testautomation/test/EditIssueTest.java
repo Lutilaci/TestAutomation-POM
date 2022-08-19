@@ -16,7 +16,7 @@ public class EditIssueTest {
         editIssuePage = new EditIssuePage();
         LoginPage loginPage = new LoginPage();
         loginPage.getUrl("https://jira-auto.codecool.metastage.net/login.jsp");
-        loginPage.fillUsernameAndPassword();
+        loginPage.fillUsernameAndPassword(System.getenv("USER"), System.getenv("PASSWORD"));
         loginPage.logIn();
         loginPage.getUrl("https://jira-auto.codecool.metastage.net/browse/MTP-2096");
     }

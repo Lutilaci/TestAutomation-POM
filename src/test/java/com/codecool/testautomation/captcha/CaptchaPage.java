@@ -30,7 +30,7 @@ public class CaptchaPage extends BasePage {
     public void TryLoginThreeTimesWithWrongPassword(String password) {
         for (int i = 0; i<3; i++)
         {
-            loginPage.fillUsernameAndPassword();
+            loginPage.fillUsernameAndPassword(System.getenv("USER"), System.getenv("PASSWORD"));
             loginPage.logIn();
         }
     }

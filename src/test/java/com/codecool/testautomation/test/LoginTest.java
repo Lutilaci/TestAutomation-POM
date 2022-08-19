@@ -33,7 +33,7 @@ public class LoginTest {
 
     @Test
     public void logInSuccessful(){
-        lp.fillUsernameAndPassword();
+        lp.fillUsernameAndPassword(System.getenv("USER"), System.getenv("PASSWORD"));
         lp.logIn();
         lp.validateLogin();
     }

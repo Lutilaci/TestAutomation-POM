@@ -16,7 +16,7 @@ public class BrowseProjectsTest {
         browsePage = new BrowsePage();
         loginPage = new LoginPage();
         loginPage.getUrl("https://jira-auto.codecool.metastage.net/login.jsp");
-        loginPage.fillUsernameAndPassword();
+        loginPage.fillUsernameAndPassword(System.getenv("USER"), System.getenv("PASSWORD"));
         loginPage.logIn();
     }
 
