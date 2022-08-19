@@ -9,7 +9,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 public class CaptchaTest {
     CaptchaPage captchaPage;
 
-
     @BeforeAll
     public void setUp() {
         captchaPage = new CaptchaPage();

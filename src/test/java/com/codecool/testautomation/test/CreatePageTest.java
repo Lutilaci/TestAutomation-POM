@@ -1,25 +1,31 @@
 package com.codecool.testautomation.test;
 
 import com.codecool.testautomation.page.CreatePage;
+import com.codecool.testautomation.page.LoginPage;
 import org.junit.jupiter.api.*;
 
+import static com.codecool.testautomation.utility.DriverSingleton.quit;
 import static com.codecool.testautomation.utility.LogIn.*;
 import static com.codecool.testautomation.utility.Config.*;
 import static com.codecool.testautomation.utility.Utility.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class CreatePageTest {
-    private CreatePage createPage = new CreatePage();
+    private CreatePage createPage;
+    LoginPage loginPage;
 
     @BeforeAll
     public void setUp() {
-        beforeEachSetup();
-        logIn(driver);
+        createPage = new CreatePage();
+        loginPage = new LoginPage();
+
+        loginPage.fillUsernameAndPassword();
+        loginPage.logIn();
     }
 
     @AfterAll
     public void tearDown() {
-        driver.quit();
+        quit();
     }
 
 //     I can't create sub-task for COALA

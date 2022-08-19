@@ -1,6 +1,5 @@
 package com.codecool.testautomation.page;
 
-import com.codecool.testautomation.utility.LogIn;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -15,8 +14,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class PermissionsPage {
-    WebDriver driver;
+public class PermissionsPage extends BasePage {
+    LoginPage loginPage;
     @FindBy(id = "project-issuetypes-container") public static WebElement issueTypesContainer;
     @FindBy(id = "glass-workflow-nav") public static WebElement issueTypesDropDownButton;
     @FindBy(id = "dropdown-issuetypes") public static WebElement issueTypesDropDownContainer;
@@ -25,9 +24,9 @@ public class PermissionsPage {
 
 
     public PermissionsPage() {
-        driver = new ChromeDriver();
-        PageFactory.initElements(driver, this);
-        driver.manage().window().maximize();
+//        driver = new ChromeDriver();
+//        PageFactory.initElements(driver, this);
+//        driver.manage().window().maximize();
     }
 
     public  void  OpenPPProjectSettings()
@@ -42,13 +41,12 @@ public class PermissionsPage {
 
     public void login()
     {
-        LogIn.logIn(driver);
+        loginPage = new LoginPage();
+        loginPage.getUrl("https://jira-auto.codecool.metastage.net/login.jsp");
+        loginPage.fillUsernameAndPassword();
+        loginPage.logIn();
     }
 
-    public void CloseDriver()
-    {
-        driver.quit();
-    }
 
     public List<String> GetAllIssueTypesFromSettings()
     {

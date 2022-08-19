@@ -17,9 +17,7 @@ import java.util.List;
 
 import static com.codecool.testautomation.utility.Utility.*;
 
-public class CreatePage {
-    WebDriver driver;
-    WebDriverWait wait;
+public class CreatePage extends BasePage{
 
     @FindBy (xpath = "//*[@id=\"opsbar-operations_more\"]") public WebElement actionButton;
     @FindBy (xpath = "//button[text()='Cancel']") public WebElement cancelButton;
@@ -47,9 +45,6 @@ public class CreatePage {
     public List<String> issueTypesSupposedToBe = Arrays.asList("Bug", "Story", "Task");
 
     public CreatePage() {
-        PageFactory.initElements(Config.driver, this);
-        this.driver = Config.driver;
-        this.wait = Config.wait;
     }
 
     public void restoreIssue(){

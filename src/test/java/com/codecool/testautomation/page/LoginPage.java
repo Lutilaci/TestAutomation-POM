@@ -3,12 +3,10 @@ package com.codecool.testautomation.page;
 import com.codecool.testautomation.utility.LogIn;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
-public class LoginPage {
+public class LoginPage extends BasePage{
 
     @FindBy(id = "login-form-username")
     public WebElement usernameField;
@@ -17,7 +15,7 @@ public class LoginPage {
     public WebElement passwordField;
 
     @FindBy(id = "login-form-submit")
-    public WebElement logInButton;
+    public static WebElement logInButton;
 
     @FindBy(id = "header-details-user-fullname")
     public WebElement profilePicture;
@@ -33,9 +31,15 @@ public class LoginPage {
 
     static By captcha = By.xpath("//div[@id='captcha']/div/img");
 
-    public LoginPage(WebDriver driver) {
-        PageFactory.initElements(driver, this);
+    public LoginPage() {
     }
+
+public void getUrl(String url)
+{
+    driver.get(url);
+}
+
+
 
     public void fillUsernameAndPassword(){
         usernameField.sendKeys("automation"+ LogIn.keyCode);

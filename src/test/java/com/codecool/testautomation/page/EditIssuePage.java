@@ -8,9 +8,9 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 
-public class EditIssuePage {
-    WebDriver driver;
-    WebDriverWait wait;
+public class EditIssuePage extends BasePage{
+//    WebDriver driver;
+//    WebDriverWait wait;
 
     @FindBy(id = "edit-issue")
     public WebElement editButton;
@@ -48,10 +48,7 @@ public class EditIssuePage {
     @FindBy(xpath = "//*[@id=\"aui-flag-container\"]/div/div")
     public WebElement updateSuccessMessage;
 
-    public EditIssuePage(WebDriver driver, WebDriverWait wait) {
-        PageFactory.initElements(driver, this);
-        this.driver = driver;
-        this.wait = wait;
+    public EditIssuePage() {
     }
 
     public void clickEditIssue(){

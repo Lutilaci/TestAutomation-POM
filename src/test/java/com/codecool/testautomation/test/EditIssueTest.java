@@ -1,27 +1,32 @@
 package com.codecool.testautomation.test;
 
 import com.codecool.testautomation.page.EditIssuePage;
+import com.codecool.testautomation.page.LoginPage;
 import com.codecool.testautomation.utility.Driver;
 import org.junit.jupiter.api.*;
 
+import static com.codecool.testautomation.utility.DriverSingleton.quit;
 import static com.codecool.testautomation.utility.LogIn.logIn;
 
 
-public class EditIssueTest extends Driver {
+public class EditIssueTest {
     private EditIssuePage editIssuePage;
+    private LoginPage loginPage;
 
 
     @BeforeEach
     public void setUp(){
-        getUrl("/browse/MTP-2096");
-        editIssuePage = new EditIssuePage(getDriver(), getWait());
-        logIn(getDriver());
+        editIssuePage = new EditIssuePage();
+        loginPage = new LoginPage();
+        loginPage.getUrl("/browse/MTP-2096");
+        loginPage.fillUsernameAndPassword();
+        loginPage.logIn();
     }
 
     @AfterEach
     public void tearDown(){
         editIssuePage.restoreChanges();
-        quitDriver();
+        quit();
     }
     @Test
     public void editExistingIssue(){

@@ -1,5 +1,6 @@
 package com.codecool.testautomation.test;
 
+import com.codecool.testautomation.page.LoginPage;
 import com.codecool.testautomation.page.PermissionsPage;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -9,6 +10,7 @@ import org.junit.jupiter.api.TestInstance;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.codecool.testautomation.utility.DriverSingleton.quit;
 import static org.junit.Assert.assertTrue;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -24,17 +26,19 @@ public class PermissionsWithGlassTest {
 //        driver.manage().window().maximize();
         pPage = new PermissionsPage();
         pPage.login();
+//        loginPage = new LoginPage();
+//        loginPage.fillUsernameAndPassword();
+//        loginPage.logIn();
     }
 
     @AfterAll
     public void quitDriver() {
-        pPage.CloseDriver();
+        quit();
     }
 
     @Test
     public void availableRequiredIssuesInPPProject() {
         pPage.OpenPPProjectSettings();
-
         assertTrue(pPage.validateSettingIssues(Arrays.asList("Bug","Epic","Story","Sub-task","Task")));
     }
 

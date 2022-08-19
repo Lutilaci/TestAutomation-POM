@@ -1,18 +1,15 @@
 package com.codecool.testautomation.captcha;
 
+import com.codecool.testautomation.page.BasePage;
 import com.codecool.testautomation.utility.LogIn;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
 import static com.codecool.testautomation.utility.Utility.waitForWebElementToBePresent;
 
-public class CaptchaPage {
+public class CaptchaPage extends BasePage {
 
-    WebDriver driver;
     By captcha = By.xpath("//div[@id='captcha']/div/img");
     @FindBy(id = "login-form-submit")
     public static WebElement logInButton;
@@ -24,9 +21,6 @@ public class CaptchaPage {
     public static WebElement captchaPicture;
 
     public CaptchaPage() {
-        driver = new ChromeDriver();
-        PageFactory.initElements(driver, this);
-        driver.manage().window().maximize();
     }
 
     public void OpenLoginPage() {

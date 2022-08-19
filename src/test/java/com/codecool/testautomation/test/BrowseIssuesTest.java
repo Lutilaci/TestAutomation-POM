@@ -1,26 +1,29 @@
 package com.codecool.testautomation.test;
 
 import com.codecool.testautomation.page.BrowsePage;
+import com.codecool.testautomation.page.LoginPage;
 import org.junit.jupiter.api.*;
 
+import static com.codecool.testautomation.utility.DriverSingleton.quit;
 import static com.codecool.testautomation.utility.LogIn.*;
 import static com.codecool.testautomation.utility.Config.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class BrowseIssuesTest {
     private BrowsePage browsePage;
+    LoginPage loginPage;
 
     @BeforeAll
     public void setUp() {
-        beforeEachSetup();
-        browsePage = new BrowsePage(driver);
-        logIn(driver);
+        browsePage = new BrowsePage();
+        loginPage = new LoginPage();
+        loginPage.fillUsernameAndPassword();
+        loginPage.logIn();
     }
 
     @AfterAll
     public void tearDown() {
-//        logout(driver);
-        driver.quit();
+        quit();
     }
 
     @Test
